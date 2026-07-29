@@ -360,7 +360,7 @@ function Landing() {
               </ul>
             </div>
 
-            <div>
+            <div id="legal" className="scroll-mt-24">
               <h4 className="font-display text-lg text-cream">Informação legal</h4>
               <ul className="mt-4 space-y-2 text-sm">
                 <li><a href="https://www.bportugal.pt/intermediariocreditofar/segundo" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition">Consultar registo BdP →</a></li>
