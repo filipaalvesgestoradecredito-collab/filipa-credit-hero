@@ -98,10 +98,13 @@ function Landing() {
         </div>
         <div className="mx-auto grid max-w-6xl gap-12 px-5 pb-16 pt-12 md:grid-cols-[1.05fr_1fr] md:items-center md:pt-20 md:pb-24">
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold-soft/40 px-4 py-1.5 text-xs font-medium text-navy">
+            <a
+              href="#legal"
+              className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold-soft/40 px-4 py-1.5 text-xs font-medium text-navy hover:bg-gold-soft/70 transition"
+            >
               <Sparkles className="h-3.5 w-3.5 text-gold" />
-              Intermediária de Crédito · Registada no Banco de Portugal
-            </div>
+              + informações legais
+            </a>
             <h1 className="mt-6 font-display text-4xl leading-[1.05] tracking-tight text-navy sm:text-5xl md:text-6xl">
               Compre a sua casa <span className="italic text-gold">ou</span> reduza as suas prestações
               <span className="block font-script text-gold text-4xl sm:text-5xl md:text-6xl mt-2">com as melhores condições</span>
