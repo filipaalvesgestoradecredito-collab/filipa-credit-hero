@@ -14,8 +14,7 @@ import {
 } from "lucide-react";
 import filipaHero from "@/assets/filipa-hero.jpg";
 import filipaAbout from "@/assets/filipa-about.jpg";
-
-const TYPEFORM = "https://form.typeform.com/to/y3dNUt87?typeform-source=bit.ly";
+import { SimulacaoForm } from "@/components/SimulacaoForm";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -49,7 +48,7 @@ function CTA({ children, className = "", variant = "primary" }: { children: Reac
         ? "bg-gold text-navy hover:brightness-105"
         : "border border-navy/20 text-navy hover:bg-navy hover:text-cream";
   return (
-    <a href={TYPEFORM} target="_blank" rel="noopener noreferrer" className={`${base} ${styles} ${className}`}>
+    <a href="#simulacao" className={`${base} ${styles} ${className}`}>
       {children}
     </a>
   );
@@ -286,6 +285,23 @@ function Landing() {
               Começar agora — é gratuito <ArrowRight className="h-4 w-4" />
             </CTA>
           </div>
+        </div>
+      </section>
+
+      {/* Simulação */}
+      <section id="simulacao" className="relative py-20 md:py-28 bg-gradient-to-b from-cream to-background">
+        <div className="mx-auto max-w-3xl px-5">
+          <SectionHead
+            eyebrow="Simulação gratuita"
+            title="Comece agora — bastam 2 minutos"
+            sub="Preencha os dados abaixo. Respondo pessoalmente em até 24h com a melhor proposta do mercado para si."
+          />
+          <div className="mt-12">
+            <SimulacaoForm />
+          </div>
+          <p className="mt-6 text-center text-xs text-muted-foreground">
+            🔒 Dados tratados de forma confidencial e apenas para efeitos de intermediação de crédito.
+          </p>
         </div>
       </section>
 
