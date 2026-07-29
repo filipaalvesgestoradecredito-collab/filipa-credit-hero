@@ -296,14 +296,17 @@ function Landing() {
         <div className="mx-auto max-w-3xl px-5">
           <SectionHead
             eyebrow="Simulação gratuita"
-            title="Comece agora — bastam 2 minutos"
-            sub="Preencha os dados abaixo. Respondo pessoalmente em até 24h com a melhor proposta do mercado para si."
+            title="Comece agora — em apenas 2 minutos"
+            sub="Preencha os dados abaixo. Respondo pessoalmente em menos de 1 dia útil com a melhor proposta do mercado para si."
           />
           <div className="mt-12">
             <SimulacaoForm />
           </div>
           <p className="mt-6 text-center text-xs text-muted-foreground">
-            🔒 Dados tratados de forma confidencial e apenas para efeitos de intermediação de crédito.
+            🔒 Todos os dados são tratados de forma confidencial e utilizados apenas para efeitos de contacto, conforme a nossa{" "}
+            <a href="https://my-credit.pt/politica-de-privacidade/" target="_blank" rel="noopener noreferrer" className="text-navy underline hover:text-gold">
+              Política de Privacidade
+            </a>.
           </p>
         </div>
       </section>
