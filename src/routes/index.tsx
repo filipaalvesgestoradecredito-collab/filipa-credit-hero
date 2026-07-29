@@ -288,6 +288,23 @@ function Landing() {
         </div>
       </section>
 
+      {/* Simulação */}
+      <section id="simulacao" className="relative py-20 md:py-28 bg-gradient-to-b from-cream to-background">
+        <div className="mx-auto max-w-3xl px-5">
+          <SectionHead
+            eyebrow="Simulação gratuita"
+            title="Comece agora — bastam 2 minutos"
+            sub="Preencha os dados abaixo. Respondo pessoalmente em até 24h com a melhor proposta do mercado para si."
+          />
+          <div className="mt-12">
+            <SimulacaoForm />
+          </div>
+          <p className="mt-6 text-center text-xs text-muted-foreground">
+            🔒 Dados tratados de forma confidencial e apenas para efeitos de intermediação de crédito.
+          </p>
+        </div>
+      </section>
+
       {/* Final CTA */}
       <section className="relative overflow-hidden bg-navy-deep py-16 text-cream">
         <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_20%_50%,var(--gold)_0%,transparent_40%)]" />
