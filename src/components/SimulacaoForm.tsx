@@ -88,7 +88,7 @@ export function SimulacaoForm() {
         </div>
         <h3 className="mt-6 font-display text-3xl text-navy">Pedido recebido, {data.nome}!</h3>
         <p className="mt-3 text-muted-foreground">
-          Vou analisar o seu caso e entro em contacto em <strong className="text-navy">até 24h úteis</strong> pelo
+          Vou analisar o seu caso e entro em contacto em <strong className="text-navy">menos de 1 dia útil</strong> pelo
           telefone <strong className="text-navy">+351 {data.telefone}</strong>.
         </p>
         <p className="mt-2 text-sm text-muted-foreground">
