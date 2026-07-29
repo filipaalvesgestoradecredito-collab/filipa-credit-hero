@@ -98,10 +98,13 @@ function Landing() {
         </div>
         <div className="mx-auto grid max-w-6xl gap-12 px-5 pb-16 pt-12 md:grid-cols-[1.05fr_1fr] md:items-center md:pt-20 md:pb-24">
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold-soft/40 px-4 py-1.5 text-xs font-medium text-navy">
+            <a
+              href="#legal"
+              className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold-soft/40 px-4 py-1.5 text-xs font-medium text-navy hover:bg-gold-soft/70 transition"
+            >
               <Sparkles className="h-3.5 w-3.5 text-gold" />
-              Intermediária de Crédito · Registada no Banco de Portugal
-            </div>
+              + informações legais
+            </a>
             <h1 className="mt-6 font-display text-4xl leading-[1.05] tracking-tight text-navy sm:text-5xl md:text-6xl">
               Compre a sua casa <span className="italic text-gold">ou</span> reduza as suas prestações
               <span className="block font-script text-gold text-4xl sm:text-5xl md:text-6xl mt-2">com as melhores condições</span>
@@ -293,14 +296,17 @@ function Landing() {
         <div className="mx-auto max-w-3xl px-5">
           <SectionHead
             eyebrow="Simulação gratuita"
-            title="Comece agora — bastam 2 minutos"
-            sub="Preencha os dados abaixo. Respondo pessoalmente em até 24h com a melhor proposta do mercado para si."
+            title="Comece agora — em apenas 2 minutos"
+            sub="Preencha os dados abaixo. Respondo pessoalmente em menos de 1 dia útil com a melhor proposta do mercado para si."
           />
           <div className="mt-12">
             <SimulacaoForm />
           </div>
           <p className="mt-6 text-center text-xs text-muted-foreground">
-            🔒 Dados tratados de forma confidencial e apenas para efeitos de intermediação de crédito.
+            🔒 Todos os dados são tratados de forma confidencial e utilizados apenas para efeitos de contacto, conforme a nossa{" "}
+            <a href="https://my-credit.pt/politica-de-privacidade/" target="_blank" rel="noopener noreferrer" className="text-navy underline hover:text-gold">
+              Política de Privacidade
+            </a>.
           </p>
         </div>
       </section>
@@ -313,7 +319,7 @@ function Landing() {
           <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl">
             Também quer uma experiência assim?
           </h2>
-          <p className="mt-4 text-cream/80">Estou aqui para ajudar. Faça a simulação gratuita — respondo pessoalmente em 24h.</p>
+          <p className="mt-4 text-cream/80">Estou aqui para ajudar. Faça a simulação gratuita — respondo pessoalmente em menos de 1 dia útil.</p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <CTA variant="gold">Fala comigo! <ArrowRight className="h-4 w-4" /></CTA>
           </div>
@@ -354,7 +360,7 @@ function Landing() {
               </ul>
             </div>
 
-            <div>
+            <div id="legal" className="scroll-mt-24">
               <h4 className="font-display text-lg text-cream">Informação legal</h4>
               <ul className="mt-4 space-y-2 text-sm">
                 <li><a href="https://www.bportugal.pt/intermediariocreditofar/segundo" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition">Consultar registo BdP →</a></li>
@@ -442,7 +448,7 @@ const TESTIMONIALS = [
 ];
 
 const STEPS = [
-  { icon: ClipboardCheck, title: "Simulação Online", desc: "Preenche o formulário rápido — bastam 2 minutos para eu conhecer o seu caso." },
+  { icon: ClipboardCheck, title: "Simulação Online", desc: "Preenche o formulário rápido — em apenas 2 minutos conheço o seu caso." },
   { icon: Sparkles, title: "Análise Personalizada", desc: "Comparo propostas de todos os bancos parceiros e apresento a melhor solução para si." },
   { icon: FileSignature, title: "Aprovação & Assinatura", desc: "Tratamos de toda a burocracia. Você só assina quando estiver 100% confortável." },
 ];
