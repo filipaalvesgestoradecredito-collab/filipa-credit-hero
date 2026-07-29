@@ -448,7 +448,7 @@ const TESTIMONIALS = [
 ];
 
 const STEPS = [
-  { icon: ClipboardCheck, title: "Simulação Online", desc: "Preenche o formulário rápido — bastam 2 minutos para eu conhecer o seu caso." },
+  { icon: ClipboardCheck, title: "Simulação Online", desc: "Preenche o formulário rápido — em apenas 2 minutos conheço o seu caso." },
   { icon: Sparkles, title: "Análise Personalizada", desc: "Comparo propostas de todos os bancos parceiros e apresento a melhor solução para si." },
   { icon: FileSignature, title: "Aprovação & Assinatura", desc: "Tratamos de toda a burocracia. Você só assina quando estiver 100% confortável." },
 ];
