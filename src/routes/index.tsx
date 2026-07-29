@@ -319,7 +319,7 @@ function Landing() {
           <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl">
             Também quer uma experiência assim?
           </h2>
-          <p className="mt-4 text-cream/80">Estou aqui para ajudar. Faça a simulação gratuita — respondo pessoalmente em 24h.</p>
+          <p className="mt-4 text-cream/80">Estou aqui para ajudar. Faça a simulação gratuita — respondo pessoalmente em menos de 1 dia útil.</p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <CTA variant="gold">Fala comigo! <ArrowRight className="h-4 w-4" /></CTA>
           </div>
