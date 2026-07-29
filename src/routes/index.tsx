@@ -14,8 +14,7 @@ import {
 } from "lucide-react";
 import filipaHero from "@/assets/filipa-hero.jpg";
 import filipaAbout from "@/assets/filipa-about.jpg";
-
-const TYPEFORM = "https://form.typeform.com/to/y3dNUt87?typeform-source=bit.ly";
+import { SimulacaoForm } from "@/components/SimulacaoForm";
 
 export const Route = createFileRoute("/")({
   head: () => ({
