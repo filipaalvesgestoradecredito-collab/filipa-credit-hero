@@ -48,7 +48,7 @@ function CTA({ children, className = "", variant = "primary" }: { children: Reac
         ? "bg-gold text-navy hover:brightness-105"
         : "border border-navy/20 text-navy hover:bg-navy hover:text-cream";
   return (
-    <a href={TYPEFORM} target="_blank" rel="noopener noreferrer" className={`${base} ${styles} ${className}`}>
+    <a href="#simulacao" className={`${base} ${styles} ${className}`}>
       {children}
     </a>
   );
