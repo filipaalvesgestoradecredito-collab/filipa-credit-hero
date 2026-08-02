@@ -297,19 +297,49 @@ export function SimulacaoForm() {
           <div className="space-y-5 animate-in fade-in duration-300">
             <StepTitle n={3} title="Informação pessoal" sub="Última etapa — para uma simulação mais precisa." />
 
-            <Field
-              label="Rendimento líquido mensal *"
-              hint="Valor que recebe mensalmente depois de impostos (salário, rendas, pensões, etc.). Se for variável, indique a média dos últimos 6 meses."
-            >
-              <div className="relative">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Field
+                label="Rendimento líquido mensal *"
+                hint="Valor que recebe mensalmente depois de impostos (salário, rendas, pensões, etc.). Se for variável, indique a média dos últimos 6 meses."
+              >
+                <div className="relative">
+                  <input
+                    className={inputCls + " pr-10"}
+                    placeholder="1 200"
+                    inputMode="numeric"
+                    value={data.rendimento}
+                    onChange={(e) => set("rendimento", e.target.value.replace(/[^0-9]/g, ""))}
+                  />
+                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">€</span>
+                </div>
+              </Field>
+
+              <Field label="Idade *" hint="Idade do titular principal do crédito.">
                 <input
-                  className={inputCls + " pr-10"}
-                  placeholder="1 200"
+                  className={inputCls}
+                  placeholder="35"
                   inputMode="numeric"
-                  value={data.rendimento}
-                  onChange={(e) => set("rendimento", e.target.value.replace(/[^0-9]/g, ""))}
+                  value={data.idade}
+                  onChange={(e) => set("idade", e.target.value.replace(/[^0-9]/g, ""))}
                 />
-                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">€</span>
+              </Field>
+            </div>
+
+            <Field label="Tipo de contrato de trabalho *">
+              <div className="grid gap-2 sm:grid-cols-3">
+                {[
+                  { v: "semTermo", l: "Contrato sem termo" },
+                  { v: "aTermo", l: "Contrato a termo" },
+                  { v: "contaPropria", l: "Trabalhador por conta própria" },
+                ].map((o) => (
+                  <RadioCard
+                    key={o.v}
+                    label={o.l}
+                    compact
+                    checked={data.contrato === o.v}
+                    onSelect={() => set("contrato", o.v as Contrato)}
+                  />
+                ))}
               </div>
             </Field>
 
