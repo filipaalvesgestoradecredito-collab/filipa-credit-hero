@@ -306,22 +306,6 @@ export function SimulacaoForm() {
             <StepTitle n={3} title="Informação pessoal" sub="Última etapa — para uma simulação mais precisa." />
 
             <div className="grid gap-4 sm:grid-cols-2">
-              <Field
-                label="Rendimento líquido mensal *"
-                hint="Valor que recebe mensalmente depois de impostos (salário, rendas, pensões, etc.). Se for variável, indique a média dos últimos 6 meses."
-              >
-                <div className="relative">
-                  <input
-                    className={inputCls + " pr-10"}
-                    placeholder="1 200"
-                    inputMode="numeric"
-                    value={data.rendimento}
-                    onChange={(e) => set("rendimento", e.target.value.replace(/[^0-9]/g, ""))}
-                  />
-                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">€</span>
-                </div>
-              </Field>
-
               {idades.map((a, i) => (
                 <Field
                   key={i}
@@ -338,6 +322,22 @@ export function SimulacaoForm() {
                 </Field>
               ))}
             </div>
+
+            <Field
+              label="Rendimento líquido mensal *"
+              hint="Valor que recebe mensalmente depois de impostos (salário, rendas, pensões, etc.). Se for variável, indique a média dos últimos 6 meses."
+            >
+              <div className="relative">
+                <input
+                  className={inputCls + " pr-10"}
+                  placeholder="1 200"
+                  inputMode="numeric"
+                  value={data.rendimento}
+                  onChange={(e) => set("rendimento", e.target.value.replace(/[^0-9]/g, ""))}
+                />
+                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">€</span>
+              </div>
+            </Field>
 
             <Field label="Tipo de contrato de trabalho *">
               <div className="grid gap-2 sm:grid-cols-3">
