@@ -4,6 +4,7 @@ import { ArrowRight, ArrowLeft, CheckCircle2, Sparkles } from "lucide-react";
 type Operacao = "comprar" | "melhorar" | "construir" | "";
 type CasaEscolhida = "sim" | "nao" | "";
 type Titulares = "1" | "2" | "3+" | "";
+type Contrato = "semTermo" | "aTermo" | "contaPropria" | "";
 
 interface FormData {
   nome: string;
@@ -16,6 +17,8 @@ interface FormData {
   preco: string;
   prazo: string;
   titulares: Titulares;
+  idade: string;
+  contrato: Contrato;
   rendimento: string;
   rgpd: boolean;
 }
@@ -31,6 +34,8 @@ const initial: FormData = {
   preco: "",
   prazo: "",
   titulares: "",
+  idade: "",
+  contrato: "",
   rendimento: "",
   rgpd: false,
 };
