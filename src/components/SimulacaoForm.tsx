@@ -60,9 +60,16 @@ export function SimulacaoForm() {
     data.localizacao &&
     (data.operacao !== "comprar" || (data.casaEscolhida && data.preco && data.prazo)) &&
     data.titulares;
-  const validStep3 = !!data.rendimento && data.rgpd;
+  const validStep3 = !!data.rendimento && data.rgpd && !!data.idade && !!data.contrato;
 
   const canNext = step === 1 ? validStep1 : step === 2 ? validStep2 : validStep3;
+
+  const contratoLabel: Record<Contrato, string> = {
+    semTermo: "Contrato sem termo",
+    aTermo: "Contrato a termo",
+    contaPropria: "Trabalhador por conta própria",
+    "": "",
+  };
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -79,6 +86,8 @@ export function SimulacaoForm() {
         `Preço: ${data.preco}\n` +
         `Prazo: ${data.prazo}\n` +
         `Titulares: ${data.titulares}\n` +
+        `Idade: ${data.idade}\n` +
+        `Tipo de contrato: ${contratoLabel[data.contrato]}\n` +
         `Rendimento líquido mensal: ${data.rendimento} €\n`
     );
     window.location.href = `mailto:filipa@my-credit.pt?subject=Simulação de Crédito&body=${body}`;
