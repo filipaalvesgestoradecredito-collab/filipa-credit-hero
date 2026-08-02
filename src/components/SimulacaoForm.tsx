@@ -322,15 +322,21 @@ export function SimulacaoForm() {
                 </div>
               </Field>
 
-              <Field label="Idade *" hint="Idade do titular principal do crédito.">
-                <input
-                  className={inputCls}
-                  placeholder="35"
-                  inputMode="numeric"
-                  value={data.idade}
-                  onChange={(e) => set("idade", e.target.value.replace(/[^0-9]/g, ""))}
-                />
-              </Field>
+              {idades.map((a, i) => (
+                <Field
+                  key={i}
+                  label={nTitulares === 1 ? "Idade *" : `Idade do titular ${i + 1} *`}
+                  hint={nTitulares === 1 ? "Idade do titular do crédito." : undefined}
+                >
+                  <input
+                    className={inputCls}
+                    placeholder="35"
+                    inputMode="numeric"
+                    value={a}
+                    onChange={(e) => setIdade(i, e.target.value.replace(/[^0-9]/g, ""))}
+                  />
+                </Field>
+              ))}
             </div>
 
             <Field label="Tipo de contrato de trabalho *">
