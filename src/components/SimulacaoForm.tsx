@@ -283,11 +283,10 @@ export function SimulacaoForm() {
             )}
 
             <Field label="Número de titulares do crédito *">
-              <div className="grid gap-2 sm:grid-cols-3">
+              <div className="grid gap-2 sm:grid-cols-2">
                 {[
                   { v: "1", l: "1 (apenas eu)" },
                   { v: "2", l: "2 (eu e outra pessoa)" },
-                  { v: "3+", l: "Mais de duas pessoas" },
                 ].map((o) => (
                   <RadioCard
                     key={o.v}
