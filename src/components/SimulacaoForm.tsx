@@ -3,7 +3,7 @@ import { ArrowRight, ArrowLeft, CheckCircle2, Sparkles } from "lucide-react";
 
 type Operacao = "comprar" | "melhorar" | "construir" | "";
 type CasaEscolhida = "sim" | "nao" | "";
-type Titulares = "1" | "2" | "3+" | "";
+type Titulares = "1" | "2" | "";
 type Contrato = "semTermo" | "aTermo" | "contaPropria" | "";
 
 interface FormData {
@@ -17,7 +17,7 @@ interface FormData {
   preco: string;
   prazo: string;
   titulares: Titulares;
-  idade: string;
+  idades: string[];
   contrato: Contrato;
   rendimento: string;
   rgpd: boolean;
@@ -34,7 +34,7 @@ const initial: FormData = {
   preco: "",
   prazo: "",
   titulares: "",
-  idade: "",
+  idades: [""],
   contrato: "",
   rendimento: "",
   rgpd: false,
@@ -60,7 +60,16 @@ export function SimulacaoForm() {
     data.localizacao &&
     (data.operacao !== "comprar" || (data.casaEscolhida && data.preco && data.prazo)) &&
     data.titulares;
-  const validStep3 = !!data.rendimento && data.rgpd && !!data.idade && !!data.contrato;
+  const nTitulares = data.titulares === "2" ? 2 : 1;
+  const idades = Array.from({ length: nTitulares }, (_, i) => data.idades[i] ?? "");
+  const setIdade = (i: number, v: string) =>
+    setData((d) => {
+      const arr = Array.from({ length: nTitulares }, (_, k) => d.idades[k] ?? "");
+      arr[i] = v;
+      return { ...d, idades: arr };
+    });
+  const validStep3 =
+    !!data.rendimento && data.rgpd && idades.every((a) => !!a) && !!data.contrato;
 
   const canNext = step === 1 ? validStep1 : step === 2 ? validStep2 : validStep3;
 
@@ -86,7 +95,7 @@ export function SimulacaoForm() {
         `Preço: ${data.preco}\n` +
         `Prazo: ${data.prazo}\n` +
         `Titulares: ${data.titulares}\n` +
-        `Idade: ${data.idade}\n` +
+        idades.map((a, i) => `Idade titular ${i + 1}: ${a}\n`).join("") +
         `Tipo de contrato: ${contratoLabel[data.contrato]}\n` +
         `Rendimento líquido mensal: ${data.rendimento} €\n`
     );
