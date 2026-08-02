@@ -4,6 +4,7 @@ import { ArrowRight, ArrowLeft, CheckCircle2, Sparkles } from "lucide-react";
 type Operacao = "comprar" | "melhorar" | "construir" | "";
 type CasaEscolhida = "sim" | "nao" | "";
 type Titulares = "1" | "2" | "3+" | "";
+type Contrato = "semTermo" | "aTermo" | "contaPropria" | "";
 
 interface FormData {
   nome: string;
@@ -16,6 +17,8 @@ interface FormData {
   preco: string;
   prazo: string;
   titulares: Titulares;
+  idade: string;
+  contrato: Contrato;
   rendimento: string;
   rgpd: boolean;
 }
@@ -31,6 +34,8 @@ const initial: FormData = {
   preco: "",
   prazo: "",
   titulares: "",
+  idade: "",
+  contrato: "",
   rendimento: "",
   rgpd: false,
 };
@@ -55,9 +60,16 @@ export function SimulacaoForm() {
     data.localizacao &&
     (data.operacao !== "comprar" || (data.casaEscolhida && data.preco && data.prazo)) &&
     data.titulares;
-  const validStep3 = !!data.rendimento && data.rgpd;
+  const validStep3 = !!data.rendimento && data.rgpd && !!data.idade && !!data.contrato;
 
   const canNext = step === 1 ? validStep1 : step === 2 ? validStep2 : validStep3;
+
+  const contratoLabel: Record<Contrato, string> = {
+    semTermo: "Contrato sem termo",
+    aTermo: "Contrato a termo",
+    contaPropria: "Trabalhador por conta própria",
+    "": "",
+  };
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -74,6 +86,8 @@ export function SimulacaoForm() {
         `Preço: ${data.preco}\n` +
         `Prazo: ${data.prazo}\n` +
         `Titulares: ${data.titulares}\n` +
+        `Idade: ${data.idade}\n` +
+        `Tipo de contrato: ${contratoLabel[data.contrato]}\n` +
         `Rendimento líquido mensal: ${data.rendimento} €\n`
     );
     window.location.href = `mailto:filipa@my-credit.pt?subject=Simulação de Crédito&body=${body}`;
@@ -283,19 +297,49 @@ export function SimulacaoForm() {
           <div className="space-y-5 animate-in fade-in duration-300">
             <StepTitle n={3} title="Informação pessoal" sub="Última etapa — para uma simulação mais precisa." />
 
-            <Field
-              label="Rendimento líquido mensal *"
-              hint="Valor que recebe mensalmente depois de impostos (salário, rendas, pensões, etc.). Se for variável, indique a média dos últimos 6 meses."
-            >
-              <div className="relative">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Field
+                label="Rendimento líquido mensal *"
+                hint="Valor que recebe mensalmente depois de impostos (salário, rendas, pensões, etc.). Se for variável, indique a média dos últimos 6 meses."
+              >
+                <div className="relative">
+                  <input
+                    className={inputCls + " pr-10"}
+                    placeholder="1 200"
+                    inputMode="numeric"
+                    value={data.rendimento}
+                    onChange={(e) => set("rendimento", e.target.value.replace(/[^0-9]/g, ""))}
+                  />
+                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">€</span>
+                </div>
+              </Field>
+
+              <Field label="Idade *" hint="Idade do titular principal do crédito.">
                 <input
-                  className={inputCls + " pr-10"}
-                  placeholder="1 200"
+                  className={inputCls}
+                  placeholder="35"
                   inputMode="numeric"
-                  value={data.rendimento}
-                  onChange={(e) => set("rendimento", e.target.value.replace(/[^0-9]/g, ""))}
+                  value={data.idade}
+                  onChange={(e) => set("idade", e.target.value.replace(/[^0-9]/g, ""))}
                 />
-                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">€</span>
+              </Field>
+            </div>
+
+            <Field label="Tipo de contrato de trabalho *">
+              <div className="grid gap-2 sm:grid-cols-3">
+                {[
+                  { v: "semTermo", l: "Contrato sem termo" },
+                  { v: "aTermo", l: "Contrato a termo" },
+                  { v: "contaPropria", l: "Trabalhador por conta própria" },
+                ].map((o) => (
+                  <RadioCard
+                    key={o.v}
+                    label={o.l}
+                    compact
+                    checked={data.contrato === o.v}
+                    onSelect={() => set("contrato", o.v as Contrato)}
+                  />
+                ))}
               </div>
             </Field>
 
