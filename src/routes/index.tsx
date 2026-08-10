@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import filipaHero from "@/assets/filipa-hero.jpg";
 import filipaAbout from "@/assets/filipa-about.jpg";
+import logoAsset from "@/assets/mycredit-coimbra-logo.png.asset.json";
 import { SimulacaoForm } from "@/components/SimulacaoForm";
 
 export const Route = createFileRoute("/")({
@@ -56,16 +57,11 @@ function CTA({ children, className = "", variant = "primary" }: { children: Reac
 
 function Logo() {
   return (
-    <div className="flex flex-col leading-none">
-      <div className="flex items-baseline">
-        <span className="font-display text-2xl font-bold tracking-tight text-navy">MY</span>
-        <span className="font-display text-2xl font-bold tracking-tight text-gold">CREDIT</span>
-      </div>
-      <span className="mt-1 text-[9px] font-medium uppercase tracking-[0.25em] text-navy/70">
-        Intermediários de Crédito
-      </span>
-      <span className="font-script text-2xl text-gold -mt-1">Coimbra</span>
-    </div>
+    <img
+      src={logoAsset.url}
+      alt="MyCredit Coimbra — Intermediários de Crédito"
+      className="h-10 sm:h-12 w-auto object-contain"
+    />
   );
 }
 
