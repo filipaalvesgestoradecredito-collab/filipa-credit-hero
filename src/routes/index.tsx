@@ -19,17 +19,17 @@ import { SimulacaoForm } from "@/components/SimulacaoForm";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Filipa · Intermediária de Crédito em Coimbra | Simulação Gratuita" },
+      { title: "Filipa Alves · Gestora de Crédito em Coimbra | Simulação Gratuita" },
       {
         name: "description",
         content:
-          "Crédito Habitação, Pessoal e Consolidação. Encontre as melhores condições do mercado em 2026 com acompanhamento personalizado. Simulação gratuita e sem compromisso.",
+          "Crédito Habitação, Automóvel, Pessoal e Consolidação. Encontre as melhores condições do mercado em 2026 com acompanhamento personalizado. Simulação gratuita e sem compromisso.",
       },
-      { property: "og:title", content: "Filipa · Intermediária de Crédito | Simulação Gratuita" },
+      { property: "og:title", content: "Filipa Alves · Gestora de Crédito | Simulação Gratuita" },
       {
         property: "og:description",
         content:
-          "Compre a sua casa ou reduza as suas prestações com as melhores condições do mercado. Acompanhamento pessoal e sem burocracias.",
+          "Compre a sua casa, financie o seu carro ou reduza as suas prestações com as melhores condições do mercado. Acompanhamento pessoal e sem burocracias.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -157,7 +157,7 @@ function Landing() {
             title="Soluções à medida de cada família"
             sub="Analiso o seu caso e encontro a melhor proposta do mercado — sem que perca tempo entre bancos."
           />
-          <div className="mt-14 grid gap-6 md:grid-cols-3">
+          <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {SERVICES.map((s) => (
               <div key={s.title} className="group relative overflow-hidden rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]">
                 <div className="grid h-14 w-14 place-items-center rounded-xl bg-navy text-gold">
@@ -339,14 +339,27 @@ function Landing() {
                 Intermediários de Crédito · Coimbra
               </p>
               <p className="mt-5 text-sm leading-relaxed text-cream/70 max-w-sm">
-                Filipa — Intermediária de Crédito Vinculada, autorizada e supervisionada pelo
+                Filipa Alves — Gestora de Crédito, autorizada e supervisionada pelo
                 Banco de Portugal.
               </p>
               <div className="mt-5 rounded-lg border border-gold/25 bg-cream/5 p-4 text-xs leading-relaxed text-cream/80">
-                <p><strong className="text-gold">Registo Banco de Portugal:</strong> n.º 0006630</p>
-                <p className="mt-1"><strong className="text-gold">Categoria:</strong> Intermediário de Crédito Vinculado</p>
-                <p className="mt-1"><strong className="text-gold">Serviços autorizados:</strong> Apresentação e proposta de contratos de crédito a consumidores.</p>
-                <p className="mt-1"><strong className="text-gold">Instituições mutuantes:</strong> Novo Banco, Santander, Bankinter, BPI, CGD e outras parceiras.</p>
+                <p>
+                  <strong className="text-gold">Creditwise – Intermediação de Crédito, Lda</strong>
+                </p>
+                <p className="mt-1">
+                  Licença Banco de Portugal n.º 0008492
+                </p>
+                <p className="mt-1">
+                  Mutuantes: ABANCA PORTUGAL, S.A., BANKINTER, S.A. – SUCURSAL EM PORTUGAL,
+                  CAIXA GERAL DE DEPÓSITOS, S.A., BANCO SANTANDER TOTTA, S.A. e
+                  ABANCA SERVICIOS FINANCIEROS, E.F.C., S.A. – SUCURSAL EM PORTUGAL.
+                </p>
+                <p className="mt-1">
+                  Autorizado a prestar serviços de intermediação de crédito para crédito à
+                  habitação e crédito aos consumidores, incluindo serviços de consultoria, sendo
+                  proibido receber ou entregar quaisquer valores relacionados com contratos de
+                  crédito, sob supervisão do Banco de Portugal.
+                </p>
               </div>
             </div>
 
@@ -354,6 +367,7 @@ function Landing() {
               <h4 className="font-display text-lg text-cream">Soluções</h4>
               <ul className="mt-4 space-y-2 text-sm">
                 <li><a href="#servicos" className="hover:text-gold transition">Crédito Habitação</a></li>
+                <li><a href="#servicos" className="hover:text-gold transition">Crédito Automóvel</a></li>
                 <li><a href="#servicos" className="hover:text-gold transition">Consolidação de Créditos</a></li>
                 <li><a href="#servicos" className="hover:text-gold transition">Crédito Pessoal</a></li>
                 <li><a href="#servicos" className="hover:text-gold transition">Transferência de Crédito</a></li>
@@ -372,7 +386,7 @@ function Landing() {
           </div>
 
           <div className="mt-12 border-t border-cream/10 pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-cream/60">
-            <p>© {new Date().getFullYear()} Filipa · MyCredit Coimbra. Todos os direitos reservados.</p>
+            <p>© {new Date().getFullYear()} Filipa Alves · Gestora de Crédito. Todos os direitos reservados.</p>
             <p>A atividade de intermediário de crédito é supervisionada pelo <span className="text-gold">Banco de Portugal</span>.</p>
           </div>
         </div>
@@ -409,8 +423,14 @@ const SERVICES = [
   {
     icon: Home,
     title: "Crédito Habitação",
-    desc: "Para comprar, construir ou transferir. Comparamos todos os bancos para lhe dar o melhor spread.",
+    desc: "Comparamos todas as propostas para lhe dar as melhores condições.",
     points: ["Compra de casa", "Transferência de crédito", "Obras e construção"],
+  },
+  {
+    icon: Wallet,
+    title: "Crédito Automóvel",
+    desc: "Novo ou usado, arranjamos a melhor solução de financiamento para o seu carro.",
+    points: ["Aprovação rápida", "Taxas competitivas", "Sem burocracia"],
   },
   {
     icon: Layers,
@@ -421,7 +441,7 @@ const SERVICES = [
   {
     icon: Wallet,
     title: "Crédito Pessoal",
-    desc: "Para um carro, obras, formação ou aquele projeto que faz sentido para si e para a sua família.",
+    desc: "Para obras, formação, viagens ou aquele projeto que faz sentido para si e para a sua família.",
     points: ["Aprovação rápida", "Sem burocracia", "Taxas competitivas"],
   },
 ];
