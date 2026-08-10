@@ -1,10 +1,18 @@
 import { useState } from "react";
 import { ArrowRight, ArrowLeft, CheckCircle2, Sparkles } from "lucide-react";
 
-type Operacao = "comprar" | "melhorar" | "construir" | "";
+type Operacao =
+  | "comprar"
+  | "construir"
+  | "transferir"
+  | "automovel"
+  | "pessoal"
+  | "consolidar"
+  | "";
 type CasaEscolhida = "sim" | "nao" | "";
 type Titulares = "1" | "2" | "";
 type Contrato = "semTermo" | "aTermo" | "contaPropria" | "";
+type TemCreditos = "sim" | "nao" | "";
 
 interface FormData {
   nome: string;
@@ -15,7 +23,10 @@ interface FormData {
   localizacao: string;
   casaEscolhida: CasaEscolhida;
   preco: string;
-  prazo: string;
+  prazoCompra: string;
+  temCreditos: TemCreditos;
+  valorPretendido: string;
+  prazoCredito: string;
   titulares: Titulares;
   idades: string[];
   contrato: Contrato;
@@ -32,7 +43,10 @@ const initial: FormData = {
   localizacao: "",
   casaEscolhida: "",
   preco: "",
-  prazo: "",
+  prazoCompra: "",
+  temCreditos: "",
+  valorPretendido: "",
+  prazoCredito: "",
   titulares: "",
   idades: [""],
   contrato: "",
@@ -46,6 +60,15 @@ const STEPS = [
   { n: 3, label: "Rendimento" },
 ] as const;
 
+const OPERACOES: { v: Operacao; l: string }[] = [
+  { v: "comprar", l: "Comprar casa com crédito habitação" },
+  { v: "construir", l: "Construir casa com crédito habitação" },
+  { v: "transferir", l: "Transferir ou melhorar as condições do crédito atual" },
+  { v: "automovel", l: "Crédito automóvel" },
+  { v: "pessoal", l: "Crédito pessoal" },
+  { v: "consolidar", l: "Consolidação de créditos" },
+];
+
 export function SimulacaoForm() {
   const [step, setStep] = useState(1);
   const [data, setData] = useState<FormData>(initial);
@@ -54,12 +77,21 @@ export function SimulacaoForm() {
   const set = <K extends keyof FormData>(k: K, v: FormData[K]) =>
     setData((d) => ({ ...d, [k]: v }));
 
-  const validStep1 = data.nome && data.sobrenome && data.telefone.length >= 9 && /.+@.+\..+/.test(data.email);
+  const isHabitacao = ["comprar", "construir", "transferir"].includes(data.operacao);
+  const isConsumo = ["automovel", "pessoal", "consolidar"].includes(data.operacao);
+
+  const validStep1 =
+    data.nome && data.sobrenome && data.telefone.length >= 9 && /.+@.+\..+/.test(data.email);
+
   const validStep2 =
-    data.operacao &&
-    data.localizacao &&
-    (data.operacao !== "comprar" || (data.casaEscolhida && data.preco && data.prazo)) &&
-    data.titulares;
+    !!data.operacao &&
+    !!data.localizacao &&
+    !!data.titulares &&
+    (!isHabitacao ||
+      (!!data.preco && !!data.prazoCompra && (data.operacao !== "comprar" || !!data.casaEscolhida))) &&
+    (!isConsumo ||
+      (!!data.temCreditos && !!data.valorPretendido && !!data.prazoCredito));
+
   const nTitulares = data.titulares === "2" ? 2 : 1;
   const idades = Array.from({ length: nTitulares }, (_, i) => data.idades[i] ?? "");
   const setIdade = (i: number, v: string) =>
@@ -68,6 +100,7 @@ export function SimulacaoForm() {
       arr[i] = v;
       return { ...d, idades: arr };
     });
+
   const validStep3 =
     !!data.rendimento && data.rgpd && idades.every((a) => !!a) && !!data.contrato;
 
@@ -80,20 +113,42 @@ export function SimulacaoForm() {
     "": "",
   };
 
+  const operacaoLabel: Record<Operacao, string> = {
+    comprar: "Comprar casa com crédito habitação",
+    construir: "Construir casa com crédito habitação",
+    transferir: "Transferir ou melhorar as condições do crédito atual",
+    automovel: "Crédito automóvel",
+    pessoal: "Crédito pessoal",
+    consolidar: "Consolidação de créditos",
+    "": "",
+  };
+
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!validStep3) return;
-    // Envia por email via mailto como fallback (sem backend). Ideal: integrar com serviço.
+
+    const habitacaoBlock = isHabitacao
+      ? `Localização do imóvel: ${data.localizacao}\n` +
+        (data.operacao === "comprar" ? `Casa escolhida: ${data.casaEscolhida === "sim" ? "Sim" : "Não"}\n` : "") +
+        `Preço / capital em dívida: ${data.preco} €\n` +
+        `Prazo pretendido para a compra: ${data.prazoCompra}\n`
+      : "";
+
+    const consumoBlock = isConsumo
+      ? `Onde reside: ${data.localizacao}\n` +
+        `Tem créditos atualmente: ${data.temCreditos === "sim" ? "Sim" : "Não"}\n` +
+        `Valor pretendido: ${data.valorPretendido} €\n` +
+        `Prazo pretendido para o crédito: ${data.prazoCredito}\n`
+      : "";
+
     const body = encodeURIComponent(
       `Nova simulação:\n\n` +
         `Nome: ${data.nome} ${data.sobrenome}\n` +
         `Telefone: +351 ${data.telefone}\n` +
         `Email: ${data.email}\n\n` +
-        `Operação: ${data.operacao}\n` +
-        `Localização: ${data.localizacao}\n` +
-        `Casa escolhida: ${data.casaEscolhida}\n` +
-        `Preço: ${data.preco}\n` +
-        `Prazo: ${data.prazo}\n` +
+        `Operação: ${operacaoLabel[data.operacao]}\n` +
+        habitacaoBlock +
+        consumoBlock +
         `Titulares: ${data.titulares}\n` +
         idades.map((a, i) => `Idade titular ${i + 1}: ${a}\n`).join("") +
         `Tipo de contrato: ${contratoLabel[data.contrato]}\n` +
@@ -161,7 +216,11 @@ export function SimulacaoForm() {
       <form onSubmit={handleSubmit} className="p-6 sm:p-10">
         {step === 1 && (
           <div className="space-y-5 animate-in fade-in duration-300">
-            <StepTitle n={1} title="Dados de contacto" sub="Para que possa entrar em contacto consigo." />
+            <StepTitle
+              n={1}
+              title="Dados de contacto"
+              sub="Para que possa entrar em contacto consigo."
+            />
             <div className="grid gap-4 sm:grid-cols-2">
               <Field label="Nome *">
                 <input
@@ -215,23 +274,26 @@ export function SimulacaoForm() {
             <StepTitle n={2} title="Tipo de operação" sub="Conte-me o que pretende fazer." />
 
             <Field label="O que quer fazer? *">
-              <div className="grid gap-2">
-                {[
-                  { v: "comprar", l: "Comprar casa com crédito habitação" },
-                  { v: "melhorar", l: "Melhorar as condições do crédito atual" },
-                  { v: "construir", l: "Construir casa com crédito habitação" },
-                ].map((o) => (
+              <div className="grid gap-2 sm:grid-cols-2">
+                {OPERACOES.map((o) => (
                   <RadioCard
                     key={o.v}
                     label={o.l}
                     checked={data.operacao === o.v}
-                    onSelect={() => set("operacao", o.v as Operacao)}
+                    onSelect={() => set("operacao", o.v)}
                   />
                 ))}
               </div>
             </Field>
 
-            <Field label="Localização do imóvel *" hint="Localidade onde se situa o imóvel (ou onde quer comprar).">
+            <Field
+              label={isHabitacao ? "Localização do imóvel *" : "Onde reside *"}
+              hint={
+                isHabitacao
+                  ? "Localidade onde se situa o imóvel (ou onde quer comprar)."
+                  : "Indique a localidade onde reside."
+              }
+            >
               <input
                 className={inputCls}
                 placeholder="Coimbra"
@@ -241,41 +303,102 @@ export function SimulacaoForm() {
             </Field>
 
             {data.operacao === "comprar" && (
+              <Field label="Já tem casa escolhida? *">
+                <div className="grid gap-2 sm:grid-cols-2">
+                  <RadioCard
+                    label="Sim, já tenho a casa identificada"
+                    checked={data.casaEscolhida === "sim"}
+                    onSelect={() => set("casaEscolhida", "sim")}
+                  />
+                  <RadioCard
+                    label="Ainda não, quero perceber quanto consigo pedir"
+                    checked={data.casaEscolhida === "nao"}
+                    onSelect={() => set("casaEscolhida", "nao")}
+                  />
+                </div>
+              </Field>
+            )}
+
+            {isHabitacao && (
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Field
+                  label="Preço / capital em dívida *"
+                  hint={
+                    data.operacao === "transferir"
+                      ? "Valor atualmente em dívida no banco."
+                      : "Valor acordado ou previsto."
+                  }
+                >
+                  <div className="relative">
+                    <input
+                      className={inputCls + " pr-10"}
+                      placeholder="250 000"
+                      inputMode="numeric"
+                      value={data.preco}
+                      onChange={(e) => set("preco", e.target.value.replace(/[^0-9]/g, ""))}
+                    />
+                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                      €
+                    </span>
+                  </div>
+                </Field>
+                <Field
+                  label="Prazo pretendido para a compra *"
+                  hint="Em quanto tempo pretende comprar ou transferir? Ex: Nos próximos 3 meses."
+                >
+                  <input
+                    className={inputCls}
+                    placeholder="Nos próximos 3 meses"
+                    value={data.prazoCompra}
+                    onChange={(e) => set("prazoCompra", e.target.value)}
+                  />
+                </Field>
+              </div>
+            )}
+
+            {isConsumo && (
               <>
-                <Field label="Já tem casa escolhida? *">
-                  <div className="grid gap-2">
+                <Field label="Tem algum crédito atualmente? *">
+                  <div className="grid gap-2 sm:grid-cols-2">
                     <RadioCard
-                      label="Sim, já tenho a casa identificada e preciso de crédito habitação"
-                      checked={data.casaEscolhida === "sim"}
-                      onSelect={() => set("casaEscolhida", "sim")}
+                      label="Sim"
+                      checked={data.temCreditos === "sim"}
+                      onSelect={() => set("temCreditos", "sim")}
                     />
                     <RadioCard
-                      label="Ainda não tenho casa, quero primeiro perceber quanto consigo pedir"
-                      checked={data.casaEscolhida === "nao"}
-                      onSelect={() => set("casaEscolhida", "nao")}
+                      label="Não"
+                      checked={data.temCreditos === "nao"}
+                      onSelect={() => set("temCreditos", "nao")}
                     />
                   </div>
                 </Field>
 
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <Field label="Preço da compra *" hint="Valor acordado ou previsto.">
+                  <Field label="Valor pretendido *" hint="Montante que pretende solicitar.">
                     <div className="relative">
                       <input
                         className={inputCls + " pr-10"}
-                        placeholder="250 000"
+                        placeholder="20 000"
                         inputMode="numeric"
-                        value={data.preco}
-                        onChange={(e) => set("preco", e.target.value.replace(/[^0-9]/g, ""))}
+                        value={data.valorPretendido}
+                        onChange={(e) =>
+                          set("valorPretendido", e.target.value.replace(/[^0-9]/g, ""))
+                        }
                       />
-                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">€</span>
+                      <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                        €
+                      </span>
                     </div>
                   </Field>
-                  <Field label="Prazo pretendido *" hint="Ex: até 3 meses.">
+                  <Field
+                    label="Prazo pretendido para o crédito *"
+                    hint="Número de meses ou anos. Ex: 60 meses / 5 anos."
+                  >
                     <input
                       className={inputCls}
-                      placeholder="Nos próximos 3 meses"
-                      value={data.prazo}
-                      onChange={(e) => set("prazo", e.target.value)}
+                      placeholder="60 meses"
+                      value={data.prazoCredito}
+                      onChange={(e) => set("prazoCredito", e.target.value)}
                     />
                   </Field>
                 </div>
@@ -303,7 +426,11 @@ export function SimulacaoForm() {
 
         {step === 3 && (
           <div className="space-y-5 animate-in fade-in duration-300">
-            <StepTitle n={3} title="Informação pessoal" sub="Última etapa — para uma simulação mais precisa." />
+            <StepTitle
+              n={3}
+              title="Informação pessoal"
+              sub="Última etapa — para uma simulação mais precisa."
+            />
 
             <div className="grid gap-4 sm:grid-cols-2">
               {idades.map((a, i) => (
@@ -335,7 +462,9 @@ export function SimulacaoForm() {
                   value={data.rendimento}
                   onChange={(e) => set("rendimento", e.target.value.replace(/[^0-9]/g, ""))}
                 />
-                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">€</span>
+                <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                  €
+                </span>
               </div>
             </Field>
 
@@ -365,8 +494,8 @@ export function SimulacaoForm() {
                 onChange={(e) => set("rgpd", e.target.checked)}
               />
               <span className="text-xs leading-relaxed text-muted-foreground">
-                Aceito que os meus dados sejam tratados para aconselhamento no âmbito da prestação dos serviços de
-                intermediação de crédito, em conformidade com o RGPD. Ler{" "}
+                Aceito que os meus dados sejam tratados para aconselhamento no âmbito da prestação
+                dos serviços de intermediação de crédito, em conformidade com o RGPD. Ler{" "}
                 <a
                   href="https://my-credit.pt/politica-de-privacidade/"
                   target="_blank"
