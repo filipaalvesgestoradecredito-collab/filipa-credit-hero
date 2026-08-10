@@ -157,7 +157,7 @@ function Landing() {
             title="Soluções à medida de cada família"
             sub="Analiso o seu caso e encontro a melhor proposta do mercado — sem que perca tempo entre bancos."
           />
-          <div className="mt-14 grid gap-6 md:grid-cols-3">
+          <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {SERVICES.map((s) => (
               <div key={s.title} className="group relative overflow-hidden rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]">
                 <div className="grid h-14 w-14 place-items-center rounded-xl bg-navy text-gold">
