@@ -12,9 +12,9 @@ import {
   FileSignature,
   ClipboardCheck,
 } from "lucide-react";
-import filipaHero from "@/assets/filipa-hero.jpg";
-import filipaAbout from "@/assets/filipa-about.jpg";
-import logoAsset from "@/assets/mycredit-coimbra-logo.png.asset.json";
+import filipaHeroAsset from "@/assets/filipa-hero-cut.png.asset.json";
+import filipaAboutAsset from "@/assets/filipa-about-cut.png.asset.json";
+import logoAsset from "@/assets/mycredit-logo-transparent.png.asset.json";
 import { SimulacaoForm } from "@/components/SimulacaoForm";
 
 export const Route = createFileRoute("/")({
