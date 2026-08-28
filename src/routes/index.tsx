@@ -467,13 +467,13 @@ const TESTIMONIALS = [
     quote: "A Filipa explicou tudo ao detalhe. Senti-me segura em cada etapa.",
     name: "Ricardo Alves",
     location: "Figueira da Foz",
-    result: "Poupança €180/mês",
+    result: "200€/ano",
   },
   {
-    quote: "Conseguimos poupar €320/mês com a consolidação. Obrigado, Filipa!",
+    quote: "Conseguimos poupar 500€/ano com a consolidação. Obrigado, Filipa!",
     name: "João e Maria",
     location: "Lisboa",
-    result: "Família com +€320/mês",
+    result: "500€/ano",
   },
 ];
 
