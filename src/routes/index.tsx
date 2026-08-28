@@ -127,15 +127,15 @@ function Landing() {
 
           <div className="relative">
             <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-gold-soft via-transparent to-navy/10 blur-2xl" />
-            <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-b from-cream via-gold-soft/40 to-navy/10 shadow-[var(--shadow-elegant)] aspect-[4/5]">
-              <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-navy/10 to-transparent" />
+            <div className="relative overflow-hidden rounded-[2rem] bg-cream shadow-[var(--shadow-elegant)] aspect-[4/5]">
               <img
                 src={filipaHeroAsset.url}
                 alt="Filipa Alves, gestora de crédito em Coimbra"
-                width={1024}
-                height={1536}
-                className="relative h-full w-full object-contain object-bottom drop-shadow-[0_18px_35px_rgba(20,30,60,0.25)]"
+                width={1536}
+                height={1024}
+                className="relative h-full w-full object-cover object-[60%_center]"
               />
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-navy/20 to-transparent" />
             </div>
             <div className="absolute -bottom-6 -left-4 sm:-left-8 max-w-[80%] rounded-2xl bg-card p-4 shadow-[var(--shadow-card)] border border-border">
               <div className="flex items-center gap-3">
