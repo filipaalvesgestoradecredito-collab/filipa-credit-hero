@@ -60,7 +60,7 @@ function Logo() {
     <img
       src={logoAsset.url}
       alt="MyCredit Coimbra — Intermediários de Crédito"
-      className="h-10 sm:h-12 w-auto object-contain"
+      className="h-9 sm:h-11 w-auto object-contain mix-blend-multiply"
     />
   );
 }
@@ -127,8 +127,15 @@ function Landing() {
 
           <div className="relative">
             <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-gold-soft via-transparent to-navy/10 blur-2xl" />
-            <div className="relative overflow-hidden rounded-[2rem] shadow-[var(--shadow-elegant)]">
-              <img src={filipaHero} alt="Filipa, intermediária de crédito em Coimbra" width={1200} height={1400} className="h-full w-full object-cover" />
+            <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-b from-cream via-gold-soft/40 to-navy/10 shadow-[var(--shadow-elegant)] aspect-[4/5]">
+              <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-navy/10 to-transparent" />
+              <img
+                src={filipaHeroAsset.url}
+                alt="Filipa Alves, gestora de crédito em Coimbra"
+                width={1024}
+                height={1536}
+                className="relative h-full w-full object-contain object-bottom drop-shadow-[0_18px_35px_rgba(20,30,60,0.25)]"
+              />
             </div>
             <div className="absolute -bottom-6 -left-4 sm:-left-8 max-w-[80%] rounded-2xl bg-card p-4 shadow-[var(--shadow-card)] border border-border">
               <div className="flex items-center gap-3">
@@ -181,8 +188,15 @@ function Landing() {
         <div className="relative mx-auto grid max-w-6xl gap-12 px-5 md:grid-cols-[1fr_1.1fr] md:items-center">
           <div className="relative order-2 md:order-1">
             <div className="absolute -inset-3 rounded-[2rem] bg-gold/20 blur-2xl" />
-            <div className="relative overflow-hidden rounded-[2rem] border border-gold/30 shadow-[var(--shadow-elegant)]">
-              <img src={filipaAbout} alt="Filipa, intermediária de crédito" width={900} height={1100} loading="lazy" className="h-full w-full object-cover" />
+            <div className="relative overflow-hidden rounded-[2rem] border border-gold/30 bg-gradient-to-b from-cream to-gold-soft/60 shadow-[var(--shadow-elegant)] aspect-[4/5]">
+              <img
+                src={filipaAboutAsset.url}
+                alt="Filipa Alves, gestora de crédito"
+                width={1024}
+                height={1536}
+                loading="lazy"
+                className="h-full w-full object-contain object-bottom drop-shadow-[0_18px_35px_rgba(20,30,60,0.2)]"
+              />
             </div>
           </div>
           <div className="order-1 md:order-2">
