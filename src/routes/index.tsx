@@ -12,7 +12,7 @@ import {
   FileSignature,
   ClipboardCheck,
 } from "lucide-react";
-import filipaHeroAsset from "@/assets/filipa-hero-cut.png.asset.json";
+import filipaHeroAsset from "@/assets/filipa-hero-office.jpg.asset.json";
 import filipaAboutAsset from "@/assets/filipa-about-cut.png.asset.json";
 import logoAsset from "@/assets/mycredit-logo-transparent.png.asset.json";
 import { SimulacaoForm } from "@/components/SimulacaoForm";
