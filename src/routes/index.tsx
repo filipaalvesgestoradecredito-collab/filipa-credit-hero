@@ -361,8 +361,9 @@ function Landing() {
                 </p>
                 <p className="mt-1">
                   Mutuantes: ABANCA PORTUGAL, S.A., BANKINTER, S.A. – SUCURSAL EM PORTUGAL,
-                  CAIXA GERAL DE DEPÓSITOS, S.A., BANCO SANTANDER TOTTA, S.A. e
-                  ABANCA SERVICIOS FINANCIEROS, E.F.C., S.A. – SUCURSAL EM PORTUGAL.
+                  CAIXA GERAL DE DEPÓSITOS, S.A., BANCO SANTANDER TOTTA, S.A., UCI – UNIÃO DE
+                  CRÉDITOS IMOBILIÁRIOS, S.A., e ABANCA SERVICIOS FINANCIEROS, E.F.C., S.A. –
+                  SUCURSAL EM PORTUGAL.
                 </p>
                 <p className="mt-1">
                   Autorizado a prestar serviços de intermediação de crédito para crédito à
