@@ -12,7 +12,6 @@ import {
   FileSignature,
   ClipboardCheck,
 } from "lucide-react";
-import logoAsset from "@/assets/mycredit-logo-transparent.png.asset.json";
 import { SimulacaoForm } from "@/components/SimulacaoForm";
 
 export const Route = createFileRoute("/")({
@@ -55,11 +54,10 @@ function CTA({ children, className = "", variant = "primary" }: { children: Reac
 
 function Logo() {
   return (
-    <img
-      src={logoAsset.url}
-      alt="MyCredit Coimbra — Intermediários de Crédito"
-      className="h-9 sm:h-11 w-auto object-contain mix-blend-multiply"
-    />
+    <div className="flex items-baseline">
+      <span className="font-display text-2xl font-bold text-navy">MY</span>
+      <span className="font-display text-2xl font-bold text-gold">CREDIT</span>
+    </div>
   );
 }
 
