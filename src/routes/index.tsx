@@ -12,8 +12,6 @@ import {
   FileSignature,
   ClipboardCheck,
 } from "lucide-react";
-import filipaHeroAsset from "@/assets/filipa-hero-office.jpg.asset.json";
-import filipaAboutAsset from "@/assets/filipa-about-cut.png.asset.json";
 import logoAsset from "@/assets/mycredit-logo-transparent.png.asset.json";
 import { SimulacaoForm } from "@/components/SimulacaoForm";
 
@@ -129,7 +127,7 @@ function Landing() {
             <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-gold-soft via-transparent to-navy/10 blur-2xl" />
             <div className="relative overflow-hidden rounded-[2rem] bg-cream shadow-[var(--shadow-elegant)] aspect-[4/5]">
               <img
-                src={filipaHeroAsset.url}
+                src="/filipa-hero-office.png"
                 alt="Filipa Alves, gestora de crédito em Coimbra"
                 width={1536}
                 height={1024}
@@ -190,7 +188,7 @@ function Landing() {
             <div className="absolute -inset-3 rounded-[2rem] bg-gold/20 blur-2xl" />
             <div className="relative overflow-hidden rounded-[2rem] border border-gold/30 bg-gradient-to-b from-cream to-gold-soft/60 shadow-[var(--shadow-elegant)] aspect-[4/5]">
               <img
-                src={filipaAboutAsset.url}
+                src="/filipa-about-cut.png"
                 alt="Filipa Alves, gestora de crédito"
                 width={1024}
                 height={1536}
