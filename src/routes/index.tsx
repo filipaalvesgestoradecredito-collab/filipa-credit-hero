@@ -379,8 +379,18 @@ function Landing() {
             </div>
           </div>
 
-          <div className="mt-12 border-t border-cream/10 pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-cream/60">
-            <p>© {new Date().getFullYear()} Filipa Alves · Gestora de Crédito. Todos os direitos reservados.</p>
+          <div className="mt-12 border-t border-cream/10 pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-cream/60">
+            <div className="flex items-center gap-4">
+              <img
+                src={logoFooterAsset.url}
+                alt="MyCredit Coimbra"
+                width={160}
+                height={48}
+                loading="lazy"
+                className="h-auto w-full max-w-[160px] object-contain"
+              />
+              <p>© {new Date().getFullYear()} Filipa Alves · Gestora de Crédito. Todos os direitos reservados.</p>
+            </div>
             <p>A atividade de intermediário de crédito é supervisionada pelo <span className="text-gold">Banco de Portugal</span>.</p>
           </div>
         </div>
