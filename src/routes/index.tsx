@@ -13,8 +13,7 @@ import {
   ClipboardCheck,
 } from "lucide-react";
 import { SimulacaoForm } from "@/components/SimulacaoForm";
-import logoDarkAsset from "@/assets/mycredit-coimbra-logo-dark.png.asset.json";
-import logoTransparentAsset from "@/assets/mycredit-logo-transparent.png.asset.json";
+import logoFooterAsset from "@/assets/mycredit-coimbra-logo-new.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -328,15 +327,8 @@ function Landing() {
         <div className="mx-auto max-w-6xl px-5">
           <div className="grid gap-10 md:grid-cols-[1.3fr_1fr_1fr]">
             <div>
-              <img
-                src={logoDarkAsset.url}
-                alt="MyCredit Coimbra"
-                width={280}
-                height={80}
-                loading="lazy"
-                className="h-auto w-full max-w-[260px]"
-              />
-              <p className="mt-3 text-[10px] font-medium uppercase tracking-[0.25em] text-cream/60">
+              <p className="font-display text-lg text-cream">Filipa Alves</p>
+              <p className="mt-1 text-[10px] font-medium uppercase tracking-[0.25em] text-cream/60">
                 Intermediários de Crédito · Coimbra
               </p>
               <p className="mt-5 text-sm leading-relaxed text-cream/70 max-w-sm">
@@ -362,16 +354,6 @@ function Landing() {
                   proibido receber ou entregar quaisquer valores relacionados com contratos de
                   crédito, sob supervisão do Banco de Portugal.
                 </p>
-                <div className="mt-4 flex justify-end">
-                  <img
-                    src={logoTransparentAsset.url}
-                    alt="MyCredit Coimbra"
-                    width={140}
-                    height={40}
-                    loading="lazy"
-                    className="h-auto w-full max-w-[140px] object-contain"
-                  />
-                </div>
               </div>
             </div>
 
@@ -397,8 +379,18 @@ function Landing() {
             </div>
           </div>
 
-          <div className="mt-12 border-t border-cream/10 pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-cream/60">
-            <p>© {new Date().getFullYear()} Filipa Alves · Gestora de Crédito. Todos os direitos reservados.</p>
+          <div className="mt-12 border-t border-cream/10 pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-cream/60">
+            <div className="flex items-center gap-4">
+              <img
+                src={logoFooterAsset.url}
+                alt="MyCredit Coimbra"
+                width={160}
+                height={48}
+                loading="lazy"
+                className="h-auto w-full max-w-[160px] object-contain"
+              />
+              <p>© {new Date().getFullYear()} Filipa Alves · Gestora de Crédito. Todos os direitos reservados.</p>
+            </div>
             <p>A atividade de intermediário de crédito é supervisionada pelo <span className="text-gold">Banco de Portugal</span>.</p>
           </div>
         </div>
