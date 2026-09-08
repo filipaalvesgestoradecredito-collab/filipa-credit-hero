@@ -431,22 +431,10 @@ const SERVICES = [
     points: ["Compra de casa", "Transferência de crédito", "Obras e construção"],
   },
   {
-    icon: Wallet,
-    title: "Crédito Automóvel",
-    desc: "Novo ou usado, arranjamos a melhor solução de financiamento para o seu carro.",
-    points: ["Aprovação rápida", "Taxas competitivas", "Sem burocracia"],
-  },
-  {
     icon: Layers,
     title: "Consolidação de Créditos",
     desc: "Junte todos os seus créditos numa única prestação, mais baixa e mais fácil de gerir.",
     points: ["Redução até 60% da prestação", "Uma só data de pagamento", "Alívio imediato no orçamento"],
-  },
-  {
-    icon: Wallet,
-    title: "Crédito Pessoal",
-    desc: "Para obras, formação, viagens ou aquele projeto que faz sentido para si e para a sua família.",
-    points: ["Aprovação rápida", "Sem burocracia", "Taxas competitivas"],
   },
 ];
 
