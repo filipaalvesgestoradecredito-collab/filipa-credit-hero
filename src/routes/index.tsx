@@ -13,6 +13,7 @@ import {
   ClipboardCheck,
 } from "lucide-react";
 import { SimulacaoForm } from "@/components/SimulacaoForm";
+import logoDarkAsset from "@/assets/mycredit-coimbra-logo-dark.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -52,33 +53,22 @@ function CTA({ children, className = "", variant = "primary" }: { children: Reac
   );
 }
 
-function Logo() {
-  return (
-    <div className="flex items-baseline">
-      <span className="font-display text-2xl font-bold text-navy">MY</span>
-      <span className="font-display text-2xl font-bold text-gold">CREDIT</span>
-    </div>
-  );
-}
 
 function Landing() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Nav */}
       <header className="sticky top-0 z-40 bg-cream/85 backdrop-blur-md border-b border-border/60">
-        <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 py-3 sm:py-4">
-          <Logo />
-          <div className="flex items-center gap-3">
-            <nav className="hidden md:flex items-center gap-7 text-sm text-navy/80">
-              <a href="#servicos" className="hover:text-gold transition">Serviços</a>
-              <a href="#sobre" className="hover:text-gold transition">Sobre</a>
-              <a href="#processo" className="hover:text-gold transition">Processo</a>
-              <a href="#testemunhos" className="hover:text-gold transition">Clientes</a>
-            </nav>
-            <CTA className="!px-5 !py-2.5 !text-xs" variant="primary">
-              Simulação Gratuita <ArrowRight className="h-3.5 w-3.5" />
-            </CTA>
-          </div>
+        <div className="mx-auto flex max-w-6xl items-center justify-end gap-4 px-5 py-3 sm:py-4">
+          <nav className="hidden md:flex items-center gap-7 text-sm text-navy/80">
+            <a href="#servicos" className="hover:text-gold transition">Serviços</a>
+            <a href="#sobre" className="hover:text-gold transition">Sobre</a>
+            <a href="#processo" className="hover:text-gold transition">Processo</a>
+            <a href="#testemunhos" className="hover:text-gold transition">Clientes</a>
+          </nav>
+          <CTA className="!px-5 !py-2.5 !text-xs" variant="primary">
+            Simulação Gratuita <ArrowRight className="h-3.5 w-3.5" />
+          </CTA>
         </div>
       </header>
 
@@ -337,11 +327,15 @@ function Landing() {
         <div className="mx-auto max-w-6xl px-5">
           <div className="grid gap-10 md:grid-cols-[1.3fr_1fr_1fr]">
             <div>
-              <div className="flex items-baseline">
-                <span className="font-display text-2xl font-bold text-cream">MY</span>
-                <span className="font-display text-2xl font-bold text-gold">CREDIT</span>
-              </div>
-              <p className="mt-1 text-[10px] font-medium uppercase tracking-[0.25em] text-cream/60">
+              <img
+                src={logoDarkAsset.url}
+                alt="MyCredit Coimbra"
+                width={280}
+                height={80}
+                loading="lazy"
+                className="h-auto w-full max-w-[260px]"
+              />
+              <p className="mt-3 text-[10px] font-medium uppercase tracking-[0.25em] text-cream/60">
                 Intermediários de Crédito · Coimbra
               </p>
               <p className="mt-5 text-sm leading-relaxed text-cream/70 max-w-sm">
