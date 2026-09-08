@@ -327,15 +327,8 @@ function Landing() {
         <div className="mx-auto max-w-6xl px-5">
           <div className="grid gap-10 md:grid-cols-[1.3fr_1fr_1fr]">
             <div>
-              <img
-                src={logoDarkAsset.url}
-                alt="MyCredit Coimbra"
-                width={280}
-                height={80}
-                loading="lazy"
-                className="h-auto w-full max-w-[260px]"
-              />
-              <p className="mt-3 text-[10px] font-medium uppercase tracking-[0.25em] text-cream/60">
+              <p className="font-display text-lg text-cream">Filipa Alves</p>
+              <p className="mt-1 text-[10px] font-medium uppercase tracking-[0.25em] text-cream/60">
                 Intermediários de Crédito · Coimbra
               </p>
               <p className="mt-5 text-sm leading-relaxed text-cream/70 max-w-sm">
