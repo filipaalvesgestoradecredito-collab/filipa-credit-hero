@@ -361,9 +361,7 @@ function Landing() {
               <h4 className="font-display text-lg text-cream">Soluções</h4>
               <ul className="mt-4 space-y-2 text-sm">
                 <li><a href="#servicos" className="hover:text-gold transition">Crédito Habitação</a></li>
-                <li><a href="#servicos" className="hover:text-gold transition">Crédito Automóvel</a></li>
                 <li><a href="#servicos" className="hover:text-gold transition">Consolidação de Créditos</a></li>
-                <li><a href="#servicos" className="hover:text-gold transition">Crédito Pessoal</a></li>
                 <li><a href="#servicos" className="hover:text-gold transition">Transferência de Crédito</a></li>
               </ul>
             </div>
@@ -380,14 +378,14 @@ function Landing() {
           </div>
 
           <div className="mt-12 border-t border-cream/10 pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-cream/60">
-            <div className="flex items-center gap-4">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
               <img
                 src={logoFooterAsset.url}
                 alt="MyCredit Coimbra"
-                width={160}
-                height={48}
+                width={110}
+                height={34}
                 loading="lazy"
-                className="h-auto w-full max-w-[160px] object-contain"
+                className="h-auto w-full max-w-[110px] object-contain"
               />
               <p>© {new Date().getFullYear()} Filipa Alves · Gestora de Crédito. Todos os direitos reservados.</p>
             </div>
