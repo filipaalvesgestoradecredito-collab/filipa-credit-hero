@@ -13,7 +13,7 @@ import {
   ClipboardCheck,
 } from "lucide-react";
 import { SimulacaoForm } from "@/components/SimulacaoForm";
-import logoFooterAsset from "@/assets/mycredit-coimbra-logo-new.png.asset.json";
+import logoFooterAsset from "@/assets/mycredit-coimbra-logo-footer.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -93,7 +93,7 @@ function Landing() {
               <span className="block text-3xl sm:text-4xl md:text-5xl mt-1">do mercado em 2026.</span>
             </h1>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Tratamos de toda a burocracia por si. Comparamos propostas de todos os bancos e apresentamos-lhe
+              Trato de toda a burocracia por si. Comparamos propostas de todos os bancos e apresentamos-lhe
               a solução mais vantajosa — <strong className="text-navy">sem custos e sem compromisso</strong>.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -146,7 +146,7 @@ function Landing() {
             title="Soluções à medida de cada família"
             sub="Analiso o seu caso e encontro a melhor proposta do mercado — sem que perca tempo entre bancos."
           />
-          <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-2 max-w-4xl mx-auto">
             {SERVICES.map((s) => (
               <div key={s.title} className="group relative overflow-hidden rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]">
                 <div className="grid h-14 w-14 place-items-center rounded-xl bg-navy text-gold">
