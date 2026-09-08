@@ -53,14 +53,6 @@ function CTA({ children, className = "", variant = "primary" }: { children: Reac
   );
 }
 
-function Logo() {
-  return (
-    <div className="flex items-baseline">
-      <span className="font-display text-2xl font-bold text-navy">MY</span>
-      <span className="font-display text-2xl font-bold text-gold">CREDIT</span>
-    </div>
-  );
-}
 
 function Landing() {
   return (
@@ -335,11 +327,15 @@ function Landing() {
         <div className="mx-auto max-w-6xl px-5">
           <div className="grid gap-10 md:grid-cols-[1.3fr_1fr_1fr]">
             <div>
-              <div className="flex items-baseline">
-                <span className="font-display text-2xl font-bold text-cream">MY</span>
-                <span className="font-display text-2xl font-bold text-gold">CREDIT</span>
-              </div>
-              <p className="mt-1 text-[10px] font-medium uppercase tracking-[0.25em] text-cream/60">
+              <img
+                src={logoDarkAsset.url}
+                alt="MyCredit Coimbra"
+                width={280}
+                height={80}
+                loading="lazy"
+                className="h-auto w-full max-w-[260px]"
+              />
+              <p className="mt-3 text-[10px] font-medium uppercase tracking-[0.25em] text-cream/60">
                 Intermediários de Crédito · Coimbra
               </p>
               <p className="mt-5 text-sm leading-relaxed text-cream/70 max-w-sm">
