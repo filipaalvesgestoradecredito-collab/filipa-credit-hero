@@ -13,7 +13,7 @@ import {
   ClipboardCheck,
 } from "lucide-react";
 import { SimulacaoForm } from "@/components/SimulacaoForm";
-import logoFooterAsset from "@/assets/mycredit-coimbra-logo-new.png.asset.json";
+import logoFooterAsset from "@/assets/mycredit-coimbra-logo-footer.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -93,7 +93,7 @@ function Landing() {
               <span className="block text-3xl sm:text-4xl md:text-5xl mt-1">do mercado em 2026.</span>
             </h1>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Tratamos de toda a burocracia por si. Comparamos propostas de todos os bancos e apresentamos-lhe
+              Trato de toda a burocracia por si. Comparamos propostas de todos os bancos e apresentamos-lhe
               a solução mais vantajosa — <strong className="text-navy">sem custos e sem compromisso</strong>.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -146,7 +146,7 @@ function Landing() {
             title="Soluções à medida de cada família"
             sub="Analiso o seu caso e encontro a melhor proposta do mercado — sem que perca tempo entre bancos."
           />
-          <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-2 max-w-4xl mx-auto">
             {SERVICES.map((s) => (
               <div key={s.title} className="group relative overflow-hidden rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]">
                 <div className="grid h-14 w-14 place-items-center rounded-xl bg-navy text-gold">
@@ -361,9 +361,7 @@ function Landing() {
               <h4 className="font-display text-lg text-cream">Soluções</h4>
               <ul className="mt-4 space-y-2 text-sm">
                 <li><a href="#servicos" className="hover:text-gold transition">Crédito Habitação</a></li>
-                <li><a href="#servicos" className="hover:text-gold transition">Crédito Automóvel</a></li>
                 <li><a href="#servicos" className="hover:text-gold transition">Consolidação de Créditos</a></li>
-                <li><a href="#servicos" className="hover:text-gold transition">Crédito Pessoal</a></li>
                 <li><a href="#servicos" className="hover:text-gold transition">Transferência de Crédito</a></li>
               </ul>
             </div>
@@ -380,14 +378,14 @@ function Landing() {
           </div>
 
           <div className="mt-12 border-t border-cream/10 pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-cream/60">
-            <div className="flex items-center gap-4">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
               <img
                 src={logoFooterAsset.url}
                 alt="MyCredit Coimbra"
-                width={160}
-                height={48}
+                width={110}
+                height={34}
                 loading="lazy"
-                className="h-auto w-full max-w-[160px] object-contain"
+                className="h-auto w-full max-w-[110px] object-contain"
               />
               <p>© {new Date().getFullYear()} Filipa Alves · Gestora de Crédito. Todos os direitos reservados.</p>
             </div>
@@ -431,22 +429,10 @@ const SERVICES = [
     points: ["Compra de casa", "Transferência de crédito", "Obras e construção"],
   },
   {
-    icon: Wallet,
-    title: "Crédito Automóvel",
-    desc: "Novo ou usado, arranjamos a melhor solução de financiamento para o seu carro.",
-    points: ["Aprovação rápida", "Taxas competitivas", "Sem burocracia"],
-  },
-  {
     icon: Layers,
     title: "Consolidação de Créditos",
     desc: "Junte todos os seus créditos numa única prestação, mais baixa e mais fácil de gerir.",
     points: ["Redução até 60% da prestação", "Uma só data de pagamento", "Alívio imediato no orçamento"],
-  },
-  {
-    icon: Wallet,
-    title: "Crédito Pessoal",
-    desc: "Para obras, formação, viagens ou aquele projeto que faz sentido para si e para a sua família.",
-    points: ["Aprovação rápida", "Sem burocracia", "Taxas competitivas"],
   },
 ];
 
