@@ -13,8 +13,7 @@ import {
   ClipboardCheck,
 } from "lucide-react";
 import { SimulacaoForm } from "@/components/SimulacaoForm";
-import logoDarkAsset from "@/assets/mycredit-coimbra-logo-dark.png.asset.json";
-import logoTransparentAsset from "@/assets/mycredit-logo-transparent.png.asset.json";
+import logoFooterAsset from "@/assets/mycredit-coimbra-logo-new.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
