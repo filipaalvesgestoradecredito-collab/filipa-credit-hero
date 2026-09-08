@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { SimulacaoForm } from "@/components/SimulacaoForm";
 import logoDarkAsset from "@/assets/mycredit-coimbra-logo-dark.png.asset.json";
+import logoTransparentAsset from "@/assets/mycredit-logo-transparent.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -361,6 +362,16 @@ function Landing() {
                   proibido receber ou entregar quaisquer valores relacionados com contratos de
                   crédito, sob supervisão do Banco de Portugal.
                 </p>
+                <div className="mt-4 flex justify-end">
+                  <img
+                    src={logoTransparentAsset.url}
+                    alt="MyCredit Coimbra"
+                    width={140}
+                    height={40}
+                    loading="lazy"
+                    className="h-auto w-full max-w-[140px] object-contain"
+                  />
+                </div>
               </div>
             </div>
 
