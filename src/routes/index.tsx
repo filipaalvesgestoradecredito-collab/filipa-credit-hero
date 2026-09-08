@@ -67,19 +67,16 @@ function Landing() {
     <div className="min-h-screen bg-background text-foreground">
       {/* Nav */}
       <header className="sticky top-0 z-40 bg-cream/85 backdrop-blur-md border-b border-border/60">
-        <div className="mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 py-3 sm:py-4">
-          <Logo />
-          <div className="flex items-center gap-3">
-            <nav className="hidden md:flex items-center gap-7 text-sm text-navy/80">
-              <a href="#servicos" className="hover:text-gold transition">Serviços</a>
-              <a href="#sobre" className="hover:text-gold transition">Sobre</a>
-              <a href="#processo" className="hover:text-gold transition">Processo</a>
-              <a href="#testemunhos" className="hover:text-gold transition">Clientes</a>
-            </nav>
-            <CTA className="!px-5 !py-2.5 !text-xs" variant="primary">
-              Simulação Gratuita <ArrowRight className="h-3.5 w-3.5" />
-            </CTA>
-          </div>
+        <div className="mx-auto flex max-w-6xl items-center justify-end gap-4 px-5 py-3 sm:py-4">
+          <nav className="hidden md:flex items-center gap-7 text-sm text-navy/80">
+            <a href="#servicos" className="hover:text-gold transition">Serviços</a>
+            <a href="#sobre" className="hover:text-gold transition">Sobre</a>
+            <a href="#processo" className="hover:text-gold transition">Processo</a>
+            <a href="#testemunhos" className="hover:text-gold transition">Clientes</a>
+          </nav>
+          <CTA className="!px-5 !py-2.5 !text-xs" variant="primary">
+            Simulação Gratuita <ArrowRight className="h-3.5 w-3.5" />
+          </CTA>
         </div>
       </header>
 
