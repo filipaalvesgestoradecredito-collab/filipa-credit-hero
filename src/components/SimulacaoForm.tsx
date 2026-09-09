@@ -5,8 +5,6 @@ type Operacao =
   | "comprar"
   | "construir"
   | "transferir"
-  | "automovel"
-  | "pessoal"
   | "consolidar"
   | "";
 type CasaEscolhida = "sim" | "nao" | "";
@@ -64,8 +62,6 @@ const OPERACOES: { v: Operacao; l: string }[] = [
   { v: "comprar", l: "Comprar casa com crédito habitação" },
   { v: "construir", l: "Construir casa com crédito habitação" },
   { v: "transferir", l: "Transferir ou melhorar as condições do crédito atual" },
-  { v: "automovel", l: "Crédito automóvel" },
-  { v: "pessoal", l: "Crédito pessoal" },
   { v: "consolidar", l: "Consolidação de créditos" },
 ];
 
@@ -78,7 +74,7 @@ export function SimulacaoForm() {
     setData((d) => ({ ...d, [k]: v }));
 
   const isHabitacao = ["comprar", "construir", "transferir"].includes(data.operacao);
-  const isConsumo = ["automovel", "pessoal", "consolidar"].includes(data.operacao);
+  const isConsumo = ["consolidar"].includes(data.operacao);
 
   const validStep1 =
     data.nome && data.sobrenome && data.telefone.length >= 9 && /.+@.+\..+/.test(data.email);
@@ -117,8 +113,6 @@ export function SimulacaoForm() {
     comprar: "Comprar casa com crédito habitação",
     construir: "Construir casa com crédito habitação",
     transferir: "Transferir ou melhorar as condições do crédito atual",
-    automovel: "Crédito automóvel",
-    pessoal: "Crédito pessoal",
     consolidar: "Consolidação de créditos",
     "": "",
   };
