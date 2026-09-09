@@ -59,16 +59,28 @@ function Landing() {
     <div className="min-h-screen bg-background text-foreground">
       {/* Nav */}
       <header className="sticky top-0 z-40 bg-cream/85 backdrop-blur-md border-b border-border/60">
-        <div className="mx-auto flex max-w-6xl items-center justify-end gap-4 px-5 py-3 sm:py-4">
-          <nav className="hidden md:flex items-center gap-7 text-sm text-navy/80">
-            <a href="#servicos" className="hover:text-gold transition">Serviços</a>
-            <a href="#sobre" className="hover:text-gold transition">Sobre</a>
-            <a href="#processo" className="hover:text-gold transition">Processo</a>
-            <a href="#testemunhos" className="hover:text-gold transition">Clientes</a>
-          </nav>
-          <CTA className="!px-5 !py-2.5 !text-xs" variant="primary">
-            Simulação Gratuita <ArrowRight className="h-3.5 w-3.5" />
-          </CTA>
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3 sm:py-4">
+          <a href="#" className="shrink-0">
+            <img
+              src={logoFooterAsset.url}
+              alt="MyCredit Coimbra"
+              width={140}
+              height={43}
+              loading="lazy"
+              className="h-auto w-full max-w-[120px] sm:max-w-[140px] object-contain"
+            />
+          </a>
+          <div className="flex items-center gap-4">
+            <nav className="hidden md:flex items-center gap-7 text-sm text-navy/80">
+              <a href="#servicos" className="hover:text-gold transition">Serviços</a>
+              <a href="#sobre" className="hover:text-gold transition">Sobre</a>
+              <a href="#processo" className="hover:text-gold transition">Processo</a>
+              <a href="#testemunhos" className="hover:text-gold transition">Clientes</a>
+            </nav>
+            <CTA className="!px-5 !py-2.5 !text-xs" variant="primary">
+              Simulação Gratuita <ArrowRight className="h-3.5 w-3.5" />
+            </CTA>
+          </div>
         </div>
       </header>
 
@@ -194,10 +206,6 @@ function Landing() {
               O meu compromisso é claro: <strong className="text-gold">encontrar a melhor solução para si</strong>. Trato de toda a
               burocracia — da simulação à assinatura — para que possa tomar as melhores decisões sem stress
               e com total transparência.
-            </p>
-            <p className="mt-4 text-base leading-relaxed text-cream/85">
-              Trabalho com todos os bancos e instituições parceiras da rede MyCredit, o que me permite
-              comparar dezenas de propostas em seu nome e apresentar-lhe apenas as que realmente valem a pena.
             </p>
             <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
               {[
@@ -327,11 +335,7 @@ function Landing() {
         <div className="mx-auto max-w-6xl px-5">
           <div className="grid gap-10 md:grid-cols-[1.3fr_1fr_1fr]">
             <div>
-              <p className="mt-5 text-sm leading-relaxed text-cream/70 max-w-sm">
-                Filipa Alves — Gestora de Crédito, autorizada e supervisionada pelo
-                Banco de Portugal.
-              </p>
-              <div className="mt-5 rounded-lg border border-gold/25 bg-cream/5 p-4 text-xs leading-relaxed text-cream/80">
+              <div className="rounded-lg border border-gold/25 bg-cream/5 p-4 text-xs leading-relaxed text-cream/80">
                 <p>
                   <strong className="text-gold">Creditwise – Intermediação de Crédito, Lda</strong>
                 </p>
@@ -375,19 +379,8 @@ function Landing() {
 
           <div className="mt-12 border-t border-cream/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-cream/60">
             <p>© {new Date().getFullYear()} Filipa Alves · Gestora de Crédito. Todos os direitos reservados.</p>
-            <div className="flex items-center gap-3">
-              <p className="hidden sm:block">A atividade de intermediário de crédito é supervisionada pelo <span className="text-gold">Banco de Portugal</span>.</p>
-              <img
-                src={logoFooterAsset.url}
-                alt="MyCredit Coimbra"
-                width={110}
-                height={34}
-                loading="lazy"
-                className="h-auto w-full max-w-[110px] object-contain"
-              />
-            </div>
+            <p>A atividade de intermediário de crédito é supervisionada pelo <span className="text-gold">Banco de Portugal</span>.</p>
           </div>
-          <p className="sm:hidden text-center text-xs text-cream/60 mt-4">A atividade de intermediário de crédito é supervisionada pelo <span className="text-gold">Banco de Portugal</span>.</p>
         </div>
       </footer>
     </div>
