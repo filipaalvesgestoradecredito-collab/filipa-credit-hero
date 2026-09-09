@@ -13,7 +13,7 @@ import {
   ClipboardCheck,
 } from "lucide-react";
 import { SimulacaoForm } from "@/components/SimulacaoForm";
-import logoFooterAsset from "@/assets/mycredit-coimbra-logo-footer.png.asset.json";
+import logoFooterAsset from "@/assets/mycredit-coimbra-logo-footer-new.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -327,10 +327,6 @@ function Landing() {
         <div className="mx-auto max-w-6xl px-5">
           <div className="grid gap-10 md:grid-cols-[1.3fr_1fr_1fr]">
             <div>
-              <p className="font-display text-lg text-cream">Filipa Alves</p>
-              <p className="mt-1 text-[10px] font-medium uppercase tracking-[0.25em] text-cream/60">
-                Intermediários de Crédito · Coimbra
-              </p>
               <p className="mt-5 text-sm leading-relaxed text-cream/70 max-w-sm">
                 Filipa Alves — Gestora de Crédito, autorizada e supervisionada pelo
                 Banco de Portugal.
@@ -377,8 +373,10 @@ function Landing() {
             </div>
           </div>
 
-          <div className="mt-12 border-t border-cream/10 pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-cream/60">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+          <div className="mt-12 border-t border-cream/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-cream/60">
+            <p>© {new Date().getFullYear()} Filipa Alves · Gestora de Crédito. Todos os direitos reservados.</p>
+            <div className="flex items-center gap-3">
+              <p className="hidden sm:block">A atividade de intermediário de crédito é supervisionada pelo <span className="text-gold">Banco de Portugal</span>.</p>
               <img
                 src={logoFooterAsset.url}
                 alt="MyCredit Coimbra"
@@ -387,10 +385,9 @@ function Landing() {
                 loading="lazy"
                 className="h-auto w-full max-w-[110px] object-contain"
               />
-              <p>© {new Date().getFullYear()} Filipa Alves · Gestora de Crédito. Todos os direitos reservados.</p>
             </div>
-            <p>A atividade de intermediário de crédito é supervisionada pelo <span className="text-gold">Banco de Portugal</span>.</p>
           </div>
+          <p className="sm:hidden text-center text-xs text-cream/60 mt-4">A atividade de intermediário de crédito é supervisionada pelo <span className="text-gold">Banco de Portugal</span>.</p>
         </div>
       </footer>
     </div>
