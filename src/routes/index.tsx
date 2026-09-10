@@ -13,7 +13,7 @@ import {
   ClipboardCheck,
 } from "lucide-react";
 import { SimulacaoForm } from "@/components/SimulacaoForm";
-import logoFooterAsset from "@/assets/mycredit-coimbra-logo-footer-new.png.asset.json";
+import logoFooterAsset from "@/assets/mycredit-coimbra-logo-footer-new-v2.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -355,10 +355,10 @@ function Landing() {
               <img
                 src={logoFooterAsset.url}
                 alt="MyCredit Coimbra"
-                width={110}
-                height={34}
+                width={132}
+                height={41}
                 loading="lazy"
-                className="mt-6 h-auto w-full max-w-[110px] object-contain"
+                className="mt-6 h-auto w-full max-w-[132px] object-contain"
               />
             </div>
 
