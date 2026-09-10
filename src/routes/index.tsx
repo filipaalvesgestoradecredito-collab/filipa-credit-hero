@@ -355,10 +355,10 @@ function Landing() {
               <img
                 src={logoFooterAsset.url}
                 alt="MyCredit Coimbra"
-                width={132}
-                height={41}
+                width={300}
+                height={93}
                 loading="lazy"
-                className="mt-6 h-auto w-full max-w-[132px] object-contain"
+                className="mt-6 h-auto w-full max-w-[300px] object-contain"
               />
             </div>
 
