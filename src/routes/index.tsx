@@ -13,7 +13,6 @@ import {
   ClipboardCheck,
 } from "lucide-react";
 import { SimulacaoForm } from "@/components/SimulacaoForm";
-import logoFooterAsset from "@/assets/mycredit-coimbra-logo-footer-new-v2.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -353,7 +352,7 @@ function Landing() {
                 <li><a href="#servicos" className="hover:text-gold transition">Transferência de Crédito</a></li>
               </ul>
               <img
-                src={logoFooterAsset.url}
+                src="/mycredit-coimbra-logo-footer-new.jpg"
                 alt="MyCredit Coimbra"
                 width={300}
                 height={93}
