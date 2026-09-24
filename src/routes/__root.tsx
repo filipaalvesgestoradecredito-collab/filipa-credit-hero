@@ -78,10 +78,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Filipa Alves · Gestora de Crédito em Coimbra" },
-      { name: "description", content: "Crédito Habitação, Automóvel, Pessoal e Consolidação em Coimbra. Simulação gratuita e acompanhamento personalizado." },
+      { name: "description", content: "Crédito Habitação, Transferência, Consolidação com Garantia Hipotecária e Financiamento Empresarial em Coimbra." },
       { name: "author", content: "Filipa Alves" },
       { property: "og:title", content: "Filipa Alves · Gestora de Crédito em Coimbra" },
-      { property: "og:description", content: "Crédito Habitação, Automóvel, Pessoal e Consolidação em Coimbra. Simulação gratuita e acompanhamento personalizado." },
+      { property: "og:description", content: "Acompanhamento personalizado em soluções de crédito e financiamento através dos bancos parceiros da Creditwise." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -104,7 +104,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="pt-PT">
       <head>
         <HeadContent />
       </head>

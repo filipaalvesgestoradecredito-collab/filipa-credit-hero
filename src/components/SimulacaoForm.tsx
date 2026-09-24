@@ -88,7 +88,9 @@ export function SimulacaoForm() {
     (!isHabitacao ||
       (!!data.preco && !!data.prazoCompra && (data.operacao !== "comprar" || !!data.casaEscolhida))) &&
     (!isFinanciamento ||
-      (!!data.temCreditos && !!data.valorPretendido && !!data.prazoCredito));
+      (!!data.valorPretendido &&
+        !!data.prazoCredito &&
+        (data.operacao !== "consolidar" || !!data.temCreditos)));
 
   const nTitulares = data.titulares === "2" ? 2 : 1;
   const idades = Array.from({ length: nTitulares }, (_, i) => data.idades[i] ?? "");
@@ -406,7 +408,7 @@ export function SimulacaoForm() {
               </>
             )}
 
-            <Field label="Número de titulares do crédito *">
+            <Field label={data.operacao === "empresa" ? "Número de responsáveis pelo pedido *" : "Número de titulares do crédito *"}>
               <div className="grid gap-2 sm:grid-cols-2">
                 {[
                   { v: "1", l: "1 (apenas eu)" },
@@ -429,8 +431,8 @@ export function SimulacaoForm() {
           <div className="space-y-5 animate-in fade-in duration-300">
             <StepTitle
               n={3}
-              title="Informação pessoal"
-              sub="Última etapa — para uma simulação mais precisa."
+              title={data.operacao === "empresa" ? "Informação dos responsáveis" : "Informação pessoal"}
+              sub="Última etapa — para uma análise mais precisa."
             />
 
             <div className="grid gap-4 sm:grid-cols-2">
