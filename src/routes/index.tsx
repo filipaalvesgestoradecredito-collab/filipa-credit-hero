@@ -3,6 +3,7 @@ import {
   Home,
   Wallet,
   Layers,
+  Building2,
   ShieldCheck,
   Clock,
   Heart,
@@ -21,13 +22,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Crédito Habitação, Automóvel, Pessoal e Consolidação. Encontre as melhores condições do mercado em 2026 com acompanhamento personalizado. Simulação gratuita e sem compromisso.",
+          "Crédito Habitação, Transferência, Consolidação com Garantia Hipotecária e Financiamento Empresarial. Acompanhamento personalizado em Coimbra.",
       },
       { property: "og:title", content: "Filipa Alves · Gestora de Crédito | Simulação Gratuita" },
       {
         property: "og:description",
         content:
-          "Compre a sua casa, financie o seu carro ou reduza as suas prestações com as melhores condições do mercado. Acompanhamento pessoal e sem burocracias.",
+          "Vários bancos parceiros, diferentes propostas e acompanhamento pessoal para encontrar uma solução adequada ao seu perfil.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -59,11 +60,12 @@ function Landing() {
       {/* Nav */}
       <header className="sticky top-0 z-40 bg-cream/85 backdrop-blur-md border-b border-border/60">
         <div className="mx-auto flex max-w-6xl items-center justify-end gap-4 px-5 py-3 sm:py-4">
-          <nav className="hidden md:flex items-center gap-7 text-sm text-navy/80">
+          <nav className="hidden md:flex items-center gap-6 text-sm text-navy/80">
             <a href="#servicos" className="hover:text-gold transition">Serviços</a>
             <a href="#sobre" className="hover:text-gold transition">Sobre</a>
             <a href="#processo" className="hover:text-gold transition">Processo</a>
             <a href="#testemunhos" className="hover:text-gold transition">Clientes</a>
+            <a href="#legal" className="hover:text-gold transition">Informação Legal</a>
           </nav>
           <CTA className="!px-5 !py-2.5 !text-xs" variant="primary">
             Simulação Gratuita <ArrowRight className="h-3.5 w-3.5" />
@@ -87,14 +89,19 @@ function Landing() {
               + informações legais
             </a>
             <h1 className="mt-6 font-display text-4xl leading-[1.05] tracking-tight text-navy sm:text-5xl md:text-6xl">
-              Compre a sua casa <span className="italic text-gold">ou</span> reduza as suas prestações
-              <span className="block font-script text-gold text-4xl sm:text-5xl md:text-6xl mt-2">com as melhores condições</span>
-              <span className="block text-3xl sm:text-4xl md:text-5xl mt-1">do mercado em 2026.</span>
+              Vários bancos. <span className="italic text-gold">Diferentes</span> propostas.
+              <span className="block font-script text-gold text-4xl sm:text-5xl md:text-6xl mt-2">Uma solução adequada</span>
+              <span className="block text-3xl sm:text-4xl md:text-5xl mt-1">ao seu perfil.</span>
             </h1>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Trato de toda a burocracia por si. Comparamos propostas de todos os bancos e apresentamos-lhe
-              a solução mais vantajosa — <strong className="text-navy">sem custos e sem compromisso</strong>.
+              Analiso propostas dos bancos parceiros e acompanho todo o processo para encontrar uma solução
+              adequada às suas necessidades — <strong className="text-navy">sem custos e sem compromisso</strong>.
             </p>
+            <div className="mt-6 border-l-2 border-gold pl-4 text-sm leading-relaxed text-navy">
+              <p className="font-semibold">Filipa Alves | Gestora de Crédito</p>
+              <p>Creditwise – Intermediação de Crédito, Lda.</p>
+              <p className="text-xs text-muted-foreground">Intermediário de Crédito Vinculado | Registo Banco de Portugal n.º 0008492</p>
+            </div>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <CTA variant="primary">
                 Fazer Simulação Gratuita <ArrowRight className="h-4 w-4" />
@@ -105,7 +112,7 @@ function Landing() {
             </div>
             <div className="mt-10 grid grid-cols-3 gap-4 border-t border-border pt-6">
               <Stat n="+250" label="Famílias apoiadas" />
-              <Stat n="€320" label="Poupança média/mês" />
+              <Stat n="Análise" label="Saiba quanto poderá poupar" />
               <Stat n="100%" label="Sem custos para si" />
             </div>
           </div>
@@ -143,10 +150,10 @@ function Landing() {
           <SectionHead
             eyebrow="O que resolvemos"
             title="Soluções à medida de cada família"
-            sub="Analiso o seu caso e encontro a melhor proposta do mercado — sem que perca tempo entre bancos."
+            sub="Analiso propostas dos nossos bancos parceiros e ajudo a encontrar uma solução adequada ao seu perfil."
           />
-          <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-2 max-w-4xl mx-auto">
-            {SERVICES.map((s) => (
+          <div className="mt-14 grid gap-6 md:grid-cols-3">
+            {CONSUMER_SERVICES.map((s) => (
               <div key={s.title} className="group relative overflow-hidden rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]">
                 <div className="grid h-14 w-14 place-items-center rounded-xl bg-navy text-gold">
                   <s.icon className="h-7 w-7" />
@@ -163,6 +170,20 @@ function Landing() {
                 </ul>
               </div>
             ))}
+          </div>
+          <p className="mt-6 text-center text-xs text-muted-foreground">Qualquer financiamento está sujeito a análise e aprovação pela instituição financeira.</p>
+          <div className="mt-12 border-y border-gold/30 bg-gold-soft/20 px-6 py-8 sm:px-10">
+            <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
+              <div className="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-navy text-gold">
+                <Building2 className="h-7 w-7" />
+              </div>
+              <div className="flex-1">
+                <p className="text-xs font-semibold uppercase tracking-widest text-gold">Soluções para empresas</p>
+                <h3 className="mt-1 font-display text-2xl text-navy">Financiamento e Leasing para Empresas</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">Análise de soluções de financiamento e leasing ajustadas às necessidades da sua empresa.</p>
+              </div>
+              <CTA className="shrink-0" variant="outline">Pedir análise <ArrowRight className="h-4 w-4" /></CTA>
+            </div>
           </div>
         </div>
       </section>
@@ -288,7 +309,7 @@ function Landing() {
           <SectionHead
             eyebrow="Simulação gratuita"
             title="Comece agora — em apenas 2 minutos"
-            sub="Preencha os dados abaixo. Respondo pessoalmente em menos de 1 dia útil com a melhor proposta do mercado para si."
+            sub="Preencha os dados abaixo. Respondo pessoalmente em menos de 1 dia útil para analisar o seu caso."
           />
           <div className="mt-12">
             <SimulacaoForm />
@@ -317,39 +338,49 @@ function Landing() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-navy-deep text-cream/80 pt-14 pb-8 border-t border-gold/20">
+      {/* Informação legal */}
+      <section id="legal" className="scroll-mt-20 bg-navy py-16 text-cream md:py-20">
         <div className="mx-auto max-w-6xl px-5">
-          <div className="grid gap-10 md:grid-cols-[1.3fr_1fr_1fr]">
-            <div>
-              <div className="rounded-lg border border-gold/25 bg-cream/5 p-4 text-xs leading-relaxed text-cream/80">
-                <p>
-                  <strong className="text-gold">Creditwise – Intermediação de Crédito, Lda</strong>
-                </p>
-                <p className="mt-1">
-                  Licença Banco de Portugal n.º 0008492
-                </p>
-                <p className="mt-1">
-                  Mutuantes: ABANCA PORTUGAL, S.A., BANKINTER, S.A. – SUCURSAL EM PORTUGAL,
-                  CAIXA GERAL DE DEPÓSITOS, S.A., BANCO SANTANDER TOTTA, S.A., UCI – UNIÃO DE
-                  CRÉDITOS IMOBILIÁRIOS, S.A., e ABANCA SERVICIOS FINANCIEROS, E.F.C., S.A. –
-                  SUCURSAL EM PORTUGAL.
-                </p>
-                <p className="mt-1">
-                  Autorizado a prestar serviços de intermediação de crédito para crédito à
-                  habitação e crédito aos consumidores, incluindo serviços de consultoria, sendo
-                  proibido receber ou entregar quaisquer valores relacionados com contratos de
-                  crédito, sob supervisão do Banco de Portugal.
-                </p>
-              </div>
+          <p className="text-xs font-semibold uppercase tracking-widest text-gold">Transparência e enquadramento</p>
+          <h2 className="mt-2 font-display text-3xl sm:text-4xl">Informação Legal</h2>
+          <div className="mt-8 grid gap-8 border-t border-cream/15 pt-8 lg:grid-cols-[1.35fr_1fr]">
+            <div className="text-sm leading-relaxed text-cream/80">
+              <p className="font-semibold text-gold">Creditwise – Intermediação de Crédito, Lda.</p>
+              <p className="mt-1">Intermediário de Crédito Vinculado | Registo Banco de Portugal n.º 0008492</p>
+              <p className="mt-4">
+                A atividade de intermediação de crédito é exercida pela Creditwise nos termos, categoria e âmbito constantes do respetivo registo oficial no Banco de Portugal.
+              </p>
+              <p className="mt-4">
+                Mutuantes: ABANCA PORTUGAL, S.A., BANKINTER, S.A. – SUCURSAL EM PORTUGAL,
+                CAIXA GERAL DE DEPÓSITOS, S.A., BANCO SANTANDER TOTTA, S.A., UCI – UNIÃO DE
+                CRÉDITOS IMOBILIÁRIOS, S.A., e ABANCA SERVICIOS FINANCIEROS, E.F.C., S.A. –
+                SUCURSAL EM PORTUGAL.
+              </p>
             </div>
+            <div>
+              <h3 className="font-display text-xl text-cream">Documentos e entidades</h3>
+              <ul className="mt-4 space-y-3 text-sm">
+                <li><a href="https://www.bportugal.pt/intermediariocreditofar/creditwise-intermediacao-de-credito-lda" target="_blank" rel="noopener noreferrer" className="text-gold hover:text-cream transition">Consultar registo oficial no Banco de Portugal →</a></li>
+                <li><a href="https://my-credit.pt/politica-de-privacidade/" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition">Política de Privacidade</a></li>
+                <li><a href="https://my-credit.pt/termos-e-condicoes/" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition">Termos de Utilização</a></li>
+                <li><a href="https://www.livroreclamacoes.pt/" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition">Livro de Reclamações</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
 
+      {/* Footer */}
+      <footer className="bg-navy-deep text-cream/80 pt-12 pb-8 border-t border-gold/20">
+        <div className="mx-auto max-w-6xl px-5">
+          <div className="grid gap-10 md:grid-cols-2">
             <div>
               <h4 className="font-display text-lg text-cream">Soluções</h4>
               <ul className="mt-4 space-y-2 text-sm">
                 <li><a href="#servicos" className="hover:text-gold transition">Crédito Habitação</a></li>
-                <li><a href="#servicos" className="hover:text-gold transition">Consolidação de Créditos</a></li>
                 <li><a href="#servicos" className="hover:text-gold transition">Transferência de Crédito</a></li>
+                <li><a href="#servicos" className="hover:text-gold transition">Consolidação com Garantia Hipotecária</a></li>
+                <li><a href="#servicos" className="hover:text-gold transition">Financiamento e Leasing para Empresas</a></li>
               </ul>
               <img
                 src="/mycredit-coimbra-logo-footer-new.jpg"
@@ -361,10 +392,10 @@ function Landing() {
               />
             </div>
 
-            <div id="legal" className="scroll-mt-24">
+            <div>
               <h4 className="font-display text-lg text-cream">Informação legal</h4>
               <ul className="mt-4 space-y-2 text-sm">
-                <li><a href="https://www.bportugal.pt/intermediariocreditofar/segundo" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition">Consultar registo BdP →</a></li>
+                <li><a href="#legal" className="hover:text-gold transition">Informação Legal</a></li>
                 <li><a href="https://my-credit.pt/politica-de-privacidade/" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition">Política de Privacidade</a></li>
                 <li><a href="https://my-credit.pt/termos-e-condicoes/" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition">Termos de Utilização</a></li>
                 <li><a href="https://www.livroreclamacoes.pt/" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition">Livro de Reclamações</a></li>
@@ -374,7 +405,7 @@ function Landing() {
 
           <div className="mt-12 border-t border-cream/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-cream/60">
             <p>© {new Date().getFullYear()} Filipa Alves · Gestora de Crédito. Todos os direitos reservados.</p>
-            <p>A atividade de intermediário de crédito é supervisionada pelo <span className="text-gold">Banco de Portugal</span>.</p>
+            <p className="text-center sm:text-right">Creditwise – Intermediação de Crédito, Lda. | Intermediário de Crédito Vinculado | Registo Banco de Portugal n.º 0008492</p>
           </div>
         </div>
       </footer>
@@ -406,18 +437,24 @@ function SectionHead({ eyebrow, title, sub }: { eyebrow: string; title: string; 
   );
 }
 
-const SERVICES = [
+const CONSUMER_SERVICES = [
   {
     icon: Home,
     title: "Crédito Habitação",
-    desc: "Comparamos todas as propostas para lhe dar as melhores condições.",
-    points: ["Compra de casa", "Transferência de crédito", "Obras e construção"],
+    desc: "Analisamos propostas dos bancos parceiros para encontrar uma solução adequada às suas necessidades.",
+    points: ["Compra de casa", "Construção e obras", "Acompanhamento personalizado"],
+  },
+  {
+    icon: Wallet,
+    title: "Transferência de Crédito Habitação",
+    desc: "Avaliamos as condições do seu crédito atual e alternativas junto dos bancos parceiros.",
+    points: ["Análise das condições atuais", "Comparação de propostas", "Gestão do processo"],
   },
   {
     icon: Layers,
-    title: "Consolidação de Créditos",
-    desc: "Junte todos os seus créditos numa única prestação, mais baixa e mais fácil de gerir.",
-    points: ["Redução até 60% da prestação", "Uma só data de pagamento", "Alívio imediato no orçamento"],
+    title: "Consolidação com Garantia Hipotecária",
+    desc: "Junte os seus créditos e avalie a possibilidade de reduzir os encargos mensais.",
+    points: ["Uma só prestação", "Gestão mais simples", "Uma prestação mais ajustada ao seu orçamento"],
   },
 ];
 
@@ -444,6 +481,6 @@ const TESTIMONIALS = [
 
 const STEPS = [
   { icon: ClipboardCheck, title: "Simulação Online", desc: "Preenche o formulário rápido — em apenas 2 minutos conheço o seu caso." },
-  { icon: Sparkles, title: "Análise Personalizada", desc: "Comparo propostas de todos os bancos parceiros e apresento a melhor solução para si." },
-  { icon: FileSignature, title: "Aprovação & Assinatura", desc: "Tratamos de toda a burocracia. Você só assina quando estiver 100% confortável." },
+  { icon: Sparkles, title: "Análise Personalizada", desc: "Analiso propostas dos bancos parceiros e procuro uma solução adequada ao seu perfil." },
+  { icon: FileSignature, title: "Decisão do banco & contratação", desc: "Acompanho o processo junto da instituição financeira e, após aprovação, ajudo em todas as etapas até à contratação." },
 ];
