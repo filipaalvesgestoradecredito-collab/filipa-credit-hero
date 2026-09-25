@@ -56,7 +56,7 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.01em; }
+  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: 0; }
 }
 
 @utility font-script { font-family: var(--font-script); }

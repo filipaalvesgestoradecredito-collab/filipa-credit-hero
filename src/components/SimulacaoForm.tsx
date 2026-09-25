@@ -216,7 +216,7 @@ export function SimulacaoForm() {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="p-6 sm:p-10">
+      <form onSubmit={handleSubmit} className="p-5 sm:p-10">
         {step === 1 && (
           <div className="space-y-5 animate-in fade-in duration-300">
             <StepTitle
@@ -246,8 +246,8 @@ export function SimulacaoForm() {
             </div>
             <Field label="Telefone *">
               <div className="flex items-stretch overflow-hidden rounded-xl border border-border focus-within:border-gold focus-within:ring-2 focus-within:ring-gold/30 transition">
-                <span className="flex items-center gap-2 border-r border-border bg-muted px-3 text-sm text-navy">
-                  🇵🇹 +351
+                <span className="flex shrink-0 items-center gap-1 border-r border-border bg-muted px-3 text-sm text-navy">
+                  PT&nbsp;+351
                 </span>
                 <input
                   className="flex-1 bg-transparent px-4 py-3 text-base text-navy placeholder:text-muted-foreground/60 outline-none"
@@ -524,12 +524,12 @@ export function SimulacaoForm() {
         )}
 
         {/* Nav */}
-        <div className="mt-8 flex items-center justify-between gap-3 border-t border-border pt-6">
+        <div className="mt-8 flex items-center justify-between gap-2 border-t border-border pt-6 sm:gap-3">
           <button
             type="button"
             onClick={() => setStep((s) => Math.max(1, s - 1))}
             disabled={step === 1}
-            className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-navy/70 hover:text-navy disabled:opacity-30 disabled:pointer-events-none transition"
+            className="inline-flex items-center gap-2 rounded-full px-3 py-2.5 text-sm font-medium text-navy/70 hover:text-navy disabled:opacity-30 disabled:pointer-events-none transition sm:px-5"
           >
             <ArrowLeft className="h-4 w-4" /> Voltar
           </button>
@@ -539,7 +539,7 @@ export function SimulacaoForm() {
               type="button"
               onClick={() => canNext && setStep((s) => s + 1)}
               disabled={!canNext}
-              className="inline-flex items-center gap-2 rounded-full bg-navy px-7 py-3 text-sm font-semibold text-cream shadow-[var(--shadow-card)] hover:bg-navy-deep hover:-translate-y-0.5 disabled:opacity-40 disabled:pointer-events-none transition-all"
+              className="inline-flex items-center gap-2 rounded-full bg-navy px-5 py-3 text-sm font-semibold text-cream shadow-[var(--shadow-card)] hover:bg-navy-deep hover:-translate-y-0.5 disabled:opacity-40 disabled:pointer-events-none transition-all sm:px-7"
             >
               Continuar <ArrowRight className="h-4 w-4" />
             </button>
@@ -547,7 +547,7 @@ export function SimulacaoForm() {
             <button
               type="submit"
               disabled={!canNext}
-              className="inline-flex items-center gap-2 rounded-full bg-gold px-7 py-3 text-sm font-semibold text-navy shadow-[var(--shadow-card)] hover:brightness-105 hover:-translate-y-0.5 disabled:opacity-40 disabled:pointer-events-none transition-all"
+              className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-3 text-sm font-semibold text-navy shadow-[var(--shadow-card)] hover:brightness-105 hover:-translate-y-0.5 disabled:opacity-40 disabled:pointer-events-none transition-all sm:px-7"
             >
               <Sparkles className="h-4 w-4" /> Enviar simulação
             </button>
@@ -582,9 +582,9 @@ function Field({
 function StepTitle({ n, title, sub }: { n: number; title: string; sub: string }) {
   return (
     <div className="mb-2">
-      <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold">Passo {n} de 3</p>
-      <h3 className="mt-2 font-display text-3xl text-navy sm:text-4xl">{title}</h3>
-      <p className="mt-2 text-muted-foreground">{sub}</p>
+      <p className="text-xs font-semibold uppercase text-gold">Passo {n} de 3</p>
+      <h3 className="mt-2 font-display text-2xl leading-tight text-navy sm:text-4xl">{title}</h3>
+      <p className="mt-2 leading-relaxed text-muted-foreground">{sub}</p>
     </div>
   );
 }

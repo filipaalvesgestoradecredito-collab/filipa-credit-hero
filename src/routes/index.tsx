@@ -39,7 +39,7 @@ export const Route = createFileRoute("/")({
 
 function CTA({ children, className = "", variant = "primary" }: { children: React.ReactNode; className?: string; variant?: "primary" | "gold" | "outline" }) {
   const base =
-    "inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 text-sm font-semibold tracking-wide transition-all duration-300 shadow-[var(--shadow-card)] hover:-translate-y-0.5";
+    "inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 text-sm font-semibold whitespace-nowrap transition-all duration-300 shadow-[var(--shadow-card)] hover:-translate-y-0.5";
   const styles =
     variant === "primary"
       ? "bg-navy text-cream hover:bg-navy-deep"
@@ -88,16 +88,16 @@ function Landing() {
               <Sparkles className="h-3.5 w-3.5 text-gold" />
               + informações legais
             </a>
-            <h1 className="mt-6 font-display text-4xl leading-[1.05] tracking-tight text-navy sm:text-5xl md:text-6xl">
+            <h1 className="mt-6 font-display text-4xl leading-[1.08] text-navy sm:text-5xl md:text-6xl">
               Vários bancos. <span className="italic text-gold">Diferentes</span> propostas.
-              <span className="block font-script text-gold text-4xl sm:text-5xl md:text-6xl mt-2">Uma solução adequada</span>
+              <span className="mt-2 block font-script text-3xl leading-tight text-gold sm:text-5xl md:text-6xl">Uma solução adequada</span>
               <span className="block text-3xl sm:text-4xl md:text-5xl mt-1">ao seu perfil.</span>
             </h1>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
               Analiso propostas dos bancos parceiros e acompanho todo o processo para encontrar uma solução
               adequada às suas necessidades — <strong className="text-navy">sem custos e sem compromisso</strong>.
             </p>
-            <div className="mt-6 border-l-2 border-gold pl-4 text-sm leading-relaxed text-navy">
+            <div className="mt-6 max-w-xl border-l-2 border-gold pl-4 text-sm leading-relaxed text-navy">
               <p className="font-semibold">Filipa Alves | Gestora de Crédito</p>
               <p>Creditwise – Intermediação de Crédito, Lda.</p>
               <p className="text-xs text-muted-foreground">Intermediário de Crédito Vinculado | Registo Banco de Portugal n.º 0008492</p>
@@ -110,7 +110,7 @@ function Landing() {
                 Ver soluções →
               </a>
             </div>
-            <div className="mt-10 grid grid-cols-3 gap-4 border-t border-border pt-6">
+            <div className="mt-10 grid grid-cols-3 gap-3 border-t border-border pt-6 sm:gap-6">
               <Stat n="+250" label="Famílias apoiadas" />
               <Stat n="Análise" label="Saiba quanto poderá poupar" />
               <Stat n="100%" label="Sem custos para si" />
@@ -129,14 +129,14 @@ function Landing() {
               />
               <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-navy/20 to-transparent" />
             </div>
-            <div className="absolute -bottom-6 -left-4 sm:-left-8 max-w-[80%] rounded-2xl bg-card p-4 shadow-[var(--shadow-card)] border border-border">
+            <div className="absolute -bottom-6 -left-4 max-w-[90%] rounded-2xl border border-border bg-card p-4 shadow-[var(--shadow-card)] sm:-left-8 sm:max-w-[80%]">
               <div className="flex items-center gap-3">
                 <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-gold text-navy">
                   <Heart className="h-5 w-5" fill="currentColor" />
                 </div>
                 <div className="min-w-0">
                   <p className="font-display text-sm font-semibold text-navy">Compromisso pessoal</p>
-                  <p className="text-xs text-muted-foreground truncate">A sua parceira financeira de confiança</p>
+                  <p className="text-xs leading-snug text-muted-foreground">A sua parceira financeira de confiança</p>
                 </div>
               </div>
             </div>
@@ -152,13 +152,13 @@ function Landing() {
             title="Soluções à medida de cada família"
             sub="Analiso propostas dos nossos bancos parceiros e ajudo a encontrar uma solução adequada ao seu perfil."
           />
-          <div className="mt-14 grid gap-6 md:grid-cols-3">
-            {CONSUMER_SERVICES.map((s) => (
-              <div key={s.title} className="group relative overflow-hidden rounded-2xl border border-border bg-card p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)]">
+          <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {CONSUMER_SERVICES.map((s, i) => (
+              <div key={s.title} className={`group relative h-full overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)] sm:p-8 ${i === 2 ? "md:col-span-2 lg:col-span-1" : ""}`}>
                 <div className="grid h-14 w-14 place-items-center rounded-xl bg-navy text-gold">
                   <s.icon className="h-7 w-7" />
                 </div>
-                <h3 className="mt-6 font-display text-2xl text-navy">{s.title}</h3>
+                <h3 className="mt-6 font-display text-2xl leading-tight text-navy">{s.title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
                 <ul className="mt-5 space-y-2">
                   {s.points.map((p) => (
@@ -171,15 +171,15 @@ function Landing() {
               </div>
             ))}
           </div>
-          <p className="mt-6 text-center text-xs text-muted-foreground">Qualquer financiamento está sujeito a análise e aprovação pela instituição financeira.</p>
+          <p className="mx-auto mt-6 max-w-2xl text-center text-sm leading-relaxed text-muted-foreground">Qualquer financiamento está sujeito a análise e aprovação pela instituição financeira.</p>
           <div className="mt-12 border-y border-gold/30 bg-gold-soft/20 px-6 py-8 sm:px-10">
             <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
               <div className="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-navy text-gold">
                 <Building2 className="h-7 w-7" />
               </div>
               <div className="flex-1">
-                <p className="text-xs font-semibold uppercase tracking-widest text-gold">Soluções para empresas</p>
-                <h3 className="mt-1 font-display text-2xl text-navy">Financiamento e Leasing para Empresas</h3>
+                <p className="text-xs font-semibold uppercase text-gold">Soluções para empresas</p>
+                <h3 className="mt-1 font-display text-2xl leading-tight text-navy">Financiamento e Leasing para Empresas</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">Análise de soluções de financiamento e leasing ajustadas às necessidades da sua empresa.</p>
               </div>
               <CTA className="shrink-0" variant="outline">Pedir análise <ArrowRight className="h-4 w-4" /></CTA>
@@ -208,7 +208,7 @@ function Landing() {
           <div className="order-1 md:order-2">
             <p className="font-script text-4xl text-gold">Olá, sou a Filipa</p>
             <h2 className="mt-2 font-display text-4xl leading-tight sm:text-5xl">
-              A sua parceira financeira,<br />sem burocracias.
+              A sua parceira financeira,<br className="hidden sm:block" /> sem burocracias.
             </h2>
             <p className="mt-6 text-base leading-relaxed text-cream/85">
               O meu compromisso é claro: <strong className="text-gold">encontrar a melhor solução para si</strong>. Trato de toda a
@@ -281,7 +281,7 @@ function Landing() {
           <SectionHead
             eyebrow="Como funciona"
             title="Um processo simples em 3 passos"
-            sub="Do primeiro contacto à assinatura, ao seu ritmo e com total acompanhamento."
+            sub="Do primeiro contacto à contratação, ao seu ritmo e com total acompanhamento."
           />
           <div className="mt-14 grid gap-6 md:grid-cols-3">
             {STEPS.map((s, i) => (
@@ -290,7 +290,7 @@ function Landing() {
                   {i + 1}
                 </div>
                 <s.icon className="h-7 w-7 text-gold" />
-                <h3 className="mt-4 font-display text-xl text-navy">{s.title}</h3>
+                <h3 className="mt-4 font-display text-xl leading-tight text-navy">{s.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
               </div>
             ))}
@@ -341,10 +341,10 @@ function Landing() {
       {/* Informação legal */}
       <section id="legal" className="scroll-mt-20 bg-navy py-16 text-cream md:py-20">
         <div className="mx-auto max-w-6xl px-5">
-          <p className="text-xs font-semibold uppercase tracking-widest text-gold">Transparência e enquadramento</p>
+          <p className="text-xs font-semibold uppercase text-gold">Transparência e enquadramento</p>
           <h2 className="mt-2 font-display text-3xl sm:text-4xl">Informação Legal</h2>
           <div className="mt-8 grid gap-8 border-t border-cream/15 pt-8 lg:grid-cols-[1.35fr_1fr]">
-            <div className="text-sm leading-relaxed text-cream/80">
+            <div className="max-w-3xl text-sm leading-relaxed text-cream/80 sm:text-base">
               <p className="font-semibold text-gold">Creditwise – Intermediação de Crédito, Lda.</p>
               <p className="mt-1">Intermediário de Crédito Vinculado | Registo Banco de Portugal n.º 0008492</p>
               <p className="mt-4">
@@ -416,8 +416,8 @@ function Landing() {
 function Stat({ n, label }: { n: string; label: string }) {
   return (
     <div>
-      <div className="font-display text-2xl font-bold text-navy sm:text-3xl">{n}</div>
-      <div className="mt-1 text-xs text-muted-foreground leading-tight">{label}</div>
+      <div className="font-display text-xl font-bold leading-tight text-navy sm:text-3xl">{n}</div>
+      <div className="mt-1 text-xs leading-snug text-muted-foreground">{label}</div>
     </div>
   );
 }
@@ -426,13 +426,13 @@ function SectionHead({ eyebrow, title, sub }: { eyebrow: string; title: string; 
   return (
     <div className="mx-auto max-w-2xl text-center">
       <p className="font-script text-3xl text-gold">{eyebrow}</p>
-      <h2 className="mt-1 font-display text-3xl text-navy sm:text-4xl md:text-5xl">{title}</h2>
+      <h2 className="mt-1 font-display text-3xl leading-tight text-navy sm:text-4xl md:text-5xl">{title}</h2>
       <div className="mx-auto mt-4 flex items-center justify-center gap-2">
         <span className="h-px w-10 bg-gold" />
         <Heart className="h-3 w-3 text-gold" fill="currentColor" />
         <span className="h-px w-10 bg-gold" />
       </div>
-      <p className="mt-5 text-muted-foreground">{sub}</p>
+      <p className="mt-5 leading-relaxed text-muted-foreground">{sub}</p>
     </div>
   );
 }
