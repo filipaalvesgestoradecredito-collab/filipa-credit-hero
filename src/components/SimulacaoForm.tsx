@@ -84,7 +84,7 @@ export function SimulacaoForm() {
   const validStep2 =
     !!data.operacao &&
     !!data.localizacao &&
-    !!data.titulares &&
+    (data.operacao === "empresa" || !!data.titulares) &&
     (!isHabitacao ||
       (!!data.preco && !!data.prazoCompra && (data.operacao !== "comprar" || !!data.casaEscolhida))) &&
     (!isFinanciamento ||
@@ -102,7 +102,9 @@ export function SimulacaoForm() {
     });
 
   const validStep3 =
-    !!data.rendimento && data.rgpd && idades.every((a) => !!a) && !!data.contrato;
+    !!data.rendimento &&
+    data.rgpd &&
+    (data.operacao === "empresa" || (idades.every((a) => !!a) && !!data.contrato));
 
   const canNext = step === 1 ? validStep1 : step === 2 ? validStep2 : validStep3;
 
@@ -148,10 +150,12 @@ export function SimulacaoForm() {
         `Operação: ${operacaoLabel[data.operacao]}\n` +
         habitacaoBlock +
         financiamentoBlock +
-        `Titulares: ${data.titulares}\n` +
-        idades.map((a, i) => `Idade titular ${i + 1}: ${a}\n`).join("") +
-        `Tipo de contrato: ${contratoLabel[data.contrato]}\n` +
-        `Rendimento líquido mensal: ${data.rendimento} €\n`
+        (data.operacao === "empresa"
+          ? `Faturação média mensal: ${data.rendimento} €\n`
+          : `Titulares: ${data.titulares}\n` +
+            idades.map((a, i) => `Idade titular ${i + 1}: ${a}\n`).join("") +
+            `Tipo de contrato: ${contratoLabel[data.contrato]}\n` +
+            `Rendimento líquido mensal: ${data.rendimento} €\n`)
     );
     window.location.href = `mailto:filipa@my-credit.pt?subject=Simulação de Crédito&body=${body}`;
     setSubmitted(true);
@@ -408,22 +412,24 @@ export function SimulacaoForm() {
               </>
             )}
 
-            <Field label={data.operacao === "empresa" ? "Número de responsáveis pelo pedido *" : "Número de titulares do crédito *"}>
-              <div className="grid gap-2 sm:grid-cols-2">
-                {[
-                  { v: "1", l: "1 (apenas eu)" },
-                  { v: "2", l: "2 (eu e outra pessoa)" },
-                ].map((o) => (
-                  <RadioCard
-                    key={o.v}
-                    label={o.l}
-                    compact
-                    checked={data.titulares === o.v}
-                    onSelect={() => set("titulares", o.v as Titulares)}
-                  />
-                ))}
-              </div>
-            </Field>
+            {data.operacao !== "empresa" && (
+              <Field label="Número de titulares do crédito *">
+                <div className="grid gap-2 sm:grid-cols-2">
+                  {[
+                    { v: "1", l: "1 (apenas eu)" },
+                    { v: "2", l: "2 (eu e outra pessoa)" },
+                  ].map((o) => (
+                    <RadioCard
+                      key={o.v}
+                      label={o.l}
+                      compact
+                      checked={data.titulares === o.v}
+                      onSelect={() => set("titulares", o.v as Titulares)}
+                    />
+                  ))}
+                </div>
+              </Field>
+            )}
           </div>
         )}
 
@@ -435,27 +441,29 @@ export function SimulacaoForm() {
               sub="Última etapa — para uma análise mais precisa."
             />
 
-            <div className="grid gap-4 sm:grid-cols-2">
-              {idades.map((a, i) => (
-                <Field
-                  key={i}
-                  label={nTitulares === 1 ? "Idade *" : `Idade do titular ${i + 1} *`}
-                  hint={nTitulares === 1 ? "Idade do titular do crédito." : undefined}
-                >
-                  <input
-                    className={inputCls}
-                    placeholder="35"
-                    inputMode="numeric"
-                    value={a}
-                    onChange={(e) => setIdade(i, e.target.value.replace(/[^0-9]/g, ""))}
-                  />
-                </Field>
-              ))}
-            </div>
+            {data.operacao !== "empresa" && (
+              <div className="grid gap-4 sm:grid-cols-2">
+                {idades.map((a, i) => (
+                  <Field
+                    key={i}
+                    label={nTitulares === 1 ? "Idade *" : `Idade do titular ${i + 1} *`}
+                    hint={nTitulares === 1 ? "Idade do titular do crédito." : undefined}
+                  >
+                    <input
+                      className={inputCls}
+                      placeholder="35"
+                      inputMode="numeric"
+                      value={a}
+                      onChange={(e) => setIdade(i, e.target.value.replace(/[^0-9]/g, ""))}
+                    />
+                  </Field>
+                ))}
+              </div>
+            )}
 
             <Field
-              label="Rendimento líquido mensal *"
-              hint="Valor que recebe mensalmente depois de impostos (salário, rendas, pensões, etc.). Se for variável, indique a média dos últimos 6 meses."
+              label={data.operacao === "empresa" ? "Faturação média mensal *" : "Rendimento líquido mensal *"}
+              hint={data.operacao === "empresa" ? "Indique a faturação média mensal aproximada da empresa." : "Valor que recebe mensalmente depois de impostos (salário, rendas, pensões, etc.). Se for variável, indique a média dos últimos 6 meses."}
             >
               <div className="relative">
                 <input
@@ -471,23 +479,25 @@ export function SimulacaoForm() {
               </div>
             </Field>
 
-            <Field label="Tipo de contrato de trabalho *">
-              <div className="grid gap-2 sm:grid-cols-3">
-                {[
-                  { v: "semTermo", l: "Contrato sem termo" },
-                  { v: "aTermo", l: "Contrato a termo" },
-                  { v: "contaPropria", l: "Trabalhador por conta própria" },
-                ].map((o) => (
-                  <RadioCard
-                    key={o.v}
-                    label={o.l}
-                    compact
-                    checked={data.contrato === o.v}
-                    onSelect={() => set("contrato", o.v as Contrato)}
-                  />
-                ))}
-              </div>
-            </Field>
+            {data.operacao !== "empresa" && (
+              <Field label="Tipo de contrato de trabalho *">
+                <div className="grid gap-2 sm:grid-cols-3">
+                  {[
+                    { v: "semTermo", l: "Contrato sem termo" },
+                    { v: "aTermo", l: "Contrato a termo" },
+                    { v: "contaPropria", l: "Trabalhador por conta própria" },
+                  ].map((o) => (
+                    <RadioCard
+                      key={o.v}
+                      label={o.l}
+                      compact
+                      checked={data.contrato === o.v}
+                      onSelect={() => set("contrato", o.v as Contrato)}
+                    />
+                  ))}
+                </div>
+              </Field>
+            )}
 
             <label className="flex items-start gap-3 rounded-xl border border-border bg-muted/40 p-4 cursor-pointer hover:border-gold/50 transition">
               <input
