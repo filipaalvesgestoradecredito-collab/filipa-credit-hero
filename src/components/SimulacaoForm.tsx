@@ -6,7 +6,6 @@ type Operacao =
   | "construir"
   | "transferir"
   | "consolidar"
-  | "empresa"
   | "";
 type CasaEscolhida = "sim" | "nao" | "";
 type Titulares = "1" | "2" | "";
@@ -64,7 +63,6 @@ const OPERACOES: { v: Operacao; l: string }[] = [
   { v: "construir", l: "Construir casa com crédito habitação" },
   { v: "transferir", l: "Transferência de crédito habitação" },
   { v: "consolidar", l: "Consolidação de crédito com garantia hipotecária" },
-  { v: "empresa", l: "Financiamento ou leasing para empresas" },
 ];
 
 export function SimulacaoForm() {
@@ -76,7 +74,7 @@ export function SimulacaoForm() {
     setData((d) => ({ ...d, [k]: v }));
 
   const isHabitacao = ["comprar", "construir", "transferir"].includes(data.operacao);
-  const isFinanciamento = ["consolidar", "empresa"].includes(data.operacao);
+  const isConsolidar = data.operacao === "consolidar";
 
   const validStep1 =
     data.nome && data.sobrenome && data.telefone.length >= 9 && /.+@.+\..+/.test(data.email);
@@ -84,13 +82,11 @@ export function SimulacaoForm() {
   const validStep2 =
     !!data.operacao &&
     !!data.localizacao &&
-    (data.operacao === "empresa" || !!data.titulares) &&
+    !!data.titulares &&
     (!isHabitacao ||
       (!!data.preco && !!data.prazoCompra && (data.operacao !== "comprar" || !!data.casaEscolhida))) &&
-    (!isFinanciamento ||
-      (!!data.valorPretendido &&
-        !!data.prazoCredito &&
-        (data.operacao !== "consolidar" || !!data.temCreditos)));
+    (!isConsolidar ||
+      (!!data.valorPretendido && !!data.prazoCredito && !!data.temCreditos));
 
   const nTitulares = data.titulares === "2" ? 2 : 1;
   const idades = Array.from({ length: nTitulares }, (_, i) => data.idades[i] ?? "");
@@ -104,7 +100,8 @@ export function SimulacaoForm() {
   const validStep3 =
     !!data.rendimento &&
     data.rgpd &&
-    (data.operacao === "empresa" || (idades.every((a) => !!a) && !!data.contrato));
+    idades.every((a) => !!a) &&
+    !!data.contrato;
 
   const canNext = step === 1 ? validStep1 : step === 2 ? validStep2 : validStep3;
 
@@ -120,7 +117,6 @@ export function SimulacaoForm() {
     construir: "Construir casa com crédito habitação",
     transferir: "Transferência de crédito habitação",
     consolidar: "Consolidação de crédito com garantia hipotecária",
-    empresa: "Financiamento ou leasing para empresas",
     "": "",
   };
 
@@ -135,9 +131,9 @@ export function SimulacaoForm() {
         `Prazo pretendido para a compra: ${data.prazoCompra}\n`
       : "";
 
-    const financiamentoBlock = isFinanciamento
-      ? `${data.operacao === "empresa" ? "Localização da empresa" : "Onde reside"}: ${data.localizacao}\n` +
-        (data.operacao === "consolidar" ? `Tem créditos atualmente: ${data.temCreditos === "sim" ? "Sim" : "Não"}\n` : "") +
+    const consolidarBlock = isConsolidar
+      ? `Onde reside: ${data.localizacao}\n` +
+        `Tem créditos atualmente: ${data.temCreditos === "sim" ? "Sim" : "Não"}\n` +
         `Valor pretendido: ${data.valorPretendido} €\n` +
         `Prazo pretendido: ${data.prazoCredito}\n`
       : "";
@@ -149,13 +145,11 @@ export function SimulacaoForm() {
         `Email: ${data.email}\n\n` +
         `Operação: ${operacaoLabel[data.operacao]}\n` +
         habitacaoBlock +
-        financiamentoBlock +
-        (data.operacao === "empresa"
-          ? `Faturação média mensal: ${data.rendimento} €\n`
-          : `Titulares: ${data.titulares}\n` +
-            idades.map((a, i) => `Idade titular ${i + 1}: ${a}\n`).join("") +
-            `Tipo de contrato: ${contratoLabel[data.contrato]}\n` +
-            `Rendimento líquido mensal: ${data.rendimento} €\n`)
+        consolidarBlock +
+        `Titulares: ${data.titulares}\n` +
+        idades.map((a, i) => `Idade titular ${i + 1}: ${a}\n`).join("") +
+        `Tipo de contrato: ${contratoLabel[data.contrato]}\n` +
+        `Rendimento líquido mensal: ${data.rendimento} €\n`
     );
     window.location.href = `mailto:filipa@my-credit.pt?subject=Simulação de Crédito&body=${body}`;
     setSubmitted(true);
