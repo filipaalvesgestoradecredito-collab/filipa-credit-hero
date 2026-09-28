@@ -4,7 +4,6 @@ import {
   Home,
   Repeat,
   Layers,
-  Building2,
   ShieldCheck,
   Clock,
   ArrowRight,
@@ -28,13 +27,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Crédito habitação, transferência de crédito, consolidação com garantia hipotecária e financiamento para empresas. Acompanhamento personalizado em Coimbra.",
+          "Crédito habitação, transferência de crédito e consolidação com garantia hipotecária. Acompanhamento personalizado em Coimbra.",
       },
       { property: "og:title", content: "Filipa Alves · Gestora de Crédito em Coimbra | Simulação Gratuita" },
       {
         property: "og:description",
         content:
-          "Crédito habitação, transferência de crédito, consolidação com garantia hipotecária e financiamento para empresas. Acompanhamento personalizado em Coimbra.",
+          "Crédito habitação, transferência de crédito e consolidação com garantia hipotecária. Acompanhamento personalizado em Coimbra.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -251,28 +250,6 @@ function Landing() {
               ))}
             </div>
 
-            <div className="my-10 flex items-center gap-4" role="separator">
-              <span className="h-px flex-1 bg-border" />
-              <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Para empresas</span>
-              <span className="h-px flex-1 bg-border" />
-            </div>
-
-            <Reveal>
-              <article className="flex flex-col gap-6 rounded-2xl border border-navy/15 bg-card p-7 shadow-[var(--shadow-card)] md:flex-row md:items-center md:p-8">
-                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-navy text-cream">
-                  <Building2 className="h-5 w-5" strokeWidth={1.75} />
-                </span>
-                <div className="flex-1">
-                  <h3 className="text-xl leading-snug">Financiamento e Leasing para Empresas</h3>
-                  <p className="mt-1.5 text-[15px] text-muted-foreground">
-                    Análise de soluções de financiamento e leasing ajustadas às necessidades da sua empresa.
-                  </p>
-                </div>
-                <Btn variant="secondary" className="shrink-0">
-                  Pedir análise <ArrowRight className="h-4 w-4" />
-                </Btn>
-              </article>
-            </Reveal>
 
             <p className="mt-8 text-center text-xs text-muted-foreground">
               Qualquer financiamento está sujeito a análise e aprovação pela instituição financeira.
@@ -302,7 +279,7 @@ function Landing() {
                   Acompanho o seu processo, do primeiro contacto à contratação.
                 </h2>
                 <p className="mt-6 max-w-xl text-lg text-muted-foreground">
-                  Ajudo famílias e empresas a compreender as opções de financiamento disponíveis e acompanho cada etapa junto dos bancos parceiros, com clareza e transparência, para que possa decidir com tranquilidade.
+                  Ajudo famílias a compreender as opções de financiamento disponíveis e acompanho cada etapa junto dos bancos parceiros, com clareza e transparência, para que possa decidir com tranquilidade.
                 </p>
                 <ul className="mt-8 grid gap-4 sm:grid-cols-2">
                   {[
@@ -461,7 +438,6 @@ function Landing() {
                 <li><a href="#servicos" className="hover:text-cream">Crédito Habitação</a></li>
                 <li><a href="#servicos" className="hover:text-cream">Transferência de Crédito</a></li>
                 <li><a href="#servicos" className="hover:text-cream">Consolidação com Garantia Hipotecária</a></li>
-                <li><a href="#servicos" className="hover:text-cream">Financiamento e Leasing para Empresas</a></li>
               </ul>
             </div>
             <div>
