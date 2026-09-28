@@ -284,13 +284,11 @@ export function SimulacaoForm() {
             </Field>
 
             <Field
-              label={isHabitacao ? "Localização do imóvel *" : data.operacao === "empresa" ? "Localização da empresa *" : "Onde reside *"}
+              label={isHabitacao ? "Localização do imóvel *" : "Onde reside *"}
               hint={
                 isHabitacao
                   ? "Localidade onde se situa o imóvel (ou onde quer comprar)."
-                  : data.operacao === "empresa"
-                    ? "Indique a localidade da empresa."
-                    : "Indique a localidade onde reside."
+                  : "Indique a localidade onde reside."
               }
             >
               <input
@@ -355,24 +353,22 @@ export function SimulacaoForm() {
               </div>
             )}
 
-            {isFinanciamento && (
+            {isConsolidar && (
               <>
-                {data.operacao === "consolidar" && (
-                  <Field label="Tem algum crédito atualmente? *">
-                    <div className="grid gap-2 sm:grid-cols-2">
-                      <RadioCard
-                        label="Sim"
-                        checked={data.temCreditos === "sim"}
-                        onSelect={() => set("temCreditos", "sim")}
-                      />
-                      <RadioCard
-                        label="Não"
-                        checked={data.temCreditos === "nao"}
-                        onSelect={() => set("temCreditos", "nao")}
-                      />
-                    </div>
-                  </Field>
-                )}
+                <Field label="Tem algum crédito atualmente? *">
+                  <div className="grid gap-2 sm:grid-cols-2">
+                    <RadioCard
+                      label="Sim"
+                      checked={data.temCreditos === "sim"}
+                      onSelect={() => set("temCreditos", "sim")}
+                    />
+                    <RadioCard
+                      label="Não"
+                      checked={data.temCreditos === "nao"}
+                      onSelect={() => set("temCreditos", "nao")}
+                    />
+                  </div>
+                </Field>
 
                 <div className="grid gap-4 sm:grid-cols-2">
                   <Field label="Valor pretendido *" hint="Montante que pretende solicitar.">
@@ -406,24 +402,22 @@ export function SimulacaoForm() {
               </>
             )}
 
-            {data.operacao !== "empresa" && (
-              <Field label="Número de titulares do crédito *">
-                <div className="grid gap-2 sm:grid-cols-2">
-                  {[
-                    { v: "1", l: "1 (apenas eu)" },
-                    { v: "2", l: "2 (eu e outra pessoa)" },
-                  ].map((o) => (
-                    <RadioCard
-                      key={o.v}
-                      label={o.l}
-                      compact
-                      checked={data.titulares === o.v}
-                      onSelect={() => set("titulares", o.v as Titulares)}
-                    />
-                  ))}
-                </div>
-              </Field>
-            )}
+            <Field label="Número de titulares do crédito *">
+              <div className="grid gap-2 sm:grid-cols-2">
+                {[
+                  { v: "1", l: "1 (apenas eu)" },
+                  { v: "2", l: "2 (eu e outra pessoa)" },
+                ].map((o) => (
+                  <RadioCard
+                    key={o.v}
+                    label={o.l}
+                    compact
+                    checked={data.titulares === o.v}
+                    onSelect={() => set("titulares", o.v as Titulares)}
+                  />
+                ))}
+              </div>
+            </Field>
           </div>
         )}
 
@@ -431,33 +425,31 @@ export function SimulacaoForm() {
           <div className="space-y-5 animate-in fade-in duration-300">
             <StepTitle
               n={3}
-              title={data.operacao === "empresa" ? "Informação dos responsáveis" : "Informação pessoal"}
+              title="Informação pessoal"
               sub="Última etapa — para uma análise mais precisa."
             />
 
-            {data.operacao !== "empresa" && (
-              <div className="grid gap-4 sm:grid-cols-2">
-                {idades.map((a, i) => (
-                  <Field
-                    key={i}
-                    label={nTitulares === 1 ? "Idade *" : `Idade do titular ${i + 1} *`}
-                    hint={nTitulares === 1 ? "Idade do titular do crédito." : undefined}
-                  >
-                    <input
-                      className={inputCls}
-                      placeholder="35"
-                      inputMode="numeric"
-                      value={a}
-                      onChange={(e) => setIdade(i, e.target.value.replace(/[^0-9]/g, ""))}
-                    />
-                  </Field>
-                ))}
-              </div>
-            )}
+            <div className="grid gap-4 sm:grid-cols-2">
+              {idades.map((a, i) => (
+                <Field
+                  key={i}
+                  label={nTitulares === 1 ? "Idade *" : `Idade do titular ${i + 1} *`}
+                  hint={nTitulares === 1 ? "Idade do titular do crédito." : undefined}
+                >
+                  <input
+                    className={inputCls}
+                    placeholder="35"
+                    inputMode="numeric"
+                    value={a}
+                    onChange={(e) => setIdade(i, e.target.value.replace(/[^0-9]/g, ""))}
+                  />
+                </Field>
+              ))}
+            </div>
 
             <Field
-              label={data.operacao === "empresa" ? "Faturação média mensal *" : "Rendimento líquido mensal *"}
-              hint={data.operacao === "empresa" ? "Indique a faturação média mensal aproximada da empresa." : "Valor que recebe mensalmente depois de impostos (salário, rendas, pensões, etc.). Se for variável, indique a média dos últimos 6 meses."}
+              label="Rendimento líquido mensal *"
+              hint="Valor que recebe mensalmente depois de impostos (salário, rendas, pensões, etc.). Se for variável, indique a média dos últimos 6 meses."
             >
               <div className="relative">
                 <input
@@ -473,25 +465,23 @@ export function SimulacaoForm() {
               </div>
             </Field>
 
-            {data.operacao !== "empresa" && (
-              <Field label="Tipo de contrato de trabalho *">
-                <div className="grid gap-2 sm:grid-cols-3">
-                  {[
-                    { v: "semTermo", l: "Contrato sem termo" },
-                    { v: "aTermo", l: "Contrato a termo" },
-                    { v: "contaPropria", l: "Trabalhador por conta própria" },
-                  ].map((o) => (
-                    <RadioCard
-                      key={o.v}
-                      label={o.l}
-                      compact
-                      checked={data.contrato === o.v}
-                      onSelect={() => set("contrato", o.v as Contrato)}
-                    />
-                  ))}
-                </div>
-              </Field>
-            )}
+            <Field label="Tipo de contrato de trabalho *">
+              <div className="grid gap-2 sm:grid-cols-3">
+                {[
+                  { v: "semTermo", l: "Contrato sem termo" },
+                  { v: "aTermo", l: "Contrato a termo" },
+                  { v: "contaPropria", l: "Trabalhador por conta própria" },
+                ].map((o) => (
+                  <RadioCard
+                    key={o.v}
+                    label={o.l}
+                    compact
+                    checked={data.contrato === o.v}
+                    onSelect={() => set("contrato", o.v as Contrato)}
+                  />
+                ))}
+              </div>
+            </Field>
 
             <label className="flex items-start gap-3 rounded-xl border border-border bg-muted/40 p-4 cursor-pointer hover:border-gold/50 transition">
               <input
