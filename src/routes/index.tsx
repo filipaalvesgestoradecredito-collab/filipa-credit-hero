@@ -263,8 +263,7 @@ function Landing() {
                   <Building2 className="h-5 w-5" strokeWidth={1.75} />
                 </span>
                 <div className="flex-1">
-                  <span className="inline-block rounded-md bg-gold-soft px-2 py-0.5 text-xs font-semibold text-navy">Para empresas</span>
-                  <h3 className="mt-2 text-xl leading-snug">Financiamento e Leasing para Empresas</h3>
+                  <h3 className="text-xl leading-snug">Financiamento e Leasing para Empresas</h3>
                   <p className="mt-1.5 text-[15px] text-muted-foreground">
                     Análise de soluções de financiamento e leasing ajustadas às necessidades da sua empresa.
                   </p>
