@@ -85,7 +85,7 @@ function Landing() {
       </header>
 
       {/* Hero */}
-      <section className="relative overflow-hidden">
+      <section id="top" className="relative overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <div className="absolute -top-40 -left-40 h-96 w-96 rounded-full bg-gold-soft/60 blur-3xl" />
           <div className="absolute top-1/3 -right-32 h-96 w-96 rounded-full bg-navy/10 blur-3xl" />
