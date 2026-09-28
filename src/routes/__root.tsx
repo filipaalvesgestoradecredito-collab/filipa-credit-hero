@@ -78,7 +78,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Filipa Alves · Gestora de Crédito em Coimbra" },
-      { name: "description", content: "Crédito habitação, transferência de crédito, consolidação com garantia hipotecária e financiamento para empresas. Acompanhamento personalizado em Coimbra." },
+      { name: "description", content: "Crédito habitação, transferência de crédito e consolidação com garantia hipotecária. Acompanhamento personalizado em Coimbra." },
       { name: "author", content: "Filipa Alves" },
       { property: "og:title", content: "Filipa Alves · Gestora de Crédito em Coimbra" },
       { property: "og:description", content: "Acompanhamento personalizado em soluções de crédito e financiamento através dos bancos parceiros da Creditwise." },
