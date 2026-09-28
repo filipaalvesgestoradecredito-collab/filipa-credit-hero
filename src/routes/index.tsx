@@ -1,17 +1,23 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
 import {
   Home,
-  Wallet,
+  Repeat,
   Layers,
   Building2,
   ShieldCheck,
   Clock,
-  Heart,
   ArrowRight,
-  CheckCircle2,
-  Sparkles,
-  FileSignature,
-  ClipboardCheck,
+  Check,
+  Landmark,
+  UserRound,
+  MessageSquare,
+  SlidersHorizontal,
+  BadgeEuro,
+  Menu,
+  X,
+  Quote,
+  ExternalLink,
 } from "lucide-react";
 import { SimulacaoForm } from "@/components/SimulacaoForm";
 
@@ -22,13 +28,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Crédito Habitação, Transferência, Consolidação com Garantia Hipotecária e Financiamento Empresarial. Acompanhamento personalizado em Coimbra.",
+          "Crédito habitação, transferência de crédito, consolidação com garantia hipotecária e financiamento para empresas. Acompanhamento personalizado em Coimbra.",
       },
-      { property: "og:title", content: "Filipa Alves · Gestora de Crédito | Simulação Gratuita" },
+      { property: "og:title", content: "Filipa Alves · Gestora de Crédito em Coimbra | Simulação Gratuita" },
       {
         property: "og:description",
         content:
-          "Vários bancos parceiros, diferentes propostas e acompanhamento pessoal para encontrar uma solução adequada ao seu perfil.",
+          "Crédito habitação, transferência de crédito, consolidação com garantia hipotecária e financiamento para empresas. Acompanhamento personalizado em Coimbra.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -37,428 +43,472 @@ export const Route = createFileRoute("/")({
   component: Landing,
 });
 
-function CTA({ children, className = "", variant = "primary" }: { children: React.ReactNode; className?: string; variant?: "primary" | "gold" | "outline" }) {
-  const base =
-    "inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 text-sm font-semibold whitespace-nowrap transition-all duration-300 shadow-[var(--shadow-card)] hover:-translate-y-0.5";
-  const styles =
-    variant === "primary"
-      ? "bg-navy text-cream hover:bg-navy-deep"
-      : variant === "gold"
-        ? "bg-gold text-navy hover:brightness-105"
-        : "border border-navy/20 text-navy hover:bg-navy hover:text-cream";
+const LINKS = {
+  bdp: "https://www.bportugal.pt/intermediariocreditofar/creditwise-intermediacao-de-credito-lda",
+  privacidade: "https://my-credit.pt/politica-de-privacidade/",
+  termos: "https://my-credit.pt/termos-e-condicoes/",
+  reclamacoes: "https://www.livroreclamacoes.pt/",
+};
+
+const btnBase =
+  "inline-flex h-12 items-center justify-center gap-2 rounded-xl px-6 text-[15px] font-semibold whitespace-nowrap transition-colors duration-200";
+const btnPrimary = `${btnBase} bg-navy text-cream hover:bg-navy-deep`;
+const btnSecondary = `${btnBase} border border-navy/25 bg-background text-navy hover:border-navy hover:bg-surface`;
+
+function Btn({ href = "#simulacao", children, variant = "primary", className = "" }: { href?: string; children: React.ReactNode; variant?: "primary" | "secondary"; className?: string }) {
   return (
-    <a href="#simulacao" className={`${base} ${styles} ${className}`}>
+    <a href={href} className={`${variant === "primary" ? btnPrimary : btnSecondary} ${className}`}>
       {children}
     </a>
   );
 }
 
+function Reveal({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          el.classList.add("is-visible");
+          io.disconnect();
+        }
+      },
+      { threshold: 0.12 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  return (
+    <div ref={ref} className={`reveal ${className}`}>
+      {children}
+    </div>
+  );
+}
+
+const NAV = [
+  { href: "#servicos", label: "Soluções" },
+  { href: "#sobre", label: "Sobre" },
+  { href: "#testemunhos", label: "Clientes" },
+  { href: "#processo", label: "Processo" },
+  { href: "#legal", label: "Informação Legal" },
+];
+
+function Header() {
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+  useEffect(() => {
+    const on = () => setScrolled(window.scrollY > 8);
+    on();
+    window.addEventListener("scroll", on, { passive: true });
+    return () => window.removeEventListener("scroll", on);
+  }, []);
+  return (
+    <header className={`sticky top-0 z-40 bg-background transition-shadow ${scrolled ? "shadow-[0_1px_0_var(--border),0_4px_16px_-12px_color-mix(in_oklab,var(--navy)_25%,transparent)]" : ""}`}>
+      <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between gap-4 px-5 md:h-[72px] md:px-8">
+        <a href="#top" aria-label="Filipa Alves — Gestora de Crédito, voltar ao início" className="shrink-0">
+          <img src="/filipa-alves-logo.png" width={300} height={378} alt="Filipa Alves — Gestora de Crédito" className="h-11 w-auto md:h-12" />
+        </a>
+        <nav aria-label="Principal" className="hidden items-center gap-7 text-[15px] font-medium text-foreground lg:flex">
+          {NAV.map((n) => (
+            <a key={n.href} href={n.href} className="transition-colors hover:text-navy">
+              {n.label}
+            </a>
+          ))}
+        </nav>
+        <div className="flex items-center gap-2">
+          <Btn className="hidden !h-11 !px-5 !text-sm sm:inline-flex">Simulação Gratuita</Btn>
+          <button
+            type="button"
+            className="grid h-11 w-11 place-items-center rounded-xl border border-border text-navy lg:hidden"
+            aria-label={open ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={open}
+            onClick={() => setOpen((o) => !o)}
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
+      </div>
+      {open && (
+        <nav aria-label="Menu móvel" className="border-t border-border bg-background px-5 pb-6 pt-2 lg:hidden">
+          <ul className="flex flex-col">
+            {NAV.map((n) => (
+              <li key={n.href}>
+                <a href={n.href} onClick={() => setOpen(false)} className="block border-b border-border py-3.5 text-base font-medium text-navy">
+                  {n.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <Btn className="mt-5 w-full" href="#simulacao">Simulação Gratuita</Btn>
+        </nav>
+      )}
+    </header>
+  );
+}
+
+function SectionHead({ title, sub, center = true }: { title: string; sub?: string; center?: boolean }) {
+  return (
+    <div className={center ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
+      <h2 className="text-3xl leading-[1.15] md:text-[2.625rem]">{title}</h2>
+      {sub && <p className="mt-4 text-lg text-muted-foreground">{sub}</p>}
+    </div>
+  );
+}
+
+const Container = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
+  <div className={`mx-auto max-w-[1200px] px-5 md:px-8 ${className}`}>{children}</div>
+);
+
+const sectionPad = "py-16 md:py-28";
 
 function Landing() {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      {/* Nav */}
-      <header className="sticky top-0 z-40 bg-cream/85 backdrop-blur-md border-b border-border/60">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-2 sm:py-2.5">
-          <a href="#top" aria-label="Filipa Alves — Intermediária de Crédito" className="shrink-0">
-            <img
-              src="/filipa-alves-logo.png"
-              width={300}
-              height={378}
-              alt="Filipa Alves — Intermediária de Crédito"
-              className="h-12 w-auto sm:h-14"
-            />
-          </a>
-          <div className="flex items-center gap-4">
-            <nav className="hidden md:flex items-center gap-6 text-sm text-navy/80">
-              <a href="#servicos" className="hover:text-gold transition">Serviços</a>
-              <a href="#sobre" className="hover:text-gold transition">Sobre</a>
-              <a href="#processo" className="hover:text-gold transition">Processo</a>
-              <a href="#testemunhos" className="hover:text-gold transition">Clientes</a>
-              <a href="#legal" className="hover:text-gold transition">Informação Legal</a>
-            </nav>
-            <CTA className="!px-5 !py-2.5 !text-xs" variant="primary">
-              Simulação Gratuita <ArrowRight className="h-3.5 w-3.5" />
-            </CTA>
-          </div>
-        </div>
-      </header>
+      <Header />
 
-      {/* Hero */}
-      <section id="top" className="relative overflow-hidden">
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute -top-40 -left-40 h-96 w-96 rounded-full bg-gold-soft/60 blur-3xl" />
-          <div className="absolute top-1/3 -right-32 h-96 w-96 rounded-full bg-navy/10 blur-3xl" />
-        </div>
-        <div className="mx-auto grid max-w-6xl gap-12 px-5 pb-16 pt-12 md:grid-cols-[1.05fr_1fr] md:items-center md:pt-20 md:pb-24">
-          <div>
-            <a
-              href="#legal"
-              className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold-soft/40 px-4 py-1.5 text-xs font-medium text-navy hover:bg-gold-soft/70 transition"
-            >
-              <Sparkles className="h-3.5 w-3.5 text-gold" />
-              + informações legais
-            </a>
-            <h1 className="mt-6 font-display text-4xl leading-[1.08] text-navy sm:text-5xl md:text-6xl">
-              Vários bancos. <span className="italic text-gold">Diferentes</span> propostas.
-              <span className="mt-2 block font-script text-3xl leading-tight text-gold sm:text-5xl md:text-6xl">Uma solução adequada</span>
-              <span className="block text-3xl sm:text-4xl md:text-5xl mt-1">ao seu perfil.</span>
-            </h1>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-              Analiso propostas dos bancos parceiros e acompanho todo o processo para encontrar uma solução
-              adequada às suas necessidades — <strong className="text-navy">sem custos e sem compromisso</strong>.
-            </p>
-            <div className="mt-6 max-w-xl border-l-2 border-gold pl-4 text-sm leading-relaxed text-navy">
-              <p className="font-semibold">Filipa Alves | Gestora de Crédito</p>
-              <p>Creditwise – Intermediação de Crédito, Lda.</p>
-              <p className="text-xs text-muted-foreground">Intermediário de Crédito Vinculado | Registo Banco de Portugal n.º 0008492</p>
-            </div>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <CTA variant="primary">
-                Fazer Simulação Gratuita <ArrowRight className="h-4 w-4" />
-              </CTA>
-              <a href="#servicos" className="inline-flex items-center justify-center gap-2 px-4 py-4 text-sm font-medium text-navy hover:text-gold transition">
-                Ver soluções →
-              </a>
-            </div>
-            <div className="mt-10 grid grid-cols-3 gap-3 border-t border-border pt-6 sm:gap-6">
-              <Stat n="+250" label="Famílias apoiadas" />
-              <Stat n="Análise" label="Saiba quanto poderá poupar" />
-              <Stat n="100%" label="Sem custos para si" />
-            </div>
-          </div>
-
-          <div className="relative">
-            <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-gold-soft via-transparent to-navy/10 blur-2xl" />
-            <div className="relative overflow-hidden rounded-[2rem] bg-cream shadow-[var(--shadow-elegant)] aspect-[4/5]">
-              <img
-                src="/filipa-hero-office.png"
-                alt="Filipa Alves, gestora de crédito em Coimbra"
-                width={1536}
-                height={1024}
-                className="relative h-full w-full object-cover object-[60%_center]"
-              />
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-navy/20 to-transparent" />
-            </div>
-            <div className="absolute -bottom-6 -left-4 max-w-[90%] rounded-2xl border border-border bg-card p-4 shadow-[var(--shadow-card)] sm:-left-8 sm:max-w-[80%]">
-              <div className="flex items-center gap-3">
-                <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-gold text-navy">
-                  <Heart className="h-5 w-5" fill="currentColor" />
+      <main>
+        {/* 1. Hero */}
+        <section id="top" className="bg-background pb-16 pt-10 md:pb-24 md:pt-16">
+          <Container>
+            <div className="grid gap-10 md:grid-cols-12 md:items-center md:gap-12">
+              <div className="md:col-span-7">
+                <a href="#legal" className="block max-w-xl rounded-xl border border-border bg-surface px-4 py-3 text-sm leading-snug transition-colors hover:border-navy/30">
+                  <span className="block font-semibold text-navy">Filipa Alves | Gestora de Crédito</span>
+                  <span className="block text-foreground">Creditwise – Intermediação de Crédito, Lda.</span>
+                  <span className="mt-0.5 block text-xs text-muted-foreground">Intermediário de Crédito Vinculado | Registo Banco de Portugal n.º 0008492</span>
+                </a>
+                <h1 className="mt-8 text-[2.25rem] leading-[1.08] sm:text-5xl md:text-[3.5rem]">
+                  Vários bancos. Diferentes propostas. <span className="text-gold">Uma solução adequada ao seu perfil.</span>
+                </h1>
+                <p className="mt-6 max-w-xl text-lg text-muted-foreground">
+                  Analiso propostas dos bancos parceiros e acompanho todo o processo, para encontrar uma solução adequada às suas necessidades.
+                </p>
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                  <Btn>
+                    Fazer simulação gratuita <ArrowRight className="h-4 w-4" />
+                  </Btn>
+                  <Btn href="#servicos" variant="secondary">Ver soluções</Btn>
                 </div>
-                <div className="min-w-0">
-                  <p className="font-display text-sm font-semibold text-navy">Compromisso pessoal</p>
-                  <p className="text-xs leading-snug text-muted-foreground">A sua parceira financeira de confiança</p>
+                <p className="mt-4 text-sm text-muted-foreground">Simulação sem custos e sem compromisso.</p>
+              </div>
+              <div className="md:col-span-5">
+                <div className="overflow-hidden rounded-2xl border border-border bg-surface aspect-[4/5]">
+                  <img
+                    src="/filipa-hero-office.png"
+                    alt="Filipa Alves, gestora de crédito em Coimbra, no escritório"
+                    width={1536}
+                    height={1024}
+                    className="h-full w-full object-cover object-[60%_center]"
+                  />
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Serviços */}
-      <section id="servicos" className="bg-cream py-20 md:py-28">
-        <div className="mx-auto max-w-6xl px-5">
-          <SectionHead
-            eyebrow="O que resolvemos"
-            title="Soluções à medida de cada família"
-            sub="Analiso propostas dos nossos bancos parceiros e ajudo a encontrar uma solução adequada ao seu perfil."
-          />
-          <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {CONSUMER_SERVICES.map((s, i) => (
-              <div key={s.title} className={`group relative h-full overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-elegant)] sm:p-8 ${i === 2 ? "md:col-span-2 lg:col-span-1" : ""}`}>
-                <div className="grid h-14 w-14 place-items-center rounded-xl bg-navy text-gold">
-                  <s.icon className="h-7 w-7" />
+            <ul className="mt-14 grid gap-4 border-t border-border pt-8 sm:grid-cols-3 md:mt-20">
+              {[
+                { icon: Landmark, t: "Bancos parceiros" },
+                { icon: UserRound, t: "Acompanhamento pessoal" },
+                { icon: Clock, t: "Resposta em 1 dia útil" },
+              ].map((i) => (
+                <li key={i.t} className="flex items-center gap-3 text-[15px] font-medium text-navy">
+                  <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-surface text-navy">
+                    <i.icon className="h-5 w-5" strokeWidth={1.75} />
+                  </span>
+                  {i.t}
+                </li>
+              ))}
+            </ul>
+          </Container>
+        </section>
+
+        {/* 2. Soluções */}
+        <section id="servicos" className={`bg-surface ${sectionPad}`}>
+          <Container>
+            <Reveal>
+              <SectionHead title="Soluções para cada situação" sub="Analiso propostas dos bancos parceiros para o seu caso." />
+            </Reveal>
+            <div className="mt-12 grid gap-5 md:grid-cols-3">
+              {SERVICES.map((s) => (
+                <Reveal key={s.title} className="h-full">
+                  <article className="flex h-full flex-col rounded-2xl border border-border bg-card p-7 shadow-[var(--shadow-card)] transition-shadow hover:shadow-[var(--shadow-elegant)]">
+                    <span className="grid h-11 w-11 place-items-center rounded-lg bg-surface text-navy">
+                      <s.icon className="h-5 w-5" strokeWidth={1.75} />
+                    </span>
+                    <h3 className="mt-5 text-xl leading-snug">{s.title}</h3>
+                    <p className="mt-2 text-[15px] text-muted-foreground">{s.desc}</p>
+                    <ul className="mt-5 space-y-2 border-t border-border pt-5">
+                      {s.points.map((p) => (
+                        <li key={p} className="flex items-start gap-2.5 text-[15px] text-foreground">
+                          <Check className="mt-1 h-4 w-4 shrink-0 text-gold" strokeWidth={2} />
+                          {p}
+                        </li>
+                      ))}
+                    </ul>
+                  </article>
+                </Reveal>
+              ))}
+            </div>
+
+            <div className="my-10 flex items-center gap-4" role="separator">
+              <span className="h-px flex-1 bg-border" />
+              <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Para empresas</span>
+              <span className="h-px flex-1 bg-border" />
+            </div>
+
+            <Reveal>
+              <article className="flex flex-col gap-6 rounded-2xl border border-navy/15 bg-card p-7 shadow-[var(--shadow-card)] md:flex-row md:items-center md:p-8">
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-lg bg-navy text-cream">
+                  <Building2 className="h-5 w-5" strokeWidth={1.75} />
+                </span>
+                <div className="flex-1">
+                  <span className="inline-block rounded-md bg-gold-soft px-2 py-0.5 text-xs font-semibold text-navy">Para empresas</span>
+                  <h3 className="mt-2 text-xl leading-snug">Financiamento e Leasing para Empresas</h3>
+                  <p className="mt-1.5 text-[15px] text-muted-foreground">
+                    Análise de soluções de financiamento e leasing ajustadas às necessidades da sua empresa.
+                  </p>
                 </div>
-                <h3 className="mt-6 font-display text-2xl leading-tight text-navy">{s.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
-                <ul className="mt-5 space-y-2">
-                  {s.points.map((p) => (
-                    <li key={p} className="flex items-start gap-2 text-sm text-navy/80">
-                      <CheckCircle2 className="h-4 w-4 shrink-0 text-gold mt-0.5" />
-                      {p}
+                <Btn variant="secondary" className="shrink-0">
+                  Pedir análise <ArrowRight className="h-4 w-4" />
+                </Btn>
+              </article>
+            </Reveal>
+
+            <p className="mt-8 text-center text-xs text-muted-foreground">
+              Qualquer financiamento está sujeito a análise e aprovação pela instituição financeira.
+            </p>
+          </Container>
+        </section>
+
+        {/* 3. Sobre */}
+        <section id="sobre" className={`bg-background ${sectionPad}`}>
+          <Container>
+            <div className="grid gap-10 md:grid-cols-12 md:items-center md:gap-16">
+              <Reveal className="md:col-span-5">
+                <div className="overflow-hidden rounded-2xl border border-border bg-surface aspect-[4/5]">
+                  <img
+                    src="/filipa-about-cut.png"
+                    alt="Retrato de Filipa Alves, gestora de crédito"
+                    width={1024}
+                    height={1536}
+                    loading="lazy"
+                    className="h-full w-full object-contain object-bottom"
+                  />
+                </div>
+              </Reveal>
+              <Reveal className="md:col-span-7">
+                <p className="text-sm font-semibold uppercase tracking-wider text-gold">Olá, sou a Filipa</p>
+                <h2 className="mt-3 text-3xl leading-[1.15] md:text-[2.625rem]">
+                  Acompanho o seu processo, do primeiro contacto à contratação.
+                </h2>
+                <p className="mt-6 max-w-xl text-lg text-muted-foreground">
+                  Ajudo famílias e empresas a compreender as opções de financiamento disponíveis e acompanho cada etapa junto dos bancos parceiros, com clareza e transparência, para que possa decidir com tranquilidade.
+                </p>
+                <ul className="mt-8 grid gap-4 sm:grid-cols-2">
+                  {[
+                    { icon: ShieldCheck, t: "Acompanhamento personalizado" },
+                    { icon: MessageSquare, t: "Comunicação clara em cada etapa" },
+                    { icon: SlidersHorizontal, t: "Soluções ajustadas a cada situação" },
+                    { icon: BadgeEuro, t: "Simulação sem custos" },
+                  ].map((v) => (
+                    <li key={v.t} className="flex items-start gap-3 text-[15px] text-foreground">
+                      <v.icon className="mt-0.5 h-5 w-5 shrink-0 text-navy" strokeWidth={1.75} />
+                      {v.t}
+                    </li>
+                  ))}
+                </ul>
+                <Btn className="mt-9">
+                  Falar com a Filipa <ArrowRight className="h-4 w-4" />
+                </Btn>
+              </Reveal>
+            </div>
+          </Container>
+        </section>
+
+        {/* 4. Testemunhos */}
+        <section id="testemunhos" className={`bg-surface ${sectionPad}`}>
+          <Container>
+            <Reveal>
+              <SectionHead title="O que dizem os clientes" />
+            </Reveal>
+            <div className="mx-auto mt-12 grid max-w-4xl gap-5 md:grid-cols-2">
+              {TESTIMONIALS.map((t) => (
+                <Reveal key={t.name} className="h-full">
+                  <figure className="flex h-full flex-col rounded-2xl border border-border bg-card p-8 shadow-[var(--shadow-card)]">
+                    <Quote className="h-6 w-6 text-gold" strokeWidth={1.75} aria-hidden />
+                    <blockquote className="mt-4 flex-1 font-display text-xl leading-snug text-navy">“{t.quote}”</blockquote>
+                    <figcaption className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-5">
+                      <span>
+                        <span className="block font-semibold text-navy">{t.name}</span>
+                        <span className="block text-sm text-muted-foreground">{t.location}</span>
+                      </span>
+                      {t.tag && <span className="rounded-md bg-surface px-2.5 py-1 text-xs font-medium text-navy">{t.tag}</span>}
+                    </figcaption>
+                  </figure>
+                </Reveal>
+              ))}
+            </div>
+          </Container>
+        </section>
+
+        {/* 5. Processo */}
+        <section id="processo" className={`bg-background ${sectionPad}`}>
+          <Container>
+            <Reveal>
+              <SectionHead title="Um processo simples em 3 passos" sub="Com acompanhamento em todas as etapas." />
+            </Reveal>
+            <ol className="relative mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
+              <span aria-hidden className="absolute left-0 right-0 top-7 hidden h-px bg-border md:block" />
+              <span aria-hidden className="absolute bottom-0 left-7 top-0 w-px bg-border md:hidden" />
+              {STEPS.map((s, i) => (
+                <li key={s.title} className="relative pl-20 md:pl-0">
+                  <span className="absolute left-0 top-0 grid h-14 w-14 place-items-center rounded-full border border-border bg-background font-display text-2xl font-semibold text-navy md:relative">
+                    {i + 1}
+                  </span>
+                  <h3 className="text-xl leading-snug md:mt-6">{s.title}</h3>
+                  <p className="mt-2 text-[15px] text-muted-foreground">{s.desc}</p>
+                </li>
+              ))}
+            </ol>
+            <div className="mt-14 text-center">
+              <Btn>
+                Começar agora <ArrowRight className="h-4 w-4" />
+              </Btn>
+            </div>
+          </Container>
+        </section>
+
+        {/* 6. Formulário */}
+        <section id="simulacao" className={`bg-surface ${sectionPad}`}>
+          <div className="mx-auto max-w-3xl px-5 md:px-8">
+            <SectionHead title="Peça a sua simulação gratuita" sub="Preencha os dados abaixo. Respondo em menos de 1 dia útil." />
+            <div className="mt-10 rounded-2xl bg-card shadow-[var(--shadow-elegant)]">
+              <SimulacaoForm />
+            </div>
+            <p className="mt-6 text-center text-xs text-muted-foreground">
+              Todos os dados são tratados de forma confidencial e utilizados apenas para efeitos de contacto, conforme a{" "}
+              <a href={LINKS.privacidade} target="_blank" rel="noopener noreferrer" className="text-navy underline underline-offset-2 hover:text-navy-deep">
+                Política de Privacidade
+              </a>
+              .
+            </p>
+          </div>
+        </section>
+
+        {/* 7. CTA final */}
+        <section className="bg-background py-16 md:py-24">
+          <Container>
+            <div className="rounded-2xl border border-border bg-cream px-6 py-12 text-center md:px-12 md:py-16">
+              <h2 className="text-3xl leading-[1.15] md:text-4xl">Vamos analisar o seu caso?</h2>
+              <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">
+                Faça a simulação e entro em contacto consigo em menos de 1 dia útil.
+              </p>
+              <Btn className="mt-8">
+                Fazer simulação gratuita <ArrowRight className="h-4 w-4" />
+              </Btn>
+            </div>
+          </Container>
+        </section>
+
+        {/* 8. Informação Legal */}
+        <section id="legal" className={`bg-surface ${sectionPad}`}>
+          <Container>
+            <h2 className="text-3xl leading-[1.15] md:text-4xl">Informação Legal</h2>
+            <div className="mt-10 grid gap-10 border-t border-border pt-10 md:grid-cols-12">
+              <div className="md:col-span-7">
+                <p className="font-semibold text-navy">Creditwise – Intermediação de Crédito, Lda.</p>
+                <p className="mt-1 text-[15px]">Intermediário de Crédito Vinculado | Registo Banco de Portugal n.º 0008492</p>
+                <p className="mt-4 text-[15px] text-muted-foreground">
+                  A atividade de intermediação de crédito é exercida pela Creditwise nos termos, categoria e âmbito constantes do respetivo registo oficial no Banco de Portugal.
+                </p>
+                <p className="mt-6 text-sm font-semibold text-navy">Mutuantes</p>
+                <ul className="mt-2 space-y-1 text-sm text-muted-foreground">
+                  {MUTUANTES.map((m) => (
+                    <li key={m}>{m}</li>
+                  ))}
+                </ul>
+              </div>
+              <div className="md:col-span-5">
+                <p className="text-sm font-semibold text-navy">Documentos e entidades</p>
+                <ul className="mt-3 divide-y divide-border rounded-xl border border-border bg-card">
+                  {[
+                    { href: LINKS.bdp, t: "Consultar registo oficial no Banco de Portugal" },
+                    { href: LINKS.privacidade, t: "Política de Privacidade" },
+                    { href: LINKS.termos, t: "Termos de Utilização" },
+                    { href: LINKS.reclamacoes, t: "Livro de Reclamações" },
+                  ].map((l) => (
+                    <li key={l.t}>
+                      <a href={l.href} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between gap-3 px-5 py-4 text-[15px] font-medium text-navy transition-colors hover:bg-surface">
+                        {l.t}
+                        <ExternalLink className="h-4 w-4 shrink-0 text-muted-foreground" strokeWidth={1.75} />
+                      </a>
                     </li>
                   ))}
                 </ul>
               </div>
-            ))}
-          </div>
-          <p className="mx-auto mt-6 max-w-2xl text-center text-sm leading-relaxed text-muted-foreground">Qualquer financiamento está sujeito a análise e aprovação pela instituição financeira.</p>
-          <div className="mt-12 border-y border-gold/30 bg-gold-soft/20 px-6 py-8 sm:px-10">
-            <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
-              <div className="grid h-14 w-14 shrink-0 place-items-center rounded-xl bg-navy text-gold">
-                <Building2 className="h-7 w-7" />
-              </div>
-              <div className="flex-1">
-                <p className="text-xs font-semibold uppercase text-gold">Soluções para empresas</p>
-                <h3 className="mt-1 font-display text-2xl leading-tight text-navy">Financiamento e Leasing para Empresas</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">Análise de soluções de financiamento e leasing ajustadas às necessidades da sua empresa.</p>
-              </div>
-              <CTA className="shrink-0" variant="outline">Pedir análise <ArrowRight className="h-4 w-4" /></CTA>
             </div>
-          </div>
-        </div>
-      </section>
+          </Container>
+        </section>
+      </main>
 
-      {/* Sobre Filipa */}
-      <section id="sobre" className="relative py-20 md:py-28 bg-navy text-cream overflow-hidden">
-        <div className="absolute top-0 right-0 h-full w-1/2 bg-gradient-to-l from-gold/10 to-transparent" />
-        <div className="relative mx-auto grid max-w-6xl gap-12 px-5 md:grid-cols-[1fr_1.1fr] md:items-center">
-          <div className="relative order-2 md:order-1">
-            <div className="absolute -inset-3 rounded-[2rem] bg-gold/20 blur-2xl" />
-            <div className="relative overflow-hidden rounded-[2rem] border border-gold/30 bg-gradient-to-b from-cream to-gold-soft/60 shadow-[var(--shadow-elegant)] aspect-[4/5]">
-              <img
-                src="/filipa-about-cut.png"
-                alt="Filipa Alves, gestora de crédito"
-                width={1024}
-                height={1536}
-                loading="lazy"
-                className="h-full w-full object-contain object-bottom drop-shadow-[0_18px_35px_rgba(20,30,60,0.2)]"
-              />
-            </div>
-          </div>
-          <div className="order-1 md:order-2">
-            <p className="font-script text-4xl text-gold">Olá, sou a Filipa</p>
-            <h2 className="mt-2 font-display text-4xl leading-tight sm:text-5xl">
-              A sua parceira financeira,<br className="hidden sm:block" /> sem burocracias.
-            </h2>
-            <p className="mt-6 text-base leading-relaxed text-cream/85">
-              O meu compromisso é claro: <strong className="text-gold">encontrar a melhor solução para si</strong>. Trato de toda a
-              burocracia — da simulação à assinatura — para que possa tomar as melhores decisões sem stress
-              e com total transparência.
-            </p>
-            <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {[
-                { icon: ShieldCheck, t: "Acompanhamento personalizado" },
-                { icon: Clock, t: "Processo simples e sem burocracias" },
-                { icon: Home, t: "Soluções à medida de cada família" },
-                { icon: Wallet, t: "Sem custos para o cliente" },
-              ].map((v) => (
-                <div key={v.t} className="flex items-start gap-3">
-                  <v.icon className="h-5 w-5 shrink-0 text-gold mt-0.5" />
-                  <span className="text-sm text-cream/90">{v.t}</span>
-                </div>
-              ))}
-            </div>
-            <div className="mt-8">
-              <CTA variant="gold">
-                Falar com a Filipa <ArrowRight className="h-4 w-4" />
-              </CTA>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testemunhos */}
-      <section id="testemunhos" className="py-20 md:py-28 bg-cream">
-        <div className="mx-auto max-w-6xl px-5">
-          <SectionHead
-            eyebrow="O que dizem os meus clientes"
-            title="Histórias que me inspiram todos os dias"
-            sub="A confiança de quem já deu o passo, fala por mim."
-          />
-          <div className="mt-14 grid gap-6 md:grid-cols-3">
-            {TESTIMONIALS.map((t, i) => (
-              <div
-                key={i}
-                className={`relative rounded-2xl p-8 border ${
-                  i === 1
-                    ? "bg-gold text-navy border-gold"
-                    : "bg-card text-navy border-border"
-                } shadow-[var(--shadow-card)]`}
-              >
-                <div className={`font-display text-6xl leading-none ${i === 1 ? "text-navy/30" : "text-gold"}`}>"</div>
-                <p className="mt-2 font-display text-lg leading-snug">{t.quote}</p>
-                <div className={`mt-6 h-px w-12 ${i === 1 ? "bg-navy/30" : "bg-gold"}`} />
-                <div className="mt-4">
-                  <p className="font-semibold">{t.name}</p>
-                  <p className={`text-sm ${i === 1 ? "text-navy/70" : "text-gold"}`}>{t.location}</p>
-                </div>
-                {t.result && (
-                  <div className={`mt-4 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${
-                    i === 1 ? "bg-navy text-gold" : "bg-navy/5 text-navy"
-                  }`}>
-                    <Sparkles className="h-3 w-3" /> {t.result}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Processo */}
-      <section id="processo" className="py-20 md:py-28 bg-background">
-        <div className="mx-auto max-w-6xl px-5">
-          <SectionHead
-            eyebrow="Como funciona"
-            title="Um processo simples em 3 passos"
-            sub="Do primeiro contacto à contratação, ao seu ritmo e com total acompanhamento."
-          />
-          <div className="mt-14 grid gap-6 md:grid-cols-3">
-            {STEPS.map((s, i) => (
-              <div key={s.title} className="relative rounded-2xl border border-border bg-card p-8">
-                <div className="absolute -top-5 left-8 grid h-10 w-10 place-items-center rounded-full bg-navy text-gold font-display text-lg font-bold border-4 border-background">
-                  {i + 1}
-                </div>
-                <s.icon className="h-7 w-7 text-gold" />
-                <h3 className="mt-4 font-display text-xl leading-tight text-navy">{s.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
-              </div>
-            ))}
-          </div>
-          <div className="mt-12 text-center">
-            <CTA variant="primary">
-              Começar agora — é gratuito <ArrowRight className="h-4 w-4" />
-            </CTA>
-          </div>
-        </div>
-      </section>
-
-      {/* Simulação */}
-      <section id="simulacao" className="relative py-20 md:py-28 bg-gradient-to-b from-cream to-background">
-        <div className="mx-auto max-w-3xl px-5">
-          <SectionHead
-            eyebrow="Simulação gratuita"
-            title="Comece agora — em apenas 2 minutos"
-            sub="Preencha os dados abaixo. Respondo pessoalmente em menos de 1 dia útil para analisar o seu caso."
-          />
-          <div className="mt-12">
-            <SimulacaoForm />
-          </div>
-          <p className="mt-6 text-center text-xs text-muted-foreground">
-            🔒 Todos os dados são tratados de forma confidencial e utilizados apenas para efeitos de contacto, conforme a nossa{" "}
-            <a href="https://my-credit.pt/politica-de-privacidade/" target="_blank" rel="noopener noreferrer" className="text-navy underline hover:text-gold">
-              Política de Privacidade
-            </a>.
-          </p>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="relative overflow-hidden bg-navy-deep py-16 text-cream">
-        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_20%_50%,var(--gold)_0%,transparent_40%)]" />
-        <div className="relative mx-auto max-w-4xl px-5 text-center">
-          <p className="font-script text-3xl text-gold">Conte comigo</p>
-          <h2 className="mt-2 font-display text-3xl sm:text-4xl md:text-5xl">
-            Também quer uma experiência assim?
-          </h2>
-          <p className="mt-4 text-cream/80">Estou aqui para ajudar. Faça a simulação gratuita — respondo pessoalmente em menos de 1 dia útil.</p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <CTA variant="gold">Fala comigo! <ArrowRight className="h-4 w-4" /></CTA>
-          </div>
-        </div>
-      </section>
-
-      {/* Informação legal */}
-      <section id="legal" className="scroll-mt-20 bg-navy py-16 text-cream md:py-20">
-        <div className="mx-auto max-w-6xl px-5">
-          <p className="text-xs font-semibold uppercase text-gold">Transparência e enquadramento</p>
-          <h2 className="mt-2 font-display text-3xl sm:text-4xl">Informação Legal</h2>
-          <div className="mt-8 grid gap-8 border-t border-cream/15 pt-8 lg:grid-cols-[1.35fr_1fr]">
-            <div className="max-w-3xl text-sm leading-relaxed text-cream/80 sm:text-base">
-              <p className="font-semibold text-gold">Creditwise – Intermediação de Crédito, Lda.</p>
-              <p className="mt-1">Intermediário de Crédito Vinculado | Registo Banco de Portugal n.º 0008492</p>
-              <p className="mt-4">
-                A atividade de intermediação de crédito é exercida pela Creditwise nos termos, categoria e âmbito constantes do respetivo registo oficial no Banco de Portugal.
-              </p>
-              <p className="mt-4">
-                Mutuantes: ABANCA PORTUGAL, S.A., BANKINTER, S.A. – SUCURSAL EM PORTUGAL,
-                CAIXA GERAL DE DEPÓSITOS, S.A., BANCO SANTANDER TOTTA, S.A., UCI – UNIÃO DE
-                CRÉDITOS IMOBILIÁRIOS, S.A., e ABANCA SERVICIOS FINANCIEROS, E.F.C., S.A. –
-                SUCURSAL EM PORTUGAL.
-              </p>
-            </div>
+      {/* 9. Rodapé */}
+      <footer className="bg-navy pb-8 pt-14 text-cream/80">
+        <Container>
+          <div className="grid gap-10 md:grid-cols-3">
             <div>
-              <h3 className="font-display text-xl text-cream">Documentos e entidades</h3>
-              <ul className="mt-4 space-y-3 text-sm">
-                <li><a href="https://www.bportugal.pt/intermediariocreditofar/creditwise-intermediacao-de-credito-lda" target="_blank" rel="noopener noreferrer" className="text-gold hover:text-cream transition">Consultar registo oficial no Banco de Portugal →</a></li>
-                <li><a href="https://my-credit.pt/politica-de-privacidade/" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition">Política de Privacidade</a></li>
-                <li><a href="https://my-credit.pt/termos-e-condicoes/" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition">Termos de Utilização</a></li>
-                <li><a href="https://www.livroreclamacoes.pt/" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition">Livro de Reclamações</a></li>
+              <h2 className="font-sans text-sm font-semibold uppercase tracking-wider text-cream">Soluções</h2>
+              <ul className="mt-4 space-y-2.5 text-sm">
+                <li><a href="#servicos" className="hover:text-cream">Crédito Habitação</a></li>
+                <li><a href="#servicos" className="hover:text-cream">Transferência de Crédito</a></li>
+                <li><a href="#servicos" className="hover:text-cream">Consolidação com Garantia Hipotecária</a></li>
+                <li><a href="#servicos" className="hover:text-cream">Financiamento e Leasing para Empresas</a></li>
               </ul>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-navy-deep text-cream/80 pt-12 pb-8 border-t border-gold/20">
-        <div className="mx-auto max-w-6xl px-5">
-          <div className="grid gap-10 md:grid-cols-2">
             <div>
-              <h4 className="font-display text-lg text-cream">Soluções</h4>
-              <ul className="mt-4 space-y-2 text-sm">
-                <li><a href="#servicos" className="hover:text-gold transition">Crédito Habitação</a></li>
-                <li><a href="#servicos" className="hover:text-gold transition">Transferência de Crédito</a></li>
-                <li><a href="#servicos" className="hover:text-gold transition">Consolidação com Garantia Hipotecária</a></li>
-                <li><a href="#servicos" className="hover:text-gold transition">Financiamento e Leasing para Empresas</a></li>
+              <h2 className="font-sans text-sm font-semibold uppercase tracking-wider text-cream">Informação legal</h2>
+              <ul className="mt-4 space-y-2.5 text-sm">
+                <li><a href="#legal" className="hover:text-cream">Informação Legal</a></li>
+                <li><a href={LINKS.privacidade} target="_blank" rel="noopener noreferrer" className="hover:text-cream">Política de Privacidade</a></li>
+                <li><a href={LINKS.termos} target="_blank" rel="noopener noreferrer" className="hover:text-cream">Termos de Utilização</a></li>
+                <li><a href={LINKS.reclamacoes} target="_blank" rel="noopener noreferrer" className="hover:text-cream">Livro de Reclamações</a></li>
               </ul>
+            </div>
+            <div>
               <img
                 src="/mycredit-coimbra-logo-footer-new.jpg"
                 alt="MyCredit Coimbra"
                 width={300}
                 height={93}
                 loading="lazy"
-                className="mt-6 h-auto w-full max-w-[300px] object-contain"
+                className="h-auto w-full max-w-[260px] rounded-lg object-contain"
               />
-            </div>
-
-            <div>
-              <h4 className="font-display text-lg text-cream">Informação legal</h4>
-              <ul className="mt-4 space-y-2 text-sm">
-                <li><a href="#legal" className="hover:text-gold transition">Informação Legal</a></li>
-                <li><a href="https://my-credit.pt/politica-de-privacidade/" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition">Política de Privacidade</a></li>
-                <li><a href="https://my-credit.pt/termos-e-condicoes/" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition">Termos de Utilização</a></li>
-                <li><a href="https://www.livroreclamacoes.pt/" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition">Livro de Reclamações</a></li>
-              </ul>
+              <a href="#simulacao" className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-cream hover:underline">
+                Pedir simulação gratuita <ArrowRight className="h-4 w-4" />
+              </a>
             </div>
           </div>
-
-          <div className="mt-12 border-t border-cream/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-cream/60">
-            <p>© {new Date().getFullYear()} Filipa Alves · Gestora de Crédito. Todos os direitos reservados.</p>
-            <p className="text-center sm:text-right">Creditwise – Intermediação de Crédito, Lda. | Intermediário de Crédito Vinculado | Registo Banco de Portugal n.º 0008492</p>
+          <div className="mt-12 flex flex-col gap-3 border-t border-cream/15 pt-6 text-xs text-cream/65 md:flex-row md:justify-between">
+            <p>© 2026 Filipa Alves · Gestora de Crédito. Todos os direitos reservados.</p>
+            <p>Creditwise – Intermediação de Crédito, Lda. | Intermediário de Crédito Vinculado | Registo Banco de Portugal n.º 0008492</p>
           </div>
-        </div>
+        </Container>
       </footer>
     </div>
   );
 }
 
-function Stat({ n, label }: { n: string; label: string }) {
-  return (
-    <div>
-      <div className="font-display text-xl font-bold leading-tight text-navy sm:text-3xl">{n}</div>
-      <div className="mt-1 text-xs leading-snug text-muted-foreground">{label}</div>
-    </div>
-  );
-}
-
-function SectionHead({ eyebrow, title, sub }: { eyebrow: string; title: string; sub: string }) {
-  return (
-    <div className="mx-auto max-w-2xl text-center">
-      <p className="font-script text-3xl text-gold">{eyebrow}</p>
-      <h2 className="mt-1 font-display text-3xl leading-tight text-navy sm:text-4xl md:text-5xl">{title}</h2>
-      <div className="mx-auto mt-4 flex items-center justify-center gap-2">
-        <span className="h-px w-10 bg-gold" />
-        <Heart className="h-3 w-3 text-gold" fill="currentColor" />
-        <span className="h-px w-10 bg-gold" />
-      </div>
-      <p className="mt-5 leading-relaxed text-muted-foreground">{sub}</p>
-    </div>
-  );
-}
-
-const CONSUMER_SERVICES = [
+const SERVICES = [
   {
     icon: Home,
     title: "Crédito Habitação",
-    desc: "Analisamos propostas dos bancos parceiros para encontrar uma solução adequada às suas necessidades.",
+    desc: "Apoio na compra de casa, construção e obras.",
     points: ["Compra de casa", "Construção e obras", "Acompanhamento personalizado"],
   },
   {
-    icon: Wallet,
+    icon: Repeat,
     title: "Transferência de Crédito Habitação",
-    desc: "Avaliamos as condições do seu crédito atual e alternativas junto dos bancos parceiros.",
+    desc: "Análise das condições do seu crédito atual e das alternativas junto dos bancos parceiros.",
     points: ["Análise das condições atuais", "Comparação de propostas", "Gestão do processo"],
   },
   {
@@ -470,28 +520,21 @@ const CONSUMER_SERVICES = [
 ];
 
 const TESTIMONIALS = [
-  {
-    quote: "Processo rápido, transparente e sem surpresas. Recomendo!",
-    name: "Ana Costa",
-    location: "Coimbra",
-    result: "Crédito Habitação aprovado",
-  },
-  {
-    quote: "A Filipa explicou tudo ao detalhe. Senti-me segura em cada etapa.",
-    name: "Ricardo Alves",
-    location: "Figueira da Foz",
-    result: "200€/ano",
-  },
-  {
-    quote: "Conseguimos poupar 500€/ano com a consolidação. Obrigado, Filipa!",
-    name: "João e Maria",
-    location: "Lisboa",
-    result: "500€/ano",
-  },
+  { quote: "Processo rápido, transparente e sem surpresas.", name: "Ana Costa", location: "Coimbra", tag: "Crédito Habitação" },
+  { quote: "A Filipa explicou tudo ao detalhe. Senti-me segura em cada etapa.", name: "Ricardo Alves", location: "Figueira da Foz", tag: "" },
 ];
 
 const STEPS = [
-  { icon: ClipboardCheck, title: "Simulação Online", desc: "Preenche o formulário rápido — em apenas 2 minutos conheço o seu caso." },
-  { icon: Sparkles, title: "Análise Personalizada", desc: "Analiso propostas dos bancos parceiros e procuro uma solução adequada ao seu perfil." },
-  { icon: FileSignature, title: "Decisão do banco & contratação", desc: "Acompanho o processo junto da instituição financeira e, após aprovação, ajudo em todas as etapas até à contratação." },
+  { title: "Simulação online", desc: "Preencha o formulário em cerca de 2 minutos e fico a conhecer o seu caso." },
+  { title: "Análise personalizada", desc: "Analiso propostas dos bancos parceiros e procuro uma solução adequada ao seu perfil." },
+  { title: "Decisão do banco & contratação", desc: "Acompanho o processo junto da instituição financeira e, após aprovação, ajudo em todas as etapas até à contratação." },
+];
+
+const MUTUANTES = [
+  "ABANCA PORTUGAL, S.A.",
+  "BANKINTER, S.A. – SUCURSAL EM PORTUGAL",
+  "CAIXA GERAL DE DEPÓSITOS, S.A.",
+  "BANCO SANTANDER TOTTA, S.A.",
+  "UCI – UNIÃO DE CRÉDITOS IMOBILIÁRIOS, S.A.",
+  "ABANCA SERVICIOS FINANCIEROS, E.F.C., S.A. – SUCURSAL EM PORTUGAL",
 ];

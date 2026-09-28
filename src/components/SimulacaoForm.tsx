@@ -245,12 +245,12 @@ export function SimulacaoForm() {
               </Field>
             </div>
             <Field label="Telefone *">
-              <div className="flex items-stretch overflow-hidden rounded-xl border border-border focus-within:border-gold focus-within:ring-2 focus-within:ring-gold/30 transition">
+              <div className="flex items-stretch overflow-hidden rounded-xl border border-border focus-within:border-navy focus-within:ring-2 focus-within:ring-navy/15 transition">
                 <span className="flex shrink-0 items-center gap-1 border-r border-border bg-muted px-3 text-sm text-navy">
                   PT&nbsp;+351
                 </span>
                 <input
-                  className="flex-1 bg-transparent px-4 py-3 text-base text-navy placeholder:text-muted-foreground/60 outline-none"
+                  className="flex-1 bg-transparent px-4 py-3.5 text-base text-navy placeholder:text-muted-foreground/60 outline-none"
                   placeholder="912 345 678"
                   inputMode="tel"
                   value={data.telefone}
@@ -529,7 +529,7 @@ export function SimulacaoForm() {
             type="button"
             onClick={() => setStep((s) => Math.max(1, s - 1))}
             disabled={step === 1}
-            className="inline-flex items-center gap-2 rounded-full px-3 py-2.5 text-sm font-medium text-navy/70 hover:text-navy disabled:opacity-30 disabled:pointer-events-none transition sm:px-5"
+            className="inline-flex items-center gap-2 h-12 rounded-xl px-3 text-sm font-medium text-navy/70 hover:text-navy disabled:opacity-30 disabled:pointer-events-none transition sm:px-5"
           >
             <ArrowLeft className="h-4 w-4" /> Voltar
           </button>
@@ -539,7 +539,7 @@ export function SimulacaoForm() {
               type="button"
               onClick={() => canNext && setStep((s) => s + 1)}
               disabled={!canNext}
-              className="inline-flex items-center gap-2 rounded-full bg-navy px-5 py-3 text-sm font-semibold text-cream shadow-[var(--shadow-card)] hover:bg-navy-deep hover:-translate-y-0.5 disabled:opacity-40 disabled:pointer-events-none transition-all sm:px-7"
+              className="inline-flex items-center gap-2 h-12 rounded-xl bg-navy px-5 text-sm font-semibold text-cream hover:bg-navy-deep disabled:opacity-40 disabled:pointer-events-none transition-all sm:px-7"
             >
               Continuar <ArrowRight className="h-4 w-4" />
             </button>
@@ -547,7 +547,7 @@ export function SimulacaoForm() {
             <button
               type="submit"
               disabled={!canNext}
-              className="inline-flex items-center gap-2 rounded-full bg-gold px-5 py-3 text-sm font-semibold text-navy shadow-[var(--shadow-card)] hover:brightness-105 hover:-translate-y-0.5 disabled:opacity-40 disabled:pointer-events-none transition-all sm:px-7"
+              className="inline-flex items-center gap-2 h-12 rounded-xl bg-navy px-5 text-sm font-semibold text-cream hover:bg-navy-deep disabled:opacity-40 disabled:pointer-events-none transition-all sm:px-7"
             >
               <Sparkles className="h-4 w-4" /> Enviar simulação
             </button>
@@ -559,7 +559,7 @@ export function SimulacaoForm() {
 }
 
 const inputCls =
-  "w-full rounded-xl border border-border bg-background px-4 py-3 text-base text-navy placeholder:text-muted-foreground/60 outline-none transition focus:border-gold focus:ring-2 focus:ring-gold/30";
+  "w-full rounded-xl border border-border bg-background px-4 py-3.5 text-base text-navy placeholder:text-muted-foreground/60 outline-none transition focus:border-navy focus:ring-2 focus:ring-navy/15";
 
 function Field({
   label,
@@ -582,8 +582,8 @@ function Field({
 function StepTitle({ n, title, sub }: { n: number; title: string; sub: string }) {
   return (
     <div className="mb-2">
-      <p className="text-xs font-semibold uppercase text-gold">Passo {n} de 3</p>
-      <h3 className="mt-2 font-display text-2xl leading-tight text-navy sm:text-4xl">{title}</h3>
+      <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Passo {n} de 3</p>
+      <h3 className="mt-2 font-display text-2xl font-semibold leading-tight text-navy sm:text-3xl">{title}</h3>
       <p className="mt-2 leading-relaxed text-muted-foreground">{sub}</p>
     </div>
   );
