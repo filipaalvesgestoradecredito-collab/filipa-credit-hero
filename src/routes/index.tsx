@@ -496,7 +496,7 @@ const SERVICES = [
 
 const TESTIMONIALS = [
   { quote: "Processo rápido, transparente e sem surpresas.", name: "Ana Costa", location: "Coimbra", tag: "Crédito Habitação" },
-  { quote: "A Filipa explicou tudo ao detalhe. Senti-me segura em cada etapa.", name: "Ricardo Alves", location: "Figueira da Foz", tag: "" },
+  { quote: "A Filipa explicou tudo ao detalhe. Senti-me seguro em cada etapa.", name: "Ricardo Alves", location: "Figueira da Foz", tag: "" },
 ];
 
 const STEPS = [
