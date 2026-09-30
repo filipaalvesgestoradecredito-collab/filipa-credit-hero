@@ -181,8 +181,12 @@ export function SimulacaoForm() {
       });
       if (!res.ok) throw new Error(`Envio falhou (${res.status})`);
       setSubmitted(true);
-    } catch {
-      setErro("Não foi possível enviar o pedido. Verifique a sua ligação e tente novamente.");
+    } catch (err) {
+      setErro(
+        err instanceof Error && err.message.includes("FORMSPREE")
+          ? "O formulário ainda não está ligado ao serviço de envio (Formspree)."
+          : "Não foi possível enviar o pedido. Verifique a sua ligação e tente novamente.",
+      );
     } finally {
       setSending(false);
     }
