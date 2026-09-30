@@ -123,9 +123,9 @@ export function SimulacaoForm() {
     "": "",
   };
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!validStep3) return;
+    if (!validStep3 || sending) return;
 
     const habitacaoBlock = isHabitacao
       ? `Localização do imóvel: ${data.localizacao}\n` +
@@ -141,21 +141,32 @@ export function SimulacaoForm() {
         `Prazo pretendido: ${data.prazoCredito}\n`
       : "";
 
-    const body = encodeURIComponent(
-      `Nova simulação:\n\n` +
-        `Nome: ${data.nome} ${data.sobrenome}\n` +
-        `Telefone: +351 ${data.telefone}\n` +
-        `Email: ${data.email}\n\n` +
-        `Operação: ${operacaoLabel[data.operacao]}\n` +
-        habitacaoBlock +
-        consolidarBlock +
-        `Titulares: ${data.titulares}\n` +
-        idades.map((a, i) => `Idade titular ${i + 1}: ${a}\n`).join("") +
-        `Tipo de contrato: ${contratoLabel[data.contrato]}\n` +
-        `Rendimento líquido mensal: ${data.rendimento} €\n`
-    );
-    window.location.href = `mailto:filipa@my-credit.pt?subject=Simulação de Crédito&body=${body}`;
-    setSubmitted(true);
+    const detalhes =
+      habitacaoBlock +
+      consolidarBlock +
+      `Titulares: ${data.titulares}\n` +
+      idades.map((a, i) => `Idade titular ${i + 1}: ${a}\n`).join("") +
+      `Tipo de contrato: ${contratoLabel[data.contrato]}\n` +
+      `Rendimento líquido mensal: ${data.rendimento} €\n`;
+
+    setSending(true);
+    setErro("");
+    try {
+      await enviarSimulacao({
+        data: {
+          nome: `${data.nome} ${data.sobrenome}`,
+          telefone: `+351 ${data.telefone}`,
+          email: data.email,
+          operacao: operacaoLabel[data.operacao],
+          detalhes,
+        },
+      });
+      setSubmitted(true);
+    } catch {
+      setErro("Não foi possível enviar o pedido. Verifique a sua ligação e tente novamente.");
+    } finally {
+      setSending(false);
+    }
   }
 
   if (submitted) {
