@@ -1,6 +1,18 @@
 import { useState } from "react";
 import { ArrowRight, ArrowLeft, CheckCircle2, Sparkles, LoaderCircle } from "lucide-react";
 
+// ============================================================
+// FORMSPREE — cole aqui o link do seu formulário Formspree
+// 1. Crie uma conta gratuita em https://formspree.io
+// 2. Crie um formulário novo (New form) e indique o e-mail de destino
+// 3. Copie o endpoint que o Formspree mostra, no formato:
+//       https://formspree.io/f/xxxxxxxx
+// 4. Substitua "SEU_ID_FORMSPREE" abaixo pelo código do seu formulário
+// 5. No primeiro envio real, o Formspree manda um e-mail de
+//    confirmação para o e-mail registado — confirme para ativar
+// ============================================================
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/SEU_ID_FORMSPREE";
+
 type Operacao =
   | "comprar"
   | "construir"
