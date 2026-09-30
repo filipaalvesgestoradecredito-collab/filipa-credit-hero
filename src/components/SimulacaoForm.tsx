@@ -162,9 +162,6 @@ export function SimulacaoForm() {
     setErro("");
     try {
       const nome = `${data.nome} ${data.sobrenome}`;
-      if (FORMSPREE_ENDPOINT.includes("SEU_ID_FORMSPREE")) {
-        throw new Error("FORMSPREE_ENDPOINT não configurado.");
-      }
       const res = await fetch(FORMSPREE_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
@@ -172,18 +169,20 @@ export function SimulacaoForm() {
           _subject: `Nova simulação de crédito — ${nome}`,
           Nome: nome,
           Telefone: `+351 ${data.telefone}`,
-          Email: data.email,
+          email: data.email,
           Operação: operacaoLabel[data.operacao],
           Detalhes: detalhes,
         }),
       });
-      if (!res.ok) throw new Error(`Envio falhou (${res.status})`);
+      if (!res.ok) {
+        const corpo = await res.text().catch(() => "");
+        console.warn("Formspree:", res.status, corpo.slice(0, 500));
+        throw new Error(String(res.status));
+      }
       setSubmitted(true);
-    } catch (err) {
+    } catch {
       setErro(
-        err instanceof Error && err.message.includes("FORMSPREE")
-          ? "O formulário ainda não está ligado ao serviço de envio (Formspree)."
-          : "Não foi possível enviar o pedido. Verifique a sua ligação e tente novamente.",
+        "Não foi possível enviar o pedido. Verifique a sua ligação e tente novamente.",
       );
     } finally {
       setSending(false);
