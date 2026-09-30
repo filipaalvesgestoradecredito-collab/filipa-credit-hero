@@ -164,13 +164,14 @@ export function SimulacaoForm() {
     setErro("");
     try {
       const nome = `${data.nome} ${data.sobrenome}`;
-      const res = await fetch("https://formsubmit.co/ajax/tfammc@gmail.com", {
+      if (FORMSPREE_ENDPOINT.includes("SEU_ID_FORMSPREE")) {
+        throw new Error("FORMSPREE_ENDPOINT não configurado.");
+      }
+      const res = await fetch(FORMSPREE_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
         body: JSON.stringify({
           _subject: `Nova simulação de crédito — ${nome}`,
-          _template: "table",
-          _captcha: "false",
           Nome: nome,
           Telefone: `+351 ${data.telefone}`,
           Email: data.email,
