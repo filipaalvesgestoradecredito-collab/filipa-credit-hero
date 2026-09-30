@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { ArrowRight, ArrowLeft, CheckCircle2, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowLeft, CheckCircle2, Sparkles, LoaderCircle } from "lucide-react";
+import { enviarSimulacao } from "../lib/leads.functions";
 
 type Operacao =
   | "comprar"
@@ -69,6 +70,8 @@ export function SimulacaoForm() {
   const [step, setStep] = useState(1);
   const [data, setData] = useState<FormData>(initial);
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [erro, setErro] = useState("");
 
   const set = <K extends keyof FormData>(k: K, v: FormData[K]) =>
     setData((d) => ({ ...d, [k]: v }));
