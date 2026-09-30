@@ -2,16 +2,14 @@ import { useState } from "react";
 import { ArrowRight, ArrowLeft, CheckCircle2, Sparkles, LoaderCircle } from "lucide-react";
 
 // ============================================================
-// FORMSPREE — cole aqui o link do seu formulário Formspree
-// 1. Crie uma conta gratuita em https://formspree.io
-// 2. Crie um formulário novo (New form) e indique o e-mail de destino
-// 3. Copie o endpoint que o Formspree mostra, no formato:
-//       https://formspree.io/f/xxxxxxxx
-// 4. Substitua "SEU_ID_FORMSPREE" abaixo pelo código do seu formulário
-// 5. No primeiro envio real, o Formspree manda um e-mail de
-//    confirmação para o e-mail registado — confirme para ativar
+// ENVIO DOS PEDIDOS — Formspree
+// Formulário criado pela Filipa: https://formspree.io/f/mvkglnod
+// Cada pedido preenchido no site é enviado por email para a
+// caixa de correio associada a este formulário.
+// Se algum dia criar um formulário novo, basta substituir o ID.
 // ============================================================
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/SEU_ID_FORMSPREE";
+const FORMSPREE_ID = "mvkglnod";
+const FORMSPREE_ENDPOINT = `https://formspree.io/f/${FORMSPREE_ID}`;
 
 type Operacao =
   | "comprar"
@@ -164,9 +162,6 @@ export function SimulacaoForm() {
     setErro("");
     try {
       const nome = `${data.nome} ${data.sobrenome}`;
-      if (FORMSPREE_ENDPOINT.includes("SEU_ID_FORMSPREE")) {
-        throw new Error("FORMSPREE_ENDPOINT não configurado.");
-      }
       const res = await fetch(FORMSPREE_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
@@ -174,18 +169,20 @@ export function SimulacaoForm() {
           _subject: `Nova simulação de crédito — ${nome}`,
           Nome: nome,
           Telefone: `+351 ${data.telefone}`,
-          Email: data.email,
+          email: data.email,
           Operação: operacaoLabel[data.operacao],
           Detalhes: detalhes,
         }),
       });
-      if (!res.ok) throw new Error(`Envio falhou (${res.status})`);
+      if (!res.ok) {
+        const corpo = await res.text().catch(() => "");
+        console.warn("Formspree:", res.status, corpo.slice(0, 500));
+        throw new Error(String(res.status));
+      }
       setSubmitted(true);
-    } catch (err) {
+    } catch {
       setErro(
-        err instanceof Error && err.message.includes("FORMSPREE")
-          ? "O formulário ainda não está ligado ao serviço de envio (Formspree)."
-          : "Não foi possível enviar o pedido. Verifique a sua ligação e tente novamente.",
+        "Não foi possível enviar o pedido. Verifique a sua ligação e tente novamente.",
       );
     } finally {
       setSending(false);
