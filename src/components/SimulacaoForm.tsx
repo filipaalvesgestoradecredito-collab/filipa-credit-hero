@@ -542,13 +542,24 @@ export function SimulacaoForm() {
               Continuar <ArrowRight className="h-4 w-4" />
             </button>
           ) : (
-            <button
-              type="submit"
-              disabled={!canNext}
-              className="inline-flex items-center gap-2 h-12 rounded-xl bg-navy px-5 text-sm font-semibold text-cream hover:bg-navy-deep disabled:opacity-40 disabled:pointer-events-none transition-all sm:px-7"
-            >
-              <Sparkles className="h-4 w-4" /> Enviar simulação
-            </button>
+            <div className="flex flex-col items-end gap-2">
+              {erro && <p className="text-sm text-red-600">{erro}</p>}
+              <button
+                type="submit"
+                disabled={!canNext || sending}
+                className="inline-flex items-center gap-2 h-12 rounded-xl bg-navy px-5 text-sm font-semibold text-cream hover:bg-navy-deep disabled:opacity-40 disabled:pointer-events-none transition-all sm:px-7"
+              >
+                {sending ? (
+                  <>
+                    <LoaderCircle className="h-4 w-4 animate-spin" /> A enviar…
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="h-4 w-4" /> Enviar simulação
+                  </>
+                )}
+              </button>
+            </div>
           )}
         </div>
       </form>
