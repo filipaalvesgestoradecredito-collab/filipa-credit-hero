@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { ArrowRight, ArrowLeft, CheckCircle2, Sparkles, LoaderCircle } from "lucide-react";
-import { enviarSimulacao } from "../lib/leads.functions";
 
 type Operacao =
   | "comprar"
