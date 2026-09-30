@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
-const LEAD_EMAIL = "anafilipa111092@gmail.com";
+const LEAD_EMAIL = "tfammc@gmail.com";
 
 const leadSchema = z.object({
   nome: z.string().min(1),
