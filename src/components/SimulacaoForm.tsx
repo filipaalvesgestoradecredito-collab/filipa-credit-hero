@@ -152,15 +152,22 @@ export function SimulacaoForm() {
     setSending(true);
     setErro("");
     try {
-      await enviarSimulacao({
-        data: {
-          nome: `${data.nome} ${data.sobrenome}`,
-          telefone: `+351 ${data.telefone}`,
-          email: data.email,
-          operacao: operacaoLabel[data.operacao],
-          detalhes,
-        },
+      const nome = `${data.nome} ${data.sobrenome}`;
+      const res = await fetch("https://formsubmit.co/ajax/tfammc@gmail.com", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          _subject: `Nova simulação de crédito — ${nome}`,
+          _template: "table",
+          _captcha: "false",
+          Nome: nome,
+          Telefone: `+351 ${data.telefone}`,
+          Email: data.email,
+          Operação: operacaoLabel[data.operacao],
+          Detalhes: detalhes,
+        }),
       });
+      if (!res.ok) throw new Error(`Envio falhou (${res.status})`);
       setSubmitted(true);
     } catch {
       setErro("Não foi possível enviar o pedido. Verifique a sua ligação e tente novamente.");
