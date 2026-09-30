@@ -123,9 +123,9 @@ export function SimulacaoForm() {
     "": "",
   };
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!validStep3) return;
+    if (!validStep3 || sending) return;
 
     const habitacaoBlock = isHabitacao
       ? `Localização do imóvel: ${data.localizacao}\n` +
@@ -141,21 +141,32 @@ export function SimulacaoForm() {
         `Prazo pretendido: ${data.prazoCredito}\n`
       : "";
 
-    const body = encodeURIComponent(
-      `Nova simulação:\n\n` +
-        `Nome: ${data.nome} ${data.sobrenome}\n` +
-        `Telefone: +351 ${data.telefone}\n` +
-        `Email: ${data.email}\n\n` +
-        `Operação: ${operacaoLabel[data.operacao]}\n` +
-        habitacaoBlock +
-        consolidarBlock +
-        `Titulares: ${data.titulares}\n` +
-        idades.map((a, i) => `Idade titular ${i + 1}: ${a}\n`).join("") +
-        `Tipo de contrato: ${contratoLabel[data.contrato]}\n` +
-        `Rendimento líquido mensal: ${data.rendimento} €\n`
-    );
-    window.location.href = `mailto:filipa@my-credit.pt?subject=Simulação de Crédito&body=${body}`;
-    setSubmitted(true);
+    const detalhes =
+      habitacaoBlock +
+      consolidarBlock +
+      `Titulares: ${data.titulares}\n` +
+      idades.map((a, i) => `Idade titular ${i + 1}: ${a}\n`).join("") +
+      `Tipo de contrato: ${contratoLabel[data.contrato]}\n` +
+      `Rendimento líquido mensal: ${data.rendimento} €\n`;
+
+    setSending(true);
+    setErro("");
+    try {
+      await enviarSimulacao({
+        data: {
+          nome: `${data.nome} ${data.sobrenome}`,
+          telefone: `+351 ${data.telefone}`,
+          email: data.email,
+          operacao: operacaoLabel[data.operacao],
+          detalhes,
+        },
+      });
+      setSubmitted(true);
+    } catch {
+      setErro("Não foi possível enviar o pedido. Verifique a sua ligação e tente novamente.");
+    } finally {
+      setSending(false);
+    }
   }
 
   if (submitted) {
@@ -531,13 +542,24 @@ export function SimulacaoForm() {
               Continuar <ArrowRight className="h-4 w-4" />
             </button>
           ) : (
-            <button
-              type="submit"
-              disabled={!canNext}
-              className="inline-flex items-center gap-2 h-12 rounded-xl bg-navy px-5 text-sm font-semibold text-cream hover:bg-navy-deep disabled:opacity-40 disabled:pointer-events-none transition-all sm:px-7"
-            >
-              <Sparkles className="h-4 w-4" /> Enviar simulação
-            </button>
+            <div className="flex flex-col items-end gap-2">
+              {erro && <p className="text-sm text-red-600">{erro}</p>}
+              <button
+                type="submit"
+                disabled={!canNext || sending}
+                className="inline-flex items-center gap-2 h-12 rounded-xl bg-navy px-5 text-sm font-semibold text-cream hover:bg-navy-deep disabled:opacity-40 disabled:pointer-events-none transition-all sm:px-7"
+              >
+                {sending ? (
+                  <>
+                    <LoaderCircle className="h-4 w-4 animate-spin" /> A enviar…
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="h-4 w-4" /> Enviar simulação
+                  </>
+                )}
+              </button>
+            </div>
           )}
         </div>
       </form>
